@@ -20,7 +20,9 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "hscstudio/yii2-mimin": "~1.1.5",
         "kartik-v/yii2-grid": "dev-master",
-        "johnitvn/yii2-ajaxcrud": "@dev"
+        "johnitvn/yii2-ajaxcrud": "@dev",
+        "yiisoft/yii2-bootstrap": "^2.0",
+        "kartik-v/yii2-icons": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

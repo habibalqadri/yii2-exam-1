@@ -45,6 +45,7 @@ return [
             'showScriptName' => false,
             'rules' => [],
         ],
+
     ],
     'as access' => [
         'class' => '\hscstudio\mimin\components\AccessControl',
