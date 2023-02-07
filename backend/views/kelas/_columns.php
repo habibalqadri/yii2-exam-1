@@ -19,8 +19,12 @@ return [
         'attribute'=>'nama_kelas',
     ],
     [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'id_tingkat',
+        'class' => '\kartik\grid\DataColumn',
+        'header' => 'Tingkat Kelas',
+        'attribute' => 'id_tingkat',
+        'value' => function ($model) {
+            return $model->tingkatKelas->tingkat_kelas;
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

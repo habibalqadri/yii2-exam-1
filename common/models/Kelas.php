@@ -46,4 +46,8 @@ class Kelas extends \yii\db\ActiveRecord
             'id_wali_kelas' => 'Id Wali Kelas',
         ];
     }
+    public function getTingkatKelas()
+    {
+    return $this->hasOne(RefTingkatKelas::className(), ['id' => 'id_tingkat']);
+    }
 }

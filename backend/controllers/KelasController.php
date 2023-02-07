@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Kelas;
 use backend\models\KelasSearch;
+use common\models\RefTingkatKelas;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -84,6 +85,7 @@ class KelasController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
+        $data = ArrayHelper::map(RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
         $model = new Kelas();  
 
         if($request->isAjax){
@@ -96,6 +98,7 @@ class KelasController extends Controller
                     'title'=> "Tambah Kelas",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'data' => $data,
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                                 Html::button('Simpan',['class'=>'btn btn-primary','type'=>"submit"])
@@ -115,6 +118,7 @@ class KelasController extends Controller
                     'title'=> "Tambah Kelas",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'data' => $data
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                                 Html::button('Simpan',['class'=>'btn btn-primary','type'=>"submit"])
@@ -130,6 +134,8 @@ class KelasController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'data' => $data,
+
                 ]);
             }
         }

@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Kelas */
@@ -14,7 +15,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'nama_kelas')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_tingkat')->textInput() ?>
+    <?= $form->field($model, 'id_tingkat')->widget(Select2::classname(), [
+    'data' => $data,
+    'options' => ['placeholder' => '-Pilih Tingkat Kelas-'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+    ])->label('Tingkat Kelas'); ?>
 
     <?= $form->field($model, 'id_wali_kelas')->textInput() ?>
 
