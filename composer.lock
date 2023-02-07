@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27b4b057be511773d77a20fc3792ca1a",
+    "content-hash": "93533fe29c457d8051096a412e283345",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1869,7 +1869,7 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.2.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
@@ -1885,6 +1885,7 @@
                 "kartik-v/yii2-krajee-base": ">=3.0.4",
                 "select2/select2": ">=4.0"
             },
+            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -7596,7 +7597,8 @@
     "stability-flags": {
         "kartik-v/yii2-grid": 20,
         "johnitvn/yii2-ajaxcrud": 20,
-        "kartik-v/yii2-icons": 20
+        "kartik-v/yii2-icons": 20,
+        "kartik-v/yii2-widget-select2": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

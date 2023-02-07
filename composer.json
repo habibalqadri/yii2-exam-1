@@ -22,7 +22,8 @@
         "kartik-v/yii2-grid": "dev-master",
         "johnitvn/yii2-ajaxcrud": "@dev",
         "yiisoft/yii2-bootstrap": "^2.0",
-        "kartik-v/yii2-icons": "@dev"
+        "kartik-v/yii2-icons": "@dev",
+        "kartik-v/yii2-widget-select2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
