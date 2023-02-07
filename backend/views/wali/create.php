@@ -10,5 +10,6 @@ use yii\helpers\Html;
 <div class="wali-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'data' => $data,
     ]) ?>
 </div>

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Wali;
 use backend\models\WaliSearch;
+use common\models\RefStatusWali;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -84,7 +85,7 @@ class WaliController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        // $data = ArrayHelper::map(RefJenisWali::find()->all(), 'id', 'dasar_nilai');
+        $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
         $model = new Wali();
 
         if ($request->isAjax) {
@@ -97,6 +98,7 @@ class WaliController extends Controller
                     'title' => "Tambah Wali",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'data' => $data,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -116,6 +118,8 @@ class WaliController extends Controller
                     'title' => "Tambah Wali",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'data' => $data,
+
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -131,6 +135,8 @@ class WaliController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'data' => $data,
+
                 ]);
             }
         }
@@ -147,6 +153,7 @@ class WaliController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
+        $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
 
         if ($request->isAjax) {
             /*
@@ -158,6 +165,7 @@ class WaliController extends Controller
                     'title' => "Ubah Wali",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
+                        'data' => $data,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -167,6 +175,7 @@ class WaliController extends Controller
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "Wali ",
                     'content' => $this->renderAjax('view', [
+                        'data' => $data,
                         'model' => $model,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -176,6 +185,7 @@ class WaliController extends Controller
                 return [
                     'title' => "Ubah Wali ",
                     'content' => $this->renderAjax('update', [
+                        'data' => $data,
                         'model' => $model,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -190,6 +200,7 @@ class WaliController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
+                    'data' => $data,
                     'model' => $model,
                 ]);
             }

@@ -21,11 +21,11 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'id_status_wali')->widget(Select2::classname(), [
         'data' => $data,
-        'options' => ['placeholder' => 'Select a state ...'],
+        'options' => ['placeholder' => '-Pilih Status Wali-'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]); ?>
+    ])->label('Status Wali'); ?>
 
 
     <?php if (!Yii::$app->request->isAjax) { ?>

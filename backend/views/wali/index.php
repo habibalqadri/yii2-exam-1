@@ -50,7 +50,11 @@ CrudAsset::register($this);
                                 'before' => Html::a(
                                     'Tambah',
                                     ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Walis', 'class' => 'btn btn-info']
+                                    [
+                                        'role' => 'modal-remote',
+                                        'title' => 'Create new Walis',
+                                        'class' => 'btn btn-info '
+                                    ]
                                 ),
 
                                 '<div class="clearfix"></div>',
@@ -66,5 +70,8 @@ CrudAsset::register($this);
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
     "footer" => "", // always need it for jquery plugin
+    'options' => [
+        'tabindex' => false // important for Select2 to work properly
+    ],
 ]) ?>
 <?php Modal::end(); ?>
