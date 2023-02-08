@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m230207_082144_add_role_awal
+ * Class m230208_084331_akses_role_siswa
  */
-class m230207_082144_add_role_awal extends Migration
+class m230208_084331_akses_role_siswa extends Migration
 {
     /**
      * {@inheritdoc}
@@ -25,23 +25,20 @@ class m230207_082144_add_role_awal extends Migration
             ],
             [
                 [
-                    'Admin', 1, NULL, NULL, NULL, time(), time()
+                    '/biodata/*', 2, NULL, NULL, NULL, time(), time()
                 ],
             ]
         );
 
         $this->batchInsert(
-            'auth_assignment',
+            'auth_item_child',
             [
-                'item_name',
-                'user_id',
-                'created_at',
+                'parent',
+                'child'
             ],
             [
                 [
-                    'Admin',
-                    '1',
-                    NULL
+                    'Siswa', '/biodata/*'
                 ],
             ]
         );
@@ -52,7 +49,7 @@ class m230207_082144_add_role_awal extends Migration
      */
     public function safeDown()
     {
-        echo "m230207_082144_add_role_awal cannot be reverted.\n";
+        echo "m230208_084331_akses_role_siswa cannot be reverted.\n";
 
         return false;
     }
@@ -66,7 +63,7 @@ class m230207_082144_add_role_awal extends Migration
 
     public function down()
     {
-        echo "m230207_082144_add_role_awal cannot be reverted.\n";
+        echo "m230208_084331_akses_role_siswa cannot be reverted.\n";
 
         return false;
     }

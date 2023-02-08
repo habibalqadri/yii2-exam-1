@@ -1,13 +1,12 @@
 <?php
 
-namespace backend\controllers;
+namespace siswa\controllers;
 
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 /**
@@ -43,13 +42,7 @@ class SiteController extends Controller
             ],
         ];
     }
-    // public function beforeAction($action)
-    // {
-    //     if (!Yii::$app->user->can('Admin')) {
-    //         throw new ForbiddenHttpException(Yii::t('yii', 'Jangan Lasak.'));
-    //         // return $this->render('pesan');
-    //     }
-    // }
+
     /**
      * {@inheritdoc}
      */
@@ -69,7 +62,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
         return $this->render('index');
     }
 

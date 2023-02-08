@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m230207_082144_add_role_awal
+ * Class m230208_084000_role_siswa
  */
-class m230207_082144_add_role_awal extends Migration
+class m230208_084000_role_siswa extends Migration
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class m230207_082144_add_role_awal extends Migration
             ],
             [
                 [
-                    'Admin', 1, NULL, NULL, NULL, time(), time()
+                    'Siswa', 1, NULL, NULL, NULL, time(), time()
                 ],
             ]
         );
@@ -39,8 +39,8 @@ class m230207_082144_add_role_awal extends Migration
             ],
             [
                 [
-                    'Admin',
-                    '1',
+                    'Siswa',
+                    '4',
                     NULL
                 ],
             ]
@@ -52,7 +52,7 @@ class m230207_082144_add_role_awal extends Migration
      */
     public function safeDown()
     {
-        echo "m230207_082144_add_role_awal cannot be reverted.\n";
+        echo "m230208_084000_role_siswa cannot be reverted.\n";
 
         return false;
     }
@@ -66,7 +66,7 @@ class m230207_082144_add_role_awal extends Migration
 
     public function down()
     {
-        echo "m230207_082144_add_role_awal cannot be reverted.\n";
+        echo "m230208_084000_role_siswa cannot be reverted.\n";
 
         return false;
     }
