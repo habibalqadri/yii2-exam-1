@@ -30,7 +30,7 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Status Wali',
+        'header' => ' Status Wali',
         'attribute' => 'id_status_wali',
         'value' => function ($model) {
             return $model->statusWali->status_wali;
