@@ -10,6 +10,7 @@ use yii\helpers\Html;
 <div class="kelas-create">
     <?= $this->render('_form', [
         'model' => $model,
-        'data' => $data,
+        'kelas' => $kelas,
+        'guru' => $guru
     ]) ?>
 </div>

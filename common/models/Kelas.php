@@ -50,4 +50,8 @@ class Kelas extends \yii\db\ActiveRecord
     {
     return $this->hasOne(RefTingkatKelas::className(), ['id' => 'id_tingkat']);
     }
+    public function getWaliKelas()
+    {
+    return $this->hasOne(Guru::className(), ['id' => 'id_wali_kelas']);
+    }
 }

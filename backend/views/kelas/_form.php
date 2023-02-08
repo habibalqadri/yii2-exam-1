@@ -16,14 +16,20 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'nama_kelas')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'id_tingkat')->widget(Select2::classname(), [
-    'data' => $data,
+    'data' => $kelas,
     'options' => ['placeholder' => '-Pilih Tingkat Kelas-'],
     'pluginOptions' => [
         'allowClear' => true
     ],
     ])->label('Tingkat Kelas'); ?>
 
-    <?= $form->field($model, 'id_wali_kelas')->textInput() ?>
+    <?= $form->field($model, 'id_wali_kelas')->widget(Select2::classname(), [
+    'data' => $guru,
+    'options' => ['placeholder' => '-Pilih Wali Kelas-'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+    ])->label('Wali Kelas'); ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

@@ -6,6 +6,7 @@ use Yii;
 use common\models\Kelas;
 use backend\models\KelasSearch;
 use common\models\RefTingkatKelas;
+use common\models\Guru;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -85,7 +86,8 @@ class KelasController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $data = ArrayHelper::map(RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
+        $dataKelas = ArrayHelper::map(RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
+        $dataGuru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
         $model = new Kelas();  
 
         if($request->isAjax){
@@ -98,7 +100,8 @@ class KelasController extends Controller
                     'title'=> "Tambah Kelas",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
-                        'data' => $data,
+                        'kelas' => $dataKelas,
+                        'guru' => $dataGuru
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                                 Html::button('Simpan',['class'=>'btn btn-primary','type'=>"submit"])
@@ -118,7 +121,8 @@ class KelasController extends Controller
                     'title'=> "Tambah Kelas",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
-                        'data' => $data
+                        'kelas' => $dataKelas,
+                        'guru' => $dataGuru
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                                 Html::button('Simpan',['class'=>'btn btn-primary','type'=>"submit"])
@@ -134,8 +138,8 @@ class KelasController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    'data' => $data,
-
+                    'kelas' => $dataKelas,
+                    'guru' => $dataGuru
                 ]);
             }
         }

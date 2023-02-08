@@ -27,8 +27,12 @@ return [
         }
     ],
     [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'id_wali_kelas',
+        'class' => '\kartik\grid\DataColumn',
+        'header' => 'Wali Kelas',
+        'attribute' => 'id_wali_kelas',
+        'value' => function ($model) {
+            return $model->waliKelas->nama_guru;
+        }
     ],
     [
         'class' => 'kartik\grid\ActionColumn',
