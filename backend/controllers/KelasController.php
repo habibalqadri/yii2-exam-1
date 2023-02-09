@@ -156,6 +156,8 @@ class KelasController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
+        $dataKelas = ArrayHelper::map(RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
+        $dataGuru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
         $model = $this->findModel($id);       
 
         if($request->isAjax){
@@ -163,11 +165,14 @@ class KelasController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
+
             if($request->isGet){
                 return [
                     'title'=> "Ubah Kelas",
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
+                        'kelas' => $dataKelas,
+                        'guru' => $dataGuru
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                                 Html::button('Simpan',['class'=>'btn btn-primary','type'=>"submit"])
@@ -178,6 +183,8 @@ class KelasController extends Controller
                     'title'=> "Kelas ",
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
+                        'kelas' => $dataKelas,
+                        'guru' => $dataGuru
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                             Html::a('Ubah',['update', 'id' => $model->id],['class'=>'btn btn-primary','role'=>'modal-remote'])
@@ -187,6 +194,8 @@ class KelasController extends Controller
                     'title'=> "Ubah Kelas ",
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
+                        'kelas' => $dataKelas,
+                        'guru' => $dataGuru
                     ]),
                     'footer'=> Html::button('Tutup',['class'=>'btn btn-default float-left','data-dismiss'=>"modal"]).
                                 Html::button('Simpan',['class'=>'btn btn-primary','type'=>"submit"])
@@ -201,6 +210,8 @@ class KelasController extends Controller
             } else {
                 return $this->render('update', [
                     'model' => $model,
+                    'kelas' => $dataKelas,
+                    'guru' => $dataGuru
                 ]);
             }
         }

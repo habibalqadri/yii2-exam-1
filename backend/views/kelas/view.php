@@ -12,8 +12,22 @@ use yii\widgets\DetailView;
         'attributes' => [
             'id',
             'nama_kelas',
-            'id_tingkat',
-            'id_wali_kelas',
+            [
+                // 'class' => '\kartik\grid\DataColumn',
+                'label' => 'Tingkat Kelas',
+                'attribute' => 'id_tingkat',
+                'value' => function ($model) {
+                    return $model->tingkatKelas->tingkat_kelas;
+                }
+            ],
+            [
+                // 'class' => '\kartik\grid\DataColumn',
+                'label' => 'Wali Kelas',
+                'attribute' => 'id_wali_kelas',
+                'value' => function ($model) {
+                    return $model->waliKelas->nama_guru;
+                }
+            ],
         ],
     ]) ?>
     </div>
