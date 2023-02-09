@@ -37,6 +37,12 @@ return [
             'console/runtime',
             'frontend/runtime',
             'frontend/web/assets',
+            'siswa/runtime',
+            'siswa/web/assets',
+            'admin/runtime',
+            'admin/web/assets',
+            'guru/runtime',
+            'guru/web/assets',
         ],
         'setExecutable' => [
             'yii',
@@ -46,6 +52,9 @@ return [
             'backend/config/main-local.php',
             'common/config/codeception-local.php',
             'frontend/config/main-local.php',
+            'siswa/config/main-local.php',
+            'admin/config/main-local.php',
+            'guru/config/main-local.php',
         ],
     ],
     'Production' => [
@@ -56,6 +65,12 @@ return [
             'console/runtime',
             'frontend/runtime',
             'frontend/web/assets',
+            'siswa/runtime',
+            'siswa/web/assets',
+            'admin/runtime',
+            'admin/web/assets',
+            'guru/runtime',
+            'guru/web/assets',
         ],
         'setExecutable' => [
             'yii',
@@ -63,6 +78,9 @@ return [
         'setCookieValidationKey' => [
             'backend/config/main-local.php',
             'frontend/config/main-local.php',
+            'siswa/config/main-local.php',
+            'admin/config/main-local.php',
+            'guru/config/main-local.php',
         ],
     ],
 ];

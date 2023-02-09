@@ -13,7 +13,49 @@ RewriteRule ^backend/icon/(.*)$ frontend/web/icon/$1 [L]
 RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css|images|js|fonts|icon)/
 RewriteCond %{REQUEST_URI} ^/(backend)
 RewriteRule ^.*$ backend/web/index.php [L]
+# ===================== end backend =====================
+
+# ===================== siswa =====================
+RewriteCond %{REQUEST_URI} ^/(siswa)
+RewriteRule ^siswa/assets/(.*)$ siswa/web/assets/$1 [L]
+RewriteRule ^siswa/css/(.*)$ siswa/web/css/$1 [L]
+RewriteRule ^siswa/images/(.*)$ siswa/web/images/$1 [L]
+RewriteRule ^siswa/js/(.*)$ siswa/web/js/$1 [L]
+RewriteRule ^siswa/fonts/(.*)$ frontend/web/fonts/$1 [L]
+RewriteRule ^siswa/icon/(.*)$ frontend/web/icon/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/siswa/web/(assets|css|images|js|fonts|icon)/
+RewriteCond %{REQUEST_URI} ^/(siswa)
+RewriteRule ^.*$ siswa/web/index.php [L]
+# ===================== end siswa =====================
+
+# ===================== admin =====================
+RewriteCond %{REQUEST_URI} ^/(admin)
+RewriteRule ^admin/assets/(.*)$ admin/web/assets/$1 [L]
+RewriteRule ^admin/css/(.*)$ admin/web/css/$1 [L]
+RewriteRule ^admin/images/(.*)$ admin/web/images/$1 [L]
+RewriteRule ^admin/js/(.*)$ admin/web/js/$1 [L]
+RewriteRule ^admin/fonts/(.*)$ frontend/web/fonts/$1 [L]
+RewriteRule ^admin/icon/(.*)$ frontend/web/icon/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/admin/web/(assets|css|images|js|fonts|icon)/
+RewriteCond %{REQUEST_URI} ^/(admin)
+RewriteRule ^.*$ admin/web/index.php [L]
 # ===================== end admin =====================
+
+# ===================== admin =====================
+RewriteCond %{REQUEST_URI} ^/(guru)
+RewriteRule ^guru/assets/(.*)$ guru/web/assets/$1 [L]
+RewriteRule ^guru/css/(.*)$ guru/web/css/$1 [L]
+RewriteRule ^guru/images/(.*)$ guru/web/images/$1 [L]
+RewriteRule ^guru/js/(.*)$ guru/web/js/$1 [L]
+RewriteRule ^guru/fonts/(.*)$ frontend/web/fonts/$1 [L]
+RewriteRule ^guru/icon/(.*)$ frontend/web/icon/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/guru/web/(assets|css|images|js|fonts|icon)/
+RewriteCond %{REQUEST_URI} ^/(guru)
+RewriteRule ^.*$ guru/web/index.php [L]
+# ===================== end guru =====================
 
 # ===================== frontend =====================
 RewriteCond %{REQUEST_URI} ^/(assets|css)
@@ -24,7 +66,7 @@ RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
 RewriteRule ^fonts/(.*)$ frontend/web/fonts/$1 [L]
 RewriteRule ^icon/(.*)$ frontend/web/icon/$1 [L]
 
-RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|images|js|fonts|icon)/
+RewriteCond %{REQUEST_URI} !^/(frontend|backend|siswa|admin|guru)/web/(assets|css|images|js|fonts|icon)/
 RewriteCond %{REQUEST_URI} !index.php
 RewriteCond %{REQUEST_FILENAME} !-f [OR]
 RewriteCond %{REQUEST_FILENAME} !-d
