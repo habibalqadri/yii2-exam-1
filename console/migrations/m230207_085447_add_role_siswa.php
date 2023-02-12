@@ -25,7 +25,7 @@ class m230207_085447_add_role_siswa extends Migration
             ],
             [
                 [
-                    '/siswa/*', 2, NULL, NULL, NULL, time(), time()
+                    '/Siswa/*', 2, NULL, NULL, NULL, time(), time()
                 ],
             ]
         );

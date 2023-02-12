@@ -28,8 +28,24 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'header' => 'Kelas',
         'attribute'=>'id_kelas',
+        'value' => function($model){
+            return $model->namaKelas->nama_kelas;
+        }
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'tempat_lahir',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'tanggal_lahir',
+    ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'id_user',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

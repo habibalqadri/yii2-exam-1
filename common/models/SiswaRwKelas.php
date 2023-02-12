@@ -52,4 +52,13 @@ class SiswaRwKelas extends \yii\db\ActiveRecord
             'id_wali_kelas' => 'Id Wali Kelas',
         ];
     }
+    public function getIdKelas(){
+        return $this->hasOne(Kelas::className(),['id' => 'id_kelas']);
+    }
+    public function getTahunAjaran(){
+        return $this->hasOne(RefTahunAjaran::className(), ['id' => 'tahun_ajaran']);
+    }
+    public function getTingkatKelas(){
+        return $this->hasOne(RefTingkatKelas::className(), ['id' => 'id_tingkat']);
+    }
 }

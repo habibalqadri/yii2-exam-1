@@ -40,4 +40,8 @@ class Guru extends \yii\db\ActiveRecord
             'nama_guru' => 'Nama Guru',
         ];
     }
+
+    public function getIdTingkat(){
+        return $this->hasOne(RefTingkatKelas::className(['id' => 'id']));
+    }
 }

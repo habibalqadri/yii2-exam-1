@@ -12,13 +12,17 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nis')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nis')->textInput([ 'readonly' => true, 'maxlength' => true]) ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tanggal_lahir')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'id_kelas')->textInput() ?>
+    <?= $form->field($model, 'id_kelas')->textInput(['readonly' => true, ]) ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

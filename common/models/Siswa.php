@@ -12,6 +12,9 @@ use Yii;
  * @property string|null $nama
  * @property string|null $alamat
  * @property int|null $id_kelas
+ * @property string|null $tempat_lahir
+ * @property string|null $tanggal_lahir
+ * @property int|null $id_user
  */
 class Siswa extends \yii\db\ActiveRecord
 {
@@ -30,10 +33,12 @@ class Siswa extends \yii\db\ActiveRecord
     {
         return [
             [['alamat'], 'string'],
-            [['id_kelas'], 'default', 'value' => null],
-            [['id_kelas'], 'integer'],
+            [['id_kelas', 'id_user'], 'default', 'value' => null],
+            [['id_kelas', 'id_user'], 'integer'],
+            [['tanggal_lahir'], 'safe'],
             [['nis'], 'string', 'max' => 10],
             [['nama'], 'string', 'max' => 255],
+            [['tempat_lahir'], 'string', 'max' => 50],
         ];
     }
 
@@ -48,6 +53,21 @@ class Siswa extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'alamat' => 'Alamat',
             'id_kelas' => 'Id Kelas',
+            'tempat_lahir' => 'Tempat Lahir',
+            'tanggal_lahir' => 'Tanggal Lahir',
+            'id_user' => 'Id User',
         ];
     }
+
+    public function getNamaKelas()
+    {
+        return $this->hasOne(Kelas::className(), ['id' => 'id_kelas']);
+    }
+    public function getWaliKelas(){
+        return $this->hasOne(Guru::className() , ['id' => 'id']);
+    }
+    public function getTahunAjaran(){
+        return $this->hasOne(RefTahunAjaran::className(), ['id' =>'id']);
+    }
+    
 }

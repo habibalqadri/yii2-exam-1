@@ -49,9 +49,9 @@ class Wali extends \yii\db\ActiveRecord
             'no_hp' => 'No Hp',
             'id_status_wali' => 'Id Status Wali',
         ];
-    }
-    public function getStatusWali()
+    } public function getStatusWali()
     {
         return $this->hasOne(RefStatusWali::className(), ['id' => 'id_status_wali']);
     }
+    
 }
