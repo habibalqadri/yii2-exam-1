@@ -41,6 +41,11 @@ class SiswaWali extends \yii\db\ActiveRecord
             'id_wali' => 'Id Wali',
         ];
     }
+
+    public function getNamaSiswa()
+    {
+        return $this->hasOne(Siswa::className(), ['id' => 'id_siswa']);
+    }
     public function getWaliSiswa()
     {
         return $this->hasOne(Wali::className(), ['id' => 'id_wali']);

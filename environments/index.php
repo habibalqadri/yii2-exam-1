@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The manifest of files that are local to specific environment.
  * This file returns a list of environments that the application
@@ -37,6 +38,12 @@ return [
             'console/runtime',
             'frontend/runtime',
             'frontend/web/assets',
+            'admin/runtime',
+            'admin/web/assets',
+            'siswa/runtime',
+            'siswa/web/assets',
+            'guru/runtime',
+            'guru/web/assets',
         ],
         'setExecutable' => [
             'yii',
@@ -46,6 +53,9 @@ return [
             'backend/config/main-local.php',
             'common/config/codeception-local.php',
             'frontend/config/main-local.php',
+            'admin/config/main-local.php',
+            'siswa/config/main-local.php',
+            'guru/config/main-local.php',
         ],
     ],
     'Production' => [
@@ -56,6 +66,12 @@ return [
             'console/runtime',
             'frontend/runtime',
             'frontend/web/assets',
+            'admin/runtime',
+            'admin/web/assets',
+            'siswa/runtime',
+            'siswa/web/assets',
+            'guru/runtime',
+            'guru/web/assets',
         ],
         'setExecutable' => [
             'yii',
@@ -63,6 +79,9 @@ return [
         'setCookieValidationKey' => [
             'backend/config/main-local.php',
             'frontend/config/main-local.php',
+            'admin/config/main-local.php',
+            'siswa/config/main-local.php',
+            'guru/config/main-local.php',
         ],
     ],
 ];

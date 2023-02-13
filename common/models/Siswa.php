@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string|null $nis
  * @property string|null $nama
+ * @property string|null $tempat_lahir
+ * @property string|null $tanggal_lahir
  * @property string|null $alamat
  * @property int|null $id_kelas
  */
@@ -29,11 +31,12 @@ class Siswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['tanggal_lahir'], 'safe'],
             [['alamat'], 'string'],
             [['id_kelas'], 'default', 'value' => null],
             [['id_kelas'], 'integer'],
             [['nis'], 'string', 'max' => 10],
-            [['nama'], 'string', 'max' => 255],
+            [['nama', 'tempat_lahir'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,8 +49,15 @@ class Siswa extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nis' => 'Nis',
             'nama' => 'Nama',
+            'tempat_lahir' => 'Tempat Lahir',
+            'tanggal_lahir' => 'Tanggal Lahir',
             'alamat' => 'Alamat',
             'id_kelas' => 'Id Kelas',
         ];
+    }
+
+    public function getKelas()
+    {
+        return $this->hasOne(Kelas::className(), ['id' => 'id_kelas']);
     }
 }
