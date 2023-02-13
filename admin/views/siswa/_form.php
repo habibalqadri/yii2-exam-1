@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
+use kartik\select2\Select2;
 // use kartikorm\ActiveForm;
 use kartik\date\DatePicker;
 
@@ -33,13 +34,17 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
-    <?php
-    echo $form->field($model, 'id_kelas')
-        ->dropDownList(
-            $dataKelas,
-            ['id_kelas' => 'nama_kelas']
-        );
-    ?>
+
+
+    <?= $form->field($model, 'id_kelas')->widget(Select2::classname(), [
+        'data' => $dataKelas,
+        'options' => ['placeholder' => '-Pilih Kelas-'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Kelas'); ?>
+
+
 
 
 

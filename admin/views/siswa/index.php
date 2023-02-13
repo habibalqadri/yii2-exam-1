@@ -60,7 +60,11 @@ CrudAsset::register($this);
                                 'before' => Html::a(
                                     'Tambah',
                                     ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Siswas', 'class' => 'btn btn-default']
+                                    [
+                                        'role' => 'modal-remote',
+                                        'title' => 'Create new Siswas',
+                                        'class' => 'btn btn-info '
+                                    ]
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

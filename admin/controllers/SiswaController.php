@@ -5,6 +5,8 @@ namespace admin\controllers;
 use Yii;
 use common\models\Siswa;
 use admin\models\SiswaSearch;
+use common\models\Kelas;
+use common\models\RefStatusWali;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -87,8 +89,8 @@ class SiswaController extends Controller
     {
         $request = Yii::$app->request;
         $model = new Siswa();
-        $dataKelas =
-            ArrayHelper::map(\common\models\Kelas::find()->asArray()->all(), 'id', 'nama_kelas');
+        $dataKelas = ArrayHelper::map(Kelas::find()->all(), 'id', 'nama_kelas');
+
 
         if ($request->isAjax) {
             /*
@@ -100,7 +102,8 @@ class SiswaController extends Controller
                     'title' => "Tambah Siswa",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'dataKelas' => $dataKelas
+                        'dataKelas' => $dataKelas,
+
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -135,6 +138,7 @@ class SiswaController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'dataKelas' => $dataKelas,
                 ]);
             }
         }

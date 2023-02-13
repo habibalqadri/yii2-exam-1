@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 return [
     //[
@@ -46,6 +47,22 @@ return [
     //     'attribute' => $formatter->asDate($tanggal_lahir),
 
     // ],
+    [
+        'class' => 'kartik\grid\ActionColumn',
+        'header' => 'Akun',
+        'template' => '{btn_aksi}',
+        'buttons' => [
+            "btn_aksi" => function ($url, $model, $key) {
+                return Html::a('Buat Akun', ['detail-wali', 'nis' => $model->nis, 'id_siswa' => $model->id], [
+                    'class' => 'btn btn-success btn-block',
+                    'role' => 'modal-remote',
+                    'title' => 'Lihat',
+                    'data-toggle' => 'tooltip'
+                ]);
+            },
+
+        ]
+    ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
