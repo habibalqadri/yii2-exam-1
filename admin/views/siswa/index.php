@@ -58,12 +58,12 @@ CrudAsset::register($this);
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
                                 'before' => Html::a(
-                                    'Tambah',
+                                    '+ Tambah',
                                     ['create'],
                                     [
                                         'role' => 'modal-remote',
                                         'title' => 'Create new Siswas',
-                                        'class' => 'btn btn-info '
+                                        'class' => 'btn btn-warning '
                                     ]
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([

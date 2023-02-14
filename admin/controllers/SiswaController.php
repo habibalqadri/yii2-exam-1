@@ -87,6 +87,33 @@ class SiswaController extends Controller
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    public function actionLihatAkun($id)
+    {
+        $request = Yii::$app->request;
+
+        if ($request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'title' => "Siswa ",
+                'content' => $this->renderAjax('lihat_akun', [
+                    'model' => $this->findModel($id),
+                ]),
+                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                    Html::a('Ubah Akun', ['ubah-akun', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+            ];
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Siswa model.
+     * For ajax request will return json object
+     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     public function actionBuatAkun($id)
     {
         $request = Yii::$app->request;
@@ -171,6 +198,9 @@ class SiswaController extends Controller
      * @param integer $id
      * @return mixed
      */
+
+
+
     public function actionCreate()
     {
         $request = Yii::$app->request;

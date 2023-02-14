@@ -52,12 +52,17 @@ class Siswa extends \yii\db\ActiveRecord
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
             'alamat' => 'Alamat',
-            'id_kelas' => 'Id Kelas',
+            'id_kelas' => 'Nama Kelas',
+            'akun.username' => 'Username'
         ];
     }
 
     public function getKelas()
     {
         return $this->hasOne(Kelas::className(), ['id' => 'id_kelas']);
+    }
+    public function getAkun()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
 }
