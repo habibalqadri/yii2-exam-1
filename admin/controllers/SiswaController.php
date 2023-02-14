@@ -9,6 +9,7 @@ use common\models\Kelas;
 use common\models\User;
 use common\models\RefStatusWali;
 use common\models\SignupForm;
+use common\models\UserPengguna;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -199,7 +200,72 @@ class SiswaController extends Controller
      * @return mixed
      */
 
+    public function actionUbahAkun($id)
+    {
+        $request = Yii::$app->request;
+        $model = $this->findModel($id);
 
+        $dataUser = UserPengguna::find()->where(['id' => $model->id_user])->one();
+
+
+        // echo $dataUser;
+        // exit;
+        if ($request->isAjax) {
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($request->isGet) {
+                return [
+                    'title' => "Ubah Siswa",
+                    'content' => $this->renderAjax('ubah_akun', [
+
+                        'dataUser' => $dataUser
+
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+                ];
+            } else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->save(false)) {
+                return [
+                    'forceReload' => '#crud-datatable-pjax',
+                    'title' => "Siswa ",
+                    'content' => $this->renderAjax('lihat_akun', [
+                        'model' => $model,
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                ];
+            } else {
+                return [
+                    'title' => "Ubah Akun",
+                    'content' => $this->renderAjax('ubah_akun', [
+                        'dataUser' => $dataUser,
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+                ];
+            }
+        } else {
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Delete an existing Siswa model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
 
     public function actionCreate()
     {

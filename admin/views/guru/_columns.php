@@ -26,12 +26,21 @@ return [
         'template' => '{btn_aksi}',
         'buttons' => [
             "btn_aksi" => function ($url, $model, $key) {
-                return Html::a('Buat Akun', [''], [
-                    'class' => 'btn btn-success btn-block',
-                    'role' => 'modal-remote',
-                    'title' => 'Lihat',
-                    'data-toggle' => 'tooltip'
-                ]);
+                if ($model->id_user) {
+                    return Html::a('Lihat Akun', ['lihat-akun', 'id' => $model->id], [
+                        'class' => 'btn btn-success btn-info',
+                        'role' => 'modal-remote',
+                        'title' => 'Lihat',
+                        'data-toggle' => 'tooltip'
+                    ]);
+                } else {
+                    return Html::a('Buat Akun', ['buat-akun', 'id' => $model->id], [
+                        'class' => 'btn btn-success btn-block',
+                        'role' => 'modal-remote',
+                        'title' => 'Lihat',
+                        'data-toggle' => 'tooltip'
+                    ]);
+                }
             },
 
         ]

@@ -38,6 +38,13 @@ class Guru extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nama_guru' => 'Nama Guru',
+            'akun.username' => 'Username',
+            'akun.email' => 'Email'
         ];
+    }
+
+    public function getAkun()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
 }

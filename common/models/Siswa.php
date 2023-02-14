@@ -53,7 +53,8 @@ class Siswa extends \yii\db\ActiveRecord
             'tanggal_lahir' => 'Tanggal Lahir',
             'alamat' => 'Alamat',
             'id_kelas' => 'Nama Kelas',
-            'akun.username' => 'Username'
+            'akun.username' => 'Username',
+            'akun.email' => 'Email'
         ];
     }
 
