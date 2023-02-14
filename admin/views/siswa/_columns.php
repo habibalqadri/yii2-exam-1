@@ -53,7 +53,7 @@ return [
         'template' => '{btn_aksi}',
         'buttons' => [
             "btn_aksi" => function ($url, $model, $key) {
-                return Html::a('Buat Akun', ['detail-wali', 'nis' => $model->nis, 'id_siswa' => $model->id], [
+                return Html::a('Buat Akun', ['buat-akun', 'id' => $model->id], [
                     'class' => 'btn btn-success btn-block',
                     'role' => 'modal-remote',
                     'title' => 'Lihat',

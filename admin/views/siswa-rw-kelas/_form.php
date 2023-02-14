@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\SiswaRwKelas */
@@ -13,29 +14,35 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php
-    echo $form->field($model, 'id_siswa')
-        ->dropDownList(
-            $dataSiswa,
-            ['id_siswa' => 'nama']
-        );
-    ?>
 
-    <?php
-    echo $form->field($model, 'id_kelas')
-        ->dropDownList(
-            $dataKelas,
-            ['id_kelas' => 'nama_kelas']
-        );
-    ?>
 
-    <?php
-    echo $form->field($model, 'id_tahun_ajaran')
-        ->dropDownList(
-            $dataTahunAjaran,
-            ['id_tahun_ajaran' => 'tahun_ajaran']
-        );
-    ?>
+    <?= $form->field($model, 'id_siswa')->widget(Select2::classname(), [
+        'data' => $dataSiswa,
+        'options' => ['placeholder' => '-Nama Siswa-'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Nama Siswa'); ?>
+
+
+
+    <?= $form->field($model, 'id_kelas')->widget(Select2::classname(), [
+        'data' => $dataKelas,
+        'options' => ['placeholder' => '-Nama Kelas-'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Nama Kelas'); ?>
+
+
+
+    <?= $form->field($model, 'id_tahun_ajaran')->widget(Select2::classname(), [
+        'data' => $dataTahunAjaran,
+        'options' => ['placeholder' => '-Tahun Ajaran-'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Tahun Ajaran'); ?>
 
     <?= $form->field($model, 'nama_kelas')->textInput(['maxlength' => true]) ?>
 
@@ -48,13 +55,15 @@ use yii\bootstrap4\ActiveForm;
         );
     ?>
 
-    <?php
-    echo $form->field($model, 'id_wali_kelas')
-        ->dropDownList(
-            $dataGuru,
-            ['id_wali_kelas' => 'nama_guru']
-        );
-    ?>
+
+
+    <?= $form->field($model, 'id_wali_kelas')->widget(Select2::classname(), [
+        'data' => $dataGuru,
+        'options' => ['placeholder' => '-Wali Kelas-'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Wali Kelas'); ?>
 
 
     <?php if (!Yii::$app->request->isAjax) { ?>

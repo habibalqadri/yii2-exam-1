@@ -89,8 +89,7 @@ class WaliController extends Controller
         $request = Yii::$app->request;
         $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
         $model = new Wali();
-        $id_user =
-            Yii::$app->user->identity->id;
+        $id_user = Yii::$app->user->identity->id;
 
         if ($request->isAjax) {
             /*
@@ -123,6 +122,7 @@ class WaliController extends Controller
                     // if (!$siswaWali) {
                     //     $siswaWali = new SiswaWali();
                     // }
+
                     $siswaWali->id_siswa = $id_siswa;
                     $siswaWali->id_wali = $model->id;
 

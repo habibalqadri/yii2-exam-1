@@ -5,12 +5,14 @@ namespace admin\controllers;
 use Yii;
 use common\models\Kelas;
 use admin\models\KelasSearch;
+use common\models\RefTahunAjaran;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+
 
 
 /**
@@ -89,10 +91,10 @@ class KelasController extends Controller
         $request = Yii::$app->request;
         $model = new Kelas();
         $dataTahunAjaran =
-            ArrayHelper::map(\common\models\RefTahunAjaran::find()->asArray()->all(), 'id', 'tahun_ajaran');
-        $dataTingkatKelas =  ArrayHelper::map(\common\models\RefTingkatKelas::find()->asArray()->all(), 'id', 'tingkat_kelas');
-        $dataWaliKelas =  ArrayHelper::map(\common\models\Guru::find()->asArray()->all(), 'id', 'nama_guru');
-        $dataJurusan =  ArrayHelper::map(\common\models\RefJurusan::find()->asArray()->all(), 'id', 'jurusan');
+            ArrayHelper::map(\common\models\RefTahunAjaran::find()->all(), 'id', 'tahun_ajaran');
+        $dataTingkatKelas =  ArrayHelper::map(\common\models\RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
+        $dataWaliKelas =  ArrayHelper::map(\common\models\Guru::find()->all(), 'id', 'nama_guru');
+        $dataJurusan =  ArrayHelper::map(\common\models\RefJurusan::find()->all(), 'id', 'jurusan');
 
 
         if ($request->isAjax) {
@@ -102,7 +104,7 @@ class KelasController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Tambah Kelass",
+                    'title' => "Tambah Kelas",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                         'dataTahunAjaran' => $dataTahunAjaran,
@@ -128,6 +130,10 @@ class KelasController extends Controller
                     'title' => "Tambah Kelas",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'dataTahunAjaran' => $dataTahunAjaran,
+                        'dataTingkatKelas' => $dataTingkatKelas,
+                        'dataWaliKelas' => $dataWaliKelas,
+                        'dataJurusan' => $dataJurusan
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -143,6 +149,74 @@ class KelasController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'dataTahunAjaran' => $dataTahunAjaran,
+                    'dataTingkatKelas' => $dataTingkatKelas,
+                    'dataWaliKelas' => $dataWaliKelas,
+                    'dataJurusan' => $dataJurusan
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Updates an existing Kelas model.
+     * For ajax request will return json object
+     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionTambahTahunAjaran()
+    {
+        $request = Yii::$app->request;
+        $dataTahunAjaran = new RefTahunAjaran();
+
+        if ($request->isAjax) {
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($request->isGet) {
+                return [
+                    'title' => "Tambah Kelas",
+                    'content' => $this->renderAjax('tambah_tahun_ajaran', [
+                        'dataTahunAjaran' => $dataTahunAjaran,
+
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+
+                ];
+            } else if ($dataTahunAjaran->load($request->post()) && $dataTahunAjaran->save()) {
+                return [
+                    'forceReload' => '#crud-datatable-pjax',
+                    'title' => "Tambah Kelas",
+                    'content' => '<span class="text-success">Create Kelas berhasil</span>',
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+
+                ];
+            } else {
+                return [
+                    'title' => "Tambah Kelas",
+                    'content' => $this->renderAjax('create', [
+                        'dataTahunAjaran' => $dataTahunAjaran,
+
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+
+                ];
+            }
+        } else {
+            /*
+            *   Process for non-ajax request
+            */
+            if ($dataTahunAjaran->load($request->post()) && $dataTahunAjaran->save()) {
+                return $this->redirect(['view', 'id' => $dataTahunAjaran->id]);
+            } else {
+                return $this->render('create', [
+                    'dataTahunAjaran' => $dataTahunAjaran,
+
                 ]);
             }
         }

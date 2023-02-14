@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\GuruMataPelajaran */
@@ -13,21 +14,22 @@ use yii\bootstrap4\ActiveForm;
 
 	<?php $form = ActiveForm::begin(); ?>
 
-	<?php
-	echo $form->field($model, 'id_guru')
-		->dropDownList(
-			$dataGuru,
-			['id_guru' => 'nama_guru']
-		);
-	?>
 
-	<?php
-	echo $form->field($model, 'id_mata_pelajaran')
-		->dropDownList(
-			$dataMataPelajaran,
-			['id_mata_pelajaran' => 'mata_pelajaran']
-		);
-	?>
+	<?= $form->field($model, 'id_guru')->widget(Select2::classname(), [
+		'data' => $dataGuru,
+		'options' => ['placeholder' => '-Nama Guru-'],
+		'pluginOptions' => [
+			'allowClear' => true
+		],
+	])->label('Nama Guru'); ?>
+
+	<?= $form->field($model, 'id_mata_pelajaran')->widget(Select2::classname(), [
+		'data' => $dataMataPelajaran,
+		'options' => ['placeholder' => '-Mata Pelajaran-'],
+		'pluginOptions' => [
+			'allowClear' => true
+		],
+	])->label('Mata Pelajaran'); ?>
 
 
 	<?php if (!Yii::$app->request->isAjax) { ?>
