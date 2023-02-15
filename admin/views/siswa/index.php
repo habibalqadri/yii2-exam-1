@@ -90,6 +90,9 @@ CrudAsset::register($this);
 </div>
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
+    'options' => [
+        'tabindex' => false
+    ],
     "footer" => "", // always need it for jquery plugin
 ]) ?>
 <?php Modal::end(); ?>

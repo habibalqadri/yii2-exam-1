@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\Siswa;
 use admin\models\SiswaSearch;
+use common\models\AuthAssignment;
 use common\models\Kelas;
 use common\models\User;
 use common\models\RefStatusWali;
@@ -155,16 +156,23 @@ class SiswaController extends Controller
             else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->signup()) {
                 $user = User::find()->orderBy(['id' => SORT_DESC])->one();
                 $model->id_user = $user->id;
-                $model->save();
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Akun",
-                    'content' => '<span class="text-success">Tambah Akun berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-                    // .
-                    //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
-                ];
+                if ($model->save()) {
+                    $modelAuth = new AuthAssignment();
+                    $modelAuth->item_name = 'Siswa';
+                    $modelAuth->user_id = $user->id;
+                    if ($modelAuth->save()) {
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Tambah Akun",
+                            'content' => '<span class="text-success">Tambah Akun berhasil</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                            // .
+                            //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+
+                        ];
+                    }
+                }
             } else {
                 return [
                     'title' => "Tambah Akun",
@@ -398,8 +406,11 @@ class SiswaController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
 
+        $modelSiswa = Siswa::find()->where(['id' => $id])->one();
+        $modelUser = User::find()->where(['id' => $modelSiswa->id_user])->one();
+        $modelUser->delete();
+        $this->findModel($id)->delete();
         if ($request->isAjax) {
             /*
             *   Process for ajax request
