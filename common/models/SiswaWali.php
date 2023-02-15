@@ -50,4 +50,9 @@ class SiswaWali extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Wali::className(), ['id' => 'id_wali']);
     }
+    public function getStatusWali()
+    {
+        $model = Wali::find()->where(['id' => $this->id_wali]);
+        return $this->hasOne(RefStatusWali::className(), ['id' => $model->id_status_wali]);
+    }
 }

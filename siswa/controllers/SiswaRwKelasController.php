@@ -2,6 +2,7 @@
 
 namespace siswa\controllers;
 
+use common\models\Siswa;
 use Yii;
 use common\models\SiswaRwKelas;
 use siswa\models\SiswaRwKelasSearch;
@@ -40,8 +41,14 @@ class SiswaRwKelasController extends Controller
      */
     public function actionIndex()
     {
+        $id_user = Yii::$app->user->identity->id;
         $searchModel = new SiswaRwKelasSearch();
+
+        $dataSiswa = Siswa::find()->where(['id_user' => $id_user])->one();
+        // echo $dataSiswa->id;
+        // exit;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['id_siswa' => $dataSiswa->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
