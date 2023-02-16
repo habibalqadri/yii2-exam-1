@@ -409,6 +409,8 @@ class SiswaController extends Controller
 
         $modelSiswa = Siswa::find()->where(['id' => $id])->one();
         $modelUser = User::find()->where(['id' => $modelSiswa->id_user])->one();
+        $modelAuth = AuthAssignment::find()->where(['user_id' => $modelUser->id])->one();
+        $modelAuth->delete();
         $modelUser->delete();
         $this->findModel($id)->delete();
         if ($request->isAjax) {

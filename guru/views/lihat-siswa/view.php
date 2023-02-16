@@ -3,18 +3,20 @@
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Wali */
+/* @var $model common\models\SiswaRwKelas */
 ?>
-<div class="wali-view">
+<div class="siswa-rw-kelas-view">
     <div class="table-responsive">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'nama',
-            'alamat:ntext',
-            'no_hp',
-            'id_status_wali',
+            'id_siswa',
+            'id_kelas',
+            'id_tahun_ajaran',
+            'nama_kelas',
+            'id_tingkat',
+            'id_wali_kelas',
         ],
     ]) ?>
     </div>

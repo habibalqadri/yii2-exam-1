@@ -29,11 +29,14 @@ class AuthAssignment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['item_name', 'user_id'], 'required'],
+            // [['item_name', 'user_id'], 'required'],
+            [['item_name'], 'string', 'max' => 255],
+            [['user_id'], 'default', 'value' => null],
+            [['user_id'], 'integer'],
             [['created_at'], 'default', 'value' => null],
             [['created_at'], 'integer'],
-            [['item_name', 'user_id'], 'string', 'max' => 64],
-            [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
+            // [['item_name', 'user_id'], 'string', 'max' => 64],
+            // [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
             // [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['item_name' => 'name']],
         ];
     }

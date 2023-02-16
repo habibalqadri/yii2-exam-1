@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Url;
-use yii\helpers\Html;
 
 return [
     //[
@@ -18,25 +17,12 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'nama',
+        'attribute' => 'guru.nama_guru',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'alamat',
+        'attribute' => 'mata_pelajaran.mata_pelajaran',
     ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'no_hp',
-    ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'header' => 'Status Wali',
-        'attribute' => 'id_status_wali',
-        'value' => function ($model) {
-            return $model->statusWali->status_wali;
-        }
-    ],
-
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

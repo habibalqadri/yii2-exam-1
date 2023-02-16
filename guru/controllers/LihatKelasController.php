@@ -2,10 +2,10 @@
 
 namespace guru\controllers;
 
+use common\models\Guru;
 use Yii;
-use common\models\Wali;
-use guru\models\WaliSearch;
-use common\models\RefStatusWali;
+use common\models\Kelas;
+use guru\models\LihatKelasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,9 +15,9 @@ use yii\helpers\ArrayHelper;
 
 
 /**
- * WaliController implements the CRUD actions for Wali model.
+ * LihatKelasController implements the CRUD actions for Kelas model.
  */
-class WaliController extends Controller
+class LihatKelasController extends Controller
 {
     /**
      * @inheritdoc
@@ -36,14 +36,16 @@ class WaliController extends Controller
     }
 
     /**
-     * Lists all Wali models.
+     * Lists all Kelas models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new WaliSearch();
+        $id_user = Yii::$app->user->identity->id;
+        $modelGuru = Guru::find()->where(['id_user' => $id_user])->one();
+        $searchModel = new LihatKelasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->query->andFilterWhere(['id_wali_kelas' => $modelGuru->id]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -52,7 +54,7 @@ class WaliController extends Controller
 
 
     /**
-     * Displays a single Wali model.
+     * Displays a single Kelas model.
      * @param integer $id
      * @return mixed
      */
@@ -62,7 +64,7 @@ class WaliController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Wali ",
+                'title' => "Kelas ",
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -77,7 +79,7 @@ class WaliController extends Controller
     }
 
     /**
-     * Creates a new Wali model.
+     * Creates a new Kelas model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -85,8 +87,7 @@ class WaliController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
-        $model = new Wali();
+        $model = new Kelas();
 
         if ($request->isAjax) {
             /*
@@ -95,10 +96,9 @@ class WaliController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Tambah Wali",
+                    'title' => "Tambah Kelas",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'data' => $data,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -107,19 +107,17 @@ class WaliController extends Controller
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Wali",
-                    'content' => '<span class="text-success">Create Wali berhasil</span>',
+                    'title' => "Tambah Kelas",
+                    'content' => '<span class="text-success">Create Kelas berhasil</span>',
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
                 ];
             } else {
                 return [
-                    'title' => "Tambah Wali",
+                    'title' => "Tambah Kelas",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'data' => $data,
-
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -135,15 +133,13 @@ class WaliController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    'data' => $data,
-
                 ]);
             }
         }
     }
 
     /**
-     * Updates an existing Wali model.
+     * Updates an existing Kelas model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -153,7 +149,6 @@ class WaliController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
 
         if ($request->isAjax) {
             /*
@@ -162,10 +157,9 @@ class WaliController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Ubah Wali",
+                    'title' => "Ubah Kelas",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
-                        'data' => $data,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -173,9 +167,8 @@ class WaliController extends Controller
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Wali ",
+                    'title' => "Kelas ",
                     'content' => $this->renderAjax('view', [
-                        'data' => $data,
                         'model' => $model,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -183,9 +176,8 @@ class WaliController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Ubah Wali ",
+                    'title' => "Ubah Kelas ",
                     'content' => $this->renderAjax('update', [
-                        'data' => $data,
                         'model' => $model,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -200,7 +192,6 @@ class WaliController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
-                    'data' => $data,
                     'model' => $model,
                 ]);
             }
@@ -208,7 +199,7 @@ class WaliController extends Controller
     }
 
     /**
-     * Delete an existing Wali model.
+     * Delete an existing Kelas model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -234,7 +225,7 @@ class WaliController extends Controller
     }
 
     /**
-     * Delete multiple existing Wali model.
+     * Delete multiple existing Kelas model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -264,15 +255,15 @@ class WaliController extends Controller
     }
 
     /**
-     * Finds the Wali model based on its primary key value.
+     * Finds the Kelas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Wali the loaded model
+     * @return Kelas the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Wali::findOne($id)) !== null) {
+        if (($model = Kelas::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

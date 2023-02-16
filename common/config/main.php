@@ -12,6 +12,9 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // only support DbManager
         ],
+        'pengguna' => [
+            'class' => 'common\components\PenggunaComponent', // only support DbManager
+        ],
     ],
     'modules' => [
         'gii' => [

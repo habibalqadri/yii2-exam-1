@@ -5,12 +5,12 @@ namespace guru\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Wali;
+use common\models\SiswaRwKelas;
 
 /**
- * WaliSearch represents the model behind the search form about `common\models\Wali`.
+ * LihatSiswaSearch represents the model behind the search form about `common\models\SiswaRwKelas`.
  */
-class WaliSearch extends Wali
+class LihatSiswaSearch extends SiswaRwKelas
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class WaliSearch extends Wali
     public function rules()
     {
         return [
-            [['id', 'id_status_wali'], 'integer'],
-            [['nama', 'alamat', 'no_hp'], 'safe'],
+            [['id', 'id_siswa', 'id_kelas', 'id_tahun_ajaran', 'id_tingkat', 'id_wali_kelas'], 'integer'],
+            [['nama_kelas'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class WaliSearch extends Wali
      */
     public function search($params)
     {
-        $query = Wali::find();
+        $query = SiswaRwKelas::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,12 +57,14 @@ class WaliSearch extends Wali
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_status_wali' => $this->id_status_wali,
+            'id_siswa' => $this->id_siswa,
+            'id_kelas' => $this->id_kelas,
+            'id_tahun_ajaran' => $this->id_tahun_ajaran,
+            'id_tingkat' => $this->id_tingkat,
+            'id_wali_kelas' => $this->id_wali_kelas,
         ]);
 
-        $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'alamat', $this->alamat])
-            ->andFilterWhere(['like', 'no_hp', $this->no_hp]);
+        $query->andFilterWhere(['like', 'nama_kelas', $this->nama_kelas]);
 
         return $dataProvider;
     }

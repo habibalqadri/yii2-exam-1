@@ -8,10 +8,10 @@ use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel admin\models\GuruSearch */
+/* @var $searchModel guru\models\LihatMapelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Gurus';
+$this->title = 'Mata Pelajarans';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -54,12 +54,12 @@ CrudAsset::register($this);
                             'responsive' => true,
                             'panel' => [
                                 // 'type' => 'primary', 
-                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Gurus listing',
-                                'before' => Html::a(
-                                    'Tambah',
-                                    ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Gurus', 'class' => 'btn btn-default']
-                                ),
+                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Mata Pelajarans listing',
+                                // 'before' => Html::a(
+                                //     'Tambah',
+                                //     ['create'],
+                                //     ['role' => 'modal-remote', 'title' => 'Create new Mata Pelajarans', 'class' => 'btn btn-default']
+                                // ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                                 //                 ["bulk-delete"] ,

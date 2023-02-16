@@ -3,13 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Wali */
+/* @var $model common\models\MataPelajaran */
 ?>
-<div class="wali-update">
+<div class="mata-pelajaran-update">
 
     <?= $this->render('_form', [
         'model' => $model,
-        'data' => $data,
     ]) ?>
 
 </div>

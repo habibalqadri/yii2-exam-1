@@ -8,10 +8,10 @@ use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel guru\models\WaliSearch */
+/* @var $searchModel guru\models\MapelGuruSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Walis';
+$this->title = 'Guru Mata Pelajarans';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -39,24 +39,39 @@ CrudAsset::register($this);
                             'columns' => require(__DIR__ . '/_columns.php'),
                             'toolbar' => [
                                 [
-                                    'content' => ''
+                                    'content' =>
+                                    Html::a(
+                                        '<i class="fas fa-redo"></i> ',
+                                        [''],
+                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                    ) .
+                                        '{toggleData}'
+                                    // .'{export}'
                                 ],
                             ],
                             'striped' => true,
                             'condensed' => true,
                             'responsive' => true,
                             'panel' => [
-
+                                // 'type' => 'primary', 
+                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
                                 'before' => Html::a(
                                     'Tambah',
                                     ['create'],
-                                    [
-                                        'role' => 'modal-remote',
-                                        'title' => 'Create new Walis',
-                                        'class' => 'btn btn-info '
-                                    ]
+                                    ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-default']
                                 ),
-
+                                // 'after'=>BulkButtonWidget::widget([
+                                //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                                //                 ["bulk-delete"] ,
+                                //                 [
+                                //                     "class"=>"btn btn-danger btn-xs",
+                                //                     'role'=>'modal-remote-bulk',
+                                //                     'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
+                                //                     'data-request-method'=>'post',
+                                //                     'data-confirm-title'=>'Are you sure?',
+                                //                     'data-confirm-message'=>'Are you sure want to delete this item'
+                                //                 ]),
+                                //         ]).                        
                                 '<div class="clearfix"></div>',
                             ]
                         ]) ?>
@@ -68,10 +83,8 @@ CrudAsset::register($this);
 </div>
 </div>
 <?php Modal::begin([
+    'size' => 'modal-lg',
     "id" => "ajaxCrudModal",
     "footer" => "", // always need it for jquery plugin
-    'options' => [
-        'tabindex' => false // important for Select2 to work properly
-    ],
 ]) ?>
 <?php Modal::end(); ?>

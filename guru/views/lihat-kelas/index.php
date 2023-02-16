@@ -8,10 +8,10 @@ use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel guru\models\SiswaSearch */
+/* @var $searchModel guru\models\LihatKelasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Siswas';
+$this->title = 'Kelas';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -39,7 +39,14 @@ CrudAsset::register($this);
                             'columns' => require(__DIR__ . '/_columns.php'),
                             'toolbar' => [
                                 [
-                                    'content' => ''
+                                    'content' =>
+                                    Html::a(
+                                        '<i class="fas fa-redo"></i> ',
+                                        [''],
+                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                    ) .
+                                        '{toggleData}'
+                                    // .'{export}'
                                 ],
                             ],
                             'striped' => true,
@@ -47,12 +54,12 @@ CrudAsset::register($this);
                             'responsive' => true,
                             'panel' => [
                                 // 'type' => 'primary', 
-                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
-                                'before' => Html::a(
-                                    'Tambah',
-                                    ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Siswas', 'class' => 'btn btn-default']
-                                ),
+                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Kelas listing',
+                                // 'before' => Html::a(
+                                //     'Tambah',
+                                //     ['create'],
+                                //     ['role' => 'modal-remote', 'title' => 'Create new Kelas', 'class' => 'btn btn-default']
+                                // ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                                 //                 ["bulk-delete"] ,

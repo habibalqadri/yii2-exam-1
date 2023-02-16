@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\Guru;
 use admin\models\GuruSearch;
+use common\models\AuthAssignment;
 use common\models\SignupForm;
 use common\models\User;
 use common\models\UserPengguna;
@@ -151,16 +152,22 @@ class GuruController extends Controller
             else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->signup()) {
                 $user = User::find()->orderBy(['id' => SORT_DESC])->one();
                 $model->id_user = $user->id;
-                $model->save();
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Akun",
-                    'content' => '<span class="text-success">Tambah Akun berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-                    // .
-                    //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                if ($model->save()) {
+                    $modelAuth = new AuthAssignment();
+                    $modelAuth->item_name = 'Guru';
+                    $modelAuth->user_id = $user->id;
+                    if ($modelAuth->save()) {
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Tambah Akun",
+                            'content' => '<span class="text-success">Tambah Akun berhasil</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                            // .
+                            //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
-                ];
+                        ];
+                    }
+                }
             } else {
                 return [
                     'title' => "Tambah Akun",
@@ -387,6 +394,11 @@ class GuruController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
+        $modelGuru = Guru::find()->where(['id' => $id])->one();
+        $modelUser = User::find()->where(['id' => $modelGuru->id_user])->one();
+        $modelAuth = AuthAssignment::find()->where(['user_id' => $modelUser->id])->one();
+        $modelAuth->delete();
+        $modelUser->delete();
         $this->findModel($id)->delete();
 
         if ($request->isAjax) {

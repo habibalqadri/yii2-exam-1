@@ -38,8 +38,10 @@ AppAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Wali', 'url' => ['/wali/index']],
-            ['label' => 'Siswa', 'url' => ['/siswa/index']],
+            ['label' => 'Lihat Kelas', 'url' => ['/lihat-kelas/index']],
+            ['label' => 'Lihat Siswa', 'url' => ['/lihat-siswa/index']],
+            ['label' => 'Mata Pelajaran', 'url' => ['/lihat-mapel/index']],
+            ['label' => 'Mapel Guru', 'url' => ['/mapel-guru/index']],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

@@ -41,8 +41,8 @@ return [
         'attribute' => 'wali_kelas.nama_guru',
     ],
     // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'id_wali_kelas',
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'attribute' => 'id_wali_kelas',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',
