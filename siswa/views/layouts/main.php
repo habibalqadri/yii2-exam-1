@@ -38,7 +38,7 @@ AppAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-
+            ['label' => 'Wali', 'url' => ['/siswa-wali/index']],
             ['label' => 'Profil', 'url' => ['/siswa/index']],
             ['label' => 'Riwayat Kelas', 'url' => ['/siswa-rw-kelas/index']],
         ];

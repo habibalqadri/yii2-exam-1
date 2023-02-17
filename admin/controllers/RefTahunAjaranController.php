@@ -1,13 +1,10 @@
 <?php
 
-namespace siswa\controllers;
+namespace admin\controllers;
 
-use common\models\RefStatusWali;
 use Yii;
-use common\models\Siswa;
-use common\models\SiswaWali;
-use common\models\Wali;
-use siswa\models\SiswaSearch;
+use common\models\RefTahunAjaran;
+use admin\models\RefTahunAjaranSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -17,9 +14,9 @@ use yii\helpers\ArrayHelper;
 
 
 /**
- * SiswaController implements the CRUD actions for Siswa model.
+ * RefTahunAjaranController implements the CRUD actions for RefTahunAjaran model.
  */
-class SiswaController extends Controller
+class RefTahunAjaranController extends Controller
 {
     /**
      * @inheritdoc
@@ -38,28 +35,45 @@ class SiswaController extends Controller
     }
 
     /**
-     * Lists all Siswa models.
+     * Lists all RefTahunAjaran models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $id_user = Yii::$app->user->identity->id;
-        $searchModel = new SiswaSearch();
-        // echo $id_user;
-        // exit;
+        $searchModel = new RefTahunAjaranSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['id_user' => $id_user]);
-
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionIndex2()
+    {
+        $searchModel = new RefTahunAjaranSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'title' => 'Tahun Ajaran',
+                'content' => $this->renderAjax('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ])
+            ];
+        } else {
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+    }
 
 
     /**
-     * Displays a single Siswa model.
+     * Displays a single RefTahunAjaran model.
      * @param integer $id
      * @return mixed
      */
@@ -69,7 +83,7 @@ class SiswaController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Siswa ",
+                'title' => "RefTahunAjaran ",
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -84,18 +98,15 @@ class SiswaController extends Controller
     }
 
     /**
-     * Creates a new Siswa model.
+     * Creates a new RefTahunAjaran model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Siswa();
-        $dataKelas =
-            ArrayHelper::map(\common\models\Kelas::find()->asArray()->all(), 'id', 'nama_kelas');
+        $model = new RefTahunAjaran();
 
         if ($request->isAjax) {
             /*
@@ -104,10 +115,9 @@ class SiswaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Tambah Siswa",
+                    'title' => "Tambah RefTahunAjaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'dataKelas' => $dataKelas
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -116,15 +126,15 @@ class SiswaController extends Controller
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Siswa",
-                    'content' => '<span class="text-success">Create Siswa berhasil</span>',
+                    'title' => "Tambah RefTahunAjaran",
+                    'content' => '<span class="text-success">Create RefTahunAjaran berhasil</span>',
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
                 ];
             } else {
                 return [
-                    'title' => "Tambah Siswa",
+                    'title' => "Tambah RefTahunAjaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -148,7 +158,7 @@ class SiswaController extends Controller
     }
 
     /**
-     * Updates an existing Siswa model.
+     * Updates an existing RefTahunAjaran model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -158,7 +168,6 @@ class SiswaController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $dataKelas =  ArrayHelper::map(\common\models\Kelas::find()->asArray()->all(), 'id', 'nama_kelas');
 
         if ($request->isAjax) {
             /*
@@ -167,10 +176,9 @@ class SiswaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Ubah Siswa",
+                    'title' => "Ubah RefTahunAjaran",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
-                        'dataKelas' => $dataKelas
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -178,7 +186,7 @@ class SiswaController extends Controller
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Siswa ",
+                    'title' => "RefTahunAjaran ",
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -187,7 +195,7 @@ class SiswaController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Ubah Siswa ",
+                    'title' => "Ubah RefTahunAjaran ",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -210,7 +218,7 @@ class SiswaController extends Controller
     }
 
     /**
-     * Delete an existing Siswa model.
+     * Delete an existing RefTahunAjaran model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -236,7 +244,7 @@ class SiswaController extends Controller
     }
 
     /**
-     * Delete multiple existing Siswa model.
+     * Delete multiple existing RefTahunAjaran model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -266,15 +274,15 @@ class SiswaController extends Controller
     }
 
     /**
-     * Finds the Siswa model based on its primary key value.
+     * Finds the RefTahunAjaran model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Siswa the loaded model
+     * @return RefTahunAjaran the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Siswa::findOne($id)) !== null) {
+        if (($model = RefTahunAjaran::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

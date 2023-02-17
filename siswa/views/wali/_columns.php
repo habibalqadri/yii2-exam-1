@@ -1,6 +1,5 @@
 <?php
 
-use yii\bootstrap4\Html;
 use yii\helpers\Url;
 
 return [
@@ -18,41 +17,19 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        // 'attribute' => 'id_tahun_ajaran',
-        'attribute' => 'tahun_ajaran.tahun_ajaran',
+        'attribute' => 'nama',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'nama_kelas',
+        'attribute' => 'alamat',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tingkat_kelas.tingkat_kelas',
+        'attribute' => 'no_hp',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => "Wali Kelas",
-        'attribute' => 'wali_kelas.nama_guru',
-    ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'jurusan.jurusan',
-    ],
-    [
-        'class' => 'kartik\grid\ActionColumn',
-        'header' => 'Action',
-        'template' => '{lihat_siswa}',
-        'buttons' => [
-            "lihat_siswa" => function ($url, $model, $key) {
-                return Html::a('Lihat Siswa', ['siswa/index2', 'id' => $model->id], [
-                    'class' => 'btn btn-success btn-success',
-                    'role' => 'modal-remote',
-                    'title' => 'Lihat',
-                    'data-toggle' => 'tooltip'
-                ]);
-            },
-
-        ]
+        'attribute' => 'statusWali.status_wali',
     ],
     [
         'class' => 'kartik\grid\ActionColumn',

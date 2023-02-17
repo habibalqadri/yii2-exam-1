@@ -56,6 +56,8 @@ CrudAsset::register($this);
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswa Rw Kelas listing',
 
+                                // 'before' => 'Na Kelas : ',
+
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                                 //                 ["bulk-delete"] ,

@@ -74,6 +74,7 @@ return [
 
         ]
     ],
+
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

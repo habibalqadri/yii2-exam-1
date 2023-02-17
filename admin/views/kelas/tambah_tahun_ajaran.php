@@ -10,6 +10,7 @@ use yii\helpers\Html;
 <div class="kelas-create">
     <?= $this->render('_form_tahun_ajaran', [
         'dataTahunAjaran' => $dataTahunAjaran,
+        'modelTahunAjaran' => $modelTahunAjaran,
 
     ]) ?>
 </div>

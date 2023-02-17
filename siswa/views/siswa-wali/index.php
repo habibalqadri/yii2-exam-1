@@ -8,10 +8,10 @@ use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel guru\models\MapelGuruSearch */
+/* @var $searchModel siswa\models\SiswaWaliSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Guru Mata Pelajarans';
+$this->title = 'Siswa Walis';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -54,11 +54,11 @@ CrudAsset::register($this);
                             'responsive' => true,
                             'panel' => [
                                 // 'type' => 'primary', 
-                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
+                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswa Walis listing',
                                 'before' => Html::a(
                                     'Tambah',
-                                    ['create', 'id' => $model->id_guru],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-default']
+                                    ['wali/create'],
+                                    ['role' => 'modal-remote', 'title' => 'Create new Siswa Walis', 'class' => 'btn btn-default']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
@@ -83,7 +83,6 @@ CrudAsset::register($this);
 </div>
 </div>
 <?php Modal::begin([
-    // 'size' => 'modal-lg',
     "id" => "ajaxCrudModal",
     "footer" => "", // always need it for jquery plugin
 ]) ?>

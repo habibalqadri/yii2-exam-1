@@ -42,12 +42,15 @@ CrudAsset::register($this);
                                     'content' =>
                                     Html::a(
                                         'Tambah Tahun Ajaran',
-                                        ['tambah-tahun-ajaran'],
+                                        ['ref-tahun-ajaran/index2'],
                                         ['role' => 'modal-remote', 'title' => 'Create new Kelas', 'class' => 'btn btn-info']
-                                    )
+                                    ),
+
                                     // .'{export}'
                                 ],
+
                             ],
+
                             'striped' => true,
                             'condensed' => true,
                             'responsive' => true,
@@ -86,6 +89,7 @@ CrudAsset::register($this);
 </div>
 </div>
 <?php Modal::begin([
+    "size" => "modal-lg",
     "id" => "ajaxCrudModal",
     'options' => [
         'tabindex' => false

@@ -15,9 +15,15 @@ use yii\bootstrap4\ActiveForm;
 	<?php $form = ActiveForm::begin(); ?>
 
 
+
 	<?= $form->field($model, 'id_guru')->widget(Select2::classname(), [
 		'data' => $dataGuru,
-		'options' => ['placeholder' => '-Nama Guru-'],
+		'options' => [
+			'value' => $model['id_guru'],
+			'placeholder' => $model->guru['nama_guru'],
+			// 'disabled' => 'false'
+
+		],
 		'pluginOptions' => [
 			'allowClear' => true
 		],

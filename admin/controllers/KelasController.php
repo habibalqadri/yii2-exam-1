@@ -165,70 +165,7 @@ class KelasController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionTambahTahunAjaran()
-    {
-        $request = Yii::$app->request;
-        $dataTahunAjaran = new RefTahunAjaran();
 
-        if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($request->isGet) {
-                return [
-                    'title' => "Tambah Kelas",
-                    'content' => $this->renderAjax('tambah_tahun_ajaran', [
-                        'dataTahunAjaran' => $dataTahunAjaran,
-
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-
-                ];
-            } else if ($dataTahunAjaran->load($request->post()) && $dataTahunAjaran->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Kelas",
-                    'content' => '<span class="text-success">Create Kelas berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-
-                ];
-            } else {
-                return [
-                    'title' => "Tambah Kelas",
-                    'content' => $this->renderAjax('create', [
-                        'dataTahunAjaran' => $dataTahunAjaran,
-
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-
-                ];
-            }
-        } else {
-            /*
-            *   Process for non-ajax request
-            */
-            if ($dataTahunAjaran->load($request->post()) && $dataTahunAjaran->save()) {
-                return $this->redirect(['view', 'id' => $dataTahunAjaran->id]);
-            } else {
-                return $this->render('create', [
-                    'dataTahunAjaran' => $dataTahunAjaran,
-
-                ]);
-            }
-        }
-    }
-
-    /**
-     * Updates an existing Kelas model.
-     * For ajax request will return json object
-     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;

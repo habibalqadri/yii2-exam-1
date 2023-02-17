@@ -56,6 +56,48 @@ class SiswaController extends Controller
 
         ]);
     }
+    public function actionIndex2($id)
+    {
+        $id_kelas = Kelas::find()->where(['id' => $id])->one();
+        $searchModel = new SiswaSearch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['id_kelas' => $id_kelas->id]);
+
+        $request = Yii::$app->request;
+
+        if ($request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'title' => "List Siswa ",
+                // 'content' => $this->renderAjax('view', [
+                //     'model' => $this->findModel($id),
+
+                // ]),
+                'content' => $this->renderAjax('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+
+                ]),
+
+                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+            ];
+        } else {
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+
+            ]);
+        }
+
+
+        // return $this->render('index', [
+        //     'searchModel' => $searchModel,
+        //     'dataProvider' => $dataProvider,
+
+        // ]);
+    }
 
 
     /**

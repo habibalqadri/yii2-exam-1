@@ -47,7 +47,7 @@ class Wali extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'alamat' => 'Alamat',
             'no_hp' => 'No Hp',
-            'id_status_wali' => 'Id Status Wali',
+            'id_status_wali' => 'Status Wali',
         ];
     }
     public function getStatusWali()

@@ -12,5 +12,6 @@ use yii\helpers\Html;
         'model' => $model,
         'dataGuru' => $dataGuru,
         'dataMataPelajaran' => $dataMataPelajaran,
+
     ]) ?>
 </div>

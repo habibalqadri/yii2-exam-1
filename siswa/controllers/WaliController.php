@@ -3,11 +3,11 @@
 namespace siswa\controllers;
 
 use common\models\RefStatusWali;
-use Yii;
 use common\models\Siswa;
 use common\models\SiswaWali;
+use Yii;
 use common\models\Wali;
-use siswa\models\SiswaSearch;
+use siswa\models\WaliSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,11 +15,12 @@ use \yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
+use function PHPSTORM_META\map;
 
 /**
- * SiswaController implements the CRUD actions for Siswa model.
+ * WaliController implements the CRUD actions for Wali model.
  */
-class SiswaController extends Controller
+class WaliController extends Controller
 {
     /**
      * @inheritdoc
@@ -38,18 +39,13 @@ class SiswaController extends Controller
     }
 
     /**
-     * Lists all Siswa models.
+     * Lists all Wali models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $id_user = Yii::$app->user->identity->id;
-        $searchModel = new SiswaSearch();
-        // echo $id_user;
-        // exit;
+        $searchModel = new WaliSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['id_user' => $id_user]);
-
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -57,9 +53,24 @@ class SiswaController extends Controller
         ]);
     }
 
+    public function actionIndex2($id)
+    {
+        $id_user = Yii::$app->user->identity->id;
+        $siswa = Siswa::find()->where(['id_user' => $id_user])->one();
+        $siswaWali = SiswaWali::find()->where(['id_siswa' => $id])->one();
+
+        $searchModel = new WaliSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['id' => $siswaWali->id_wali]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
-     * Displays a single Siswa model.
+     * Displays a single Wali model.
      * @param integer $id
      * @return mixed
      */
@@ -69,7 +80,7 @@ class SiswaController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Siswa ",
+                'title' => "Wali ",
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -84,18 +95,17 @@ class SiswaController extends Controller
     }
 
     /**
-     * Creates a new Siswa model.
+     * Creates a new Wali model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Siswa();
-        $dataKelas =
-            ArrayHelper::map(\common\models\Kelas::find()->asArray()->all(), 'id', 'nama_kelas');
+        $model = new Wali();
+        $dataStatusWali = ArrayHelper::map(RefStatusWali::find()->asArray()->all(), 'id', 'status_wali');
+
 
         if ($request->isAjax) {
             /*
@@ -104,27 +114,51 @@ class SiswaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Tambah Siswa",
+                    'title' => "Tambah Wali",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'dataKelas' => $dataKelas
+                        'dataStatusWali' => $dataStatusWali,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            } else if ($model->load($request->post()) && $model->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Siswa",
-                    'content' => '<span class="text-success">Create Siswa berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+            } else if ($model->load($request->post())) {
 
-                ];
+
+
+                if ($model->save()) {
+                    $id_user = Yii::$app->user->identity->id;
+                    $id_siswa = Siswa::find()->where(['id_user' => $id_user])->one();
+
+                    $siswaWali = new SiswaWali();
+                    $siswaWali->id_siswa = $id_siswa->id;
+                    $siswaWali->id_wali = $model->id;
+
+                    if ($siswaWali->save()) {
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Tambah Wali",
+                            'content' => '<span class="text-success">Create Wali berhasil</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                                Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+
+                        ];
+                    }
+                }
+
+
+                // return [
+                //     'forceReload' => '#crud-datatable-pjax',
+                //     'title' => "Tambah Wali",
+                //     'content' => '<span class="text-success">Create Wali berhasil</span>',
+                //     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                //         Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+
+                // ];
             } else {
                 return [
-                    'title' => "Tambah Siswa",
+                    'title' => "Tambah Wali",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -148,7 +182,7 @@ class SiswaController extends Controller
     }
 
     /**
-     * Updates an existing Siswa model.
+     * Updates an existing Wali model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -158,7 +192,7 @@ class SiswaController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $dataKelas =  ArrayHelper::map(\common\models\Kelas::find()->asArray()->all(), 'id', 'nama_kelas');
+        $dataStatusWali = ArrayHelper::map(RefStatusWali::find()->asArray()->all(), 'id', 'status_wali');
 
         if ($request->isAjax) {
             /*
@@ -167,10 +201,10 @@ class SiswaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Ubah Siswa",
+                    'title' => "Ubah Wali",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
-                        'dataKelas' => $dataKelas
+                        'dataStatusWali' => $dataStatusWali,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -178,7 +212,7 @@ class SiswaController extends Controller
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Siswa ",
+                    'title' => "Wali ",
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -187,9 +221,10 @@ class SiswaController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Ubah Siswa ",
+                    'title' => "Ubah Wali ",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
+                        'dataStatusWali' => $dataStatusWali,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -204,13 +239,14 @@ class SiswaController extends Controller
             } else {
                 return $this->render('update', [
                     'model' => $model,
+                    'dataStatusWali' => $dataStatusWali,
                 ]);
             }
         }
     }
 
     /**
-     * Delete an existing Siswa model.
+     * Delete an existing Wali model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -236,7 +272,7 @@ class SiswaController extends Controller
     }
 
     /**
-     * Delete multiple existing Siswa model.
+     * Delete multiple existing Wali model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -266,15 +302,15 @@ class SiswaController extends Controller
     }
 
     /**
-     * Finds the Siswa model based on its primary key value.
+     * Finds the Wali model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Siswa the loaded model
+     * @return Wali the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Siswa::findOne($id)) !== null) {
+        if (($model = Wali::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
