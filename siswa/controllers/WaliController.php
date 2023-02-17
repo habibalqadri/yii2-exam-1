@@ -53,21 +53,6 @@ class WaliController extends Controller
         ]);
     }
 
-    public function actionIndex2($id)
-    {
-        $id_user = Yii::$app->user->identity->id;
-        $siswa = Siswa::find()->where(['id_user' => $id_user])->one();
-        $siswaWali = SiswaWali::find()->where(['id_siswa' => $id])->one();
-
-        $searchModel = new WaliSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['id' => $siswaWali->id_wali]);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
     /**
      * Displays a single Wali model.
