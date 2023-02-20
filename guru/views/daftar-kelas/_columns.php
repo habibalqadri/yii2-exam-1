@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Url;
-use yii\helpers\Html;
 
 return [
     //[
@@ -18,65 +17,24 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'nis',
+        'attribute' => 'tahun_ajaran.tahun_ajaran',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'nama',
+        'attribute' => 'nama_kelas',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tempat_lahir',
+        'attribute' => 'tingkat_kelas.tingkat_kelas',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tanggal_lahir',
+        'attribute' => 'wali_kelas.nama_guru',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'alamat',
+        'attribute' => 'jurusan.jurusan',
     ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'kelas.nama_kelas',
-
-
-    ],
-
-    // [
-
-    //     'class' => '\kartik\grid\DataColumn',
-    //     'attribute' => $formatter->asDate($tanggal_lahir),
-
-    // ],
-
-    [
-
-        'class' => 'kartik\grid\ActionColumn',
-        'header' => 'Akun',
-        'template' => '{btn_aksi}',
-        'buttons' => [
-            "btn_aksi" => function ($url, $model, $key) {
-                if ($model->id_user) {
-                    return Html::a('Lihat Akun', ['lihat-akun', 'id' => $model->id], [
-                        'class' => 'btn btn-success btn-info',
-                        'role' => 'modal-remote',
-                        'title' => 'Lihat',
-                        'data-toggle' => 'tooltip'
-                    ]);
-                } else {
-                    return Html::a('Buat Akun', ['buat-akun', 'id' => $model->id], [
-                        'class' => 'btn btn-success btn-block',
-                        'role' => 'modal-remote',
-                        'title' => 'Lihat',
-                        'data-toggle' => 'tooltip'
-                    ]);
-                }
-            },
-
-        ]
-    ],
-
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

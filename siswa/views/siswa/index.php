@@ -83,6 +83,7 @@ CrudAsset::register($this);
         </div>
     </div>
 </div>
+<?= Html::a('Ubah', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote']) ?>
 </div>
 <?php Modal::begin([
     "id" => "ajaxCrudModal",

@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'guru';
+$this->title = 'Dashboard - Guru';
 ?>
 <div class="site-index">
 

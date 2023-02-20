@@ -10,6 +10,7 @@ use common\models\Kelas;
 use common\models\User;
 use common\models\RefStatusWali;
 use common\models\SignupForm;
+use common\models\SiswaRwKelas;
 use common\models\UserPengguna;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -404,25 +405,53 @@ class SiswaController extends Controller
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-            } else if ($model->load($request->post()) && $model->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Siswa ",
-                    'content' => $this->renderAjax('view', [
-                        'model' => $model,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-                ];
-            } else {
-                return [
-                    'title' => "Ubah Siswa ",
-                    'content' => $this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-                ];
+            } else if ($model->load($request->post())) {
+
+                $modelKelas = Kelas::find()->where(['id' => $model->id_kelas])->one();
+                $modelRiwayat = SiswaRwKelas::find()->where(['id_siswa' => $model->id, 'id_tahun_ajaran' => $modelKelas->id_tahun_ajaran])->one();
+
+                if ($modelRiwayat) {
+                    $modelRiwayat->id_kelas = $model->id_kelas;
+                    $modelRiwayat->nama_kelas = $modelKelas->nama_kelas;
+
+                    if ($modelRiwayat->save() && $model->save()) {
+
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Ubah Siswa",
+                            'content' => '<span class="text-success">Ubah Siswa berhasil</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                        ];
+                    }
+                } else {
+                    $SiswaRwKelas = new SiswaRwKelas();
+                    $SiswaRwKelas->id_siswa = $model->id;
+                    $SiswaRwKelas->id_kelas = $model->id_kelas;
+                    $SiswaRwKelas->nama_kelas = $modelKelas->nama_kelas;
+
+                    $modelKelas = Kelas::find()->where(['id' => $model->id_kelas])->one();
+                    $SiswaRwKelas->id_tahun_ajaran = $modelKelas->id_tahun_ajaran;
+                    $SiswaRwKelas->nama_kelas = $modelKelas->nama_kelas;
+                    $SiswaRwKelas->id_tingkat = $modelKelas->id_tingkat;
+                    $SiswaRwKelas->id_wali_kelas = $modelKelas->id_wali_kelas;
+
+                    if ($model->save() && $SiswaRwKelas->save()) {
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Ubah Siswa",
+                            'content' => '<span class="text-success">Ubah Siswa berhasil</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                                Html::a('Tambah Lagi', ['tambahSiswa'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                        ];
+                    } else {
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Ubah Siswa",
+                            'content' => '<span class="text-danger">Ubah Siswa Gagal</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                        ];
+                    }
+                }
             }
         } else {
             /*
@@ -450,11 +479,31 @@ class SiswaController extends Controller
         $request = Yii::$app->request;
 
         $modelSiswa = Siswa::find()->where(['id' => $id])->one();
-        $modelUser = User::find()->where(['id' => $modelSiswa->id_user])->one();
-        $modelAuth = AuthAssignment::find()->where(['user_id' => $modelUser->id])->one();
-        $modelAuth->delete();
-        $modelUser->delete();
-        $this->findModel($id)->delete();
+
+
+        if ($modelSiswa->id_user == null) {
+            $modelRiwayat = SiswaRwKelas::find()->where(['id_siswa' => $id])->one();
+            if ($modelRiwayat) {
+                $modelRiwayat->deleteAll(['id_siswa' => $id]);
+            }
+
+            $this->findModel($id)->delete();
+        } else {
+            $modelUser = User::find()->where(['id' => $modelSiswa->id_user])->one();
+            $modelAuth = AuthAssignment::find()->where(['user_id' => $modelUser->id])->one();
+            $modelAuth->delete();
+            $modelUser->delete();
+
+            $modelRiwayat = SiswaRwKelas::find()->where(['id_siswa' => $id])->one();
+            if ($modelRiwayat) {
+                $modelRiwayat->deleteAll(['id_siswa' => $id]);
+            }
+
+            $this->findModel($id)->delete();
+        }
+
+
+
         if ($request->isAjax) {
             /*
             *   Process for ajax request

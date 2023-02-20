@@ -41,6 +41,22 @@ return [
     [
         'class' => 'kartik\grid\ActionColumn',
         'header' => 'Action',
+        'template' => '{tambah_siswa}',
+        'buttons' => [
+            "tambah_siswa" => function ($url, $model, $key) {
+                return Html::a('+ Siswa', ['tambah-siswa', 'id' => $model->id], [
+                    'class' => 'btn btn-warning btn-warning',
+                    'role' => 'modal-remote',
+                    'title' => 'Lihat',
+                    'data-toggle' => 'tooltip'
+                ]);
+            },
+
+        ]
+    ],
+    [
+        'class' => 'kartik\grid\ActionColumn',
+        'header' => 'Action',
         'template' => '{lihat_siswa}',
         'buttons' => [
             "lihat_siswa" => function ($url, $model, $key) {

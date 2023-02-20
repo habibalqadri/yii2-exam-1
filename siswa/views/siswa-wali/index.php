@@ -11,7 +11,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel siswa\models\SiswaWaliSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Siswa Walis';
+$this->title = 'Wali Murid';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);

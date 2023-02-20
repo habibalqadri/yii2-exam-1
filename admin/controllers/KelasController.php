@@ -6,6 +6,8 @@ use Yii;
 use common\models\Kelas;
 use admin\models\KelasSearch;
 use common\models\RefTahunAjaran;
+use common\models\Siswa;
+use common\models\SiswaRwKelas;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -117,6 +119,7 @@ class KelasController extends Controller
 
                 ];
             } else if ($model->load($request->post()) && $model->save()) {
+
                 return [
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "Tambah Kelas",
@@ -153,6 +156,87 @@ class KelasController extends Controller
                     'dataTingkatKelas' => $dataTingkatKelas,
                     'dataWaliKelas' => $dataWaliKelas,
                     'dataJurusan' => $dataJurusan
+                ]);
+            }
+        }
+    }
+    public function actionTambahSiswa($id)
+    {
+        $request = Yii::$app->request;
+        $modelKelas = $this->findModel($id);
+        $model = Siswa::find()->where(['id_kelas' => null])->one();
+        $dataSiswa = ArrayHelper::map(Siswa::find()->where(['id_kelas' => null])->all(), 'id', 'nama');
+
+
+        if ($request->isAjax) {
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($request->isGet) {
+                return [
+                    'title' => "Tambah Siswa",
+                    'content' => $this->renderAjax('_form_tambah_siswa', [
+                        'model' => $model,
+                        'dataSiswa' => $dataSiswa,
+
+                    ]),
+                    'footer' => ($dataSiswa) ? Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"]) : ''
+
+                ];
+            } else if ($model->load($request->post())) {
+
+                // echo "<pre>";
+                // print_r($model->id_kelas);
+                // echo "</pre>";
+                // exit();
+
+
+                foreach ($model->id_kelas as $value) {
+
+                    $findSiswa = Siswa::find()->where(['id' => $value])->one();
+                    $findSiswa->id_kelas = $id;
+                    $findSiswa->save();
+
+                    $SiswaRwKelas = new SiswaRwKelas();
+                    $SiswaRwKelas->id_siswa = $findSiswa->id;
+                    $SiswaRwKelas->id_kelas = $id;
+                    $SiswaRwKelas->id_tahun_ajaran = $modelKelas->id_tahun_ajaran;
+                    $SiswaRwKelas->nama_kelas = $modelKelas->nama_kelas;
+                    $SiswaRwKelas->id_tingkat = $modelKelas->id_tingkat;
+                    $SiswaRwKelas->id_wali_kelas = $modelKelas->id_wali_kelas;
+                }
+                return [
+                    'forceReload' => '#crud-datatable-pjax',
+                    'title' => "Tambah Siswa",
+                    'content' => '<span class="text-success">Tambah Siswa berhasil</span>',
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::a('Tambah Lagi', ['tambahSiswa'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                ];
+            } else {
+                return [
+                    'title' => "Tambah Kelas",
+                    'content' => $this->renderAjax('_form_tambah_siswa', [
+                        'model' => $model,
+                        'dataSiswa' => $dataSiswa,
+
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+
+                ];
+            }
+        } else {
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('_form_tambah_siswa', [
+                    'model' => $model,
+                    'dataSiswa' => $dataSiswa,
                 ]);
             }
         }
@@ -299,4 +383,13 @@ class KelasController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    // protected function findModel2()
+    // {
+
+    //     if (($model = Siswa::findOne($)) !== null) {
+    //         return $model;
+    //     } else {
+    //         throw new NotFoundHttpException('The requested page does not exist.');
+    //     }
+    // }
 }

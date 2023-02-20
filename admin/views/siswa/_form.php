@@ -34,13 +34,19 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'id_kelas')->widget(Select2::classname(), [
-        'data' => $dataKelas,
-        'options' => ['placeholder' => '-Pilih Kelas-'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ])->label('Kelas'); ?>
+    <?php
+    if ($model->id_kelas) {
+        echo $form->field($model, 'id_kelas')->widget(Select2::classname(), [
+            'data' => $dataKelas,
+            'options' => ['placeholder' => '-Pilih Kelas-'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ])->label('Kelas');
+    }
+    ?>
+
+
 
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">

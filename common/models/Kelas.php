@@ -48,6 +48,7 @@ class Kelas extends \yii\db\ActiveRecord
             'id_tingkat' => 'Tingkat',
             'id_wali_kelas' => 'Wali Kelas',
             'id_jurusan' => 'Jurusan',
+            'wali_kelas.nama_guru' => 'Wali Kelas'
         ];
     }
 

@@ -38,9 +38,11 @@ AppAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Dashboard', 'url' => ['/site/index']],
-            ['label' => 'Wali', 'url' => ['/siswa-wali/index']],
-            ['label' => 'Profil', 'url' => ['/siswa/index']],
+            ['label' => 'Biodata', 'url' => ['/siswa/index']],
             ['label' => 'Riwayat Kelas', 'url' => ['/siswa-rw-kelas/index']],
+            ['label' => 'Wali Murid', 'url' => ['/siswa-wali/index']],
+
+
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
