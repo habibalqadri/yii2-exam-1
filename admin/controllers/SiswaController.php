@@ -12,6 +12,7 @@ use common\models\RefStatusWali;
 use common\models\SignupForm;
 use common\models\SiswaRwKelas;
 use common\models\UserPengguna;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,7 +49,14 @@ class SiswaController extends Controller
     public function actionIndex()
     {
         $searchModel = new SiswaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Siswa::find();
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ]
+        ]);
 
 
         return $this->render('index', [

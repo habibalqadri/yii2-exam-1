@@ -6,7 +6,7 @@ use Yii;
 use yii\bootstrap4\Html;
 use kartik\grid\ActionColumn as kartikActionColumn;
 
-class ActionColumn extends  kartikActionColumn
+class ActionColumn extends kartikActionColumn
 {
 
     protected function initDefaultButtons()

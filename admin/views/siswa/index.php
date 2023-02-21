@@ -6,6 +6,7 @@ use yii\bootstrap4\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use yii\bootstrap4\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\SiswaSearch */
@@ -29,9 +30,12 @@ CrudAsset::register($this);
                     <div id="table-responsive">
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
+                            // 'pager' => [
+                            //     'firstPageLabel' => 'Awal',
+                            //     'lastPageLabel'  => 'Akhir'
+                            // ],
                             'pager' => [
-                                'firstPageLabel' => 'Awal',
-                                'lastPageLabel'  => 'Akhir'
+                                'class' => LinkPager::class
                             ],
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -45,7 +49,7 @@ CrudAsset::register($this);
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-primary', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'
@@ -66,20 +70,26 @@ CrudAsset::register($this);
                                         'class' => 'btn btn-warning '
                                     ]
                                 ),
-                                // 'after'=>BulkButtonWidget::widget([
-                                //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
-                                //                 ["bulk-delete"] ,
-                                //                 [
-                                //                     "class"=>"btn btn-danger btn-xs",
-                                //                     'role'=>'modal-remote-bulk',
-                                //                     'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
-                                //                     'data-request-method'=>'post',
-                                //                     'data-confirm-title'=>'Are you sure?',
-                                //                     'data-confirm-message'=>'Are you sure want to delete this item'
-                                //                 ]),
-                                //         ]).                        
-                                '<div class="clearfix"></div>',
-                            ]
+                                // 'after' => BulkButtonWidget::widget([
+                                //     'buttons' => Html::a(
+                                //         '<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                                //         ["bulk-delete"],
+                                //         [
+                                //             "class" => "btn btn-danger btn-xs",
+                                //             'role' => 'modal-remote-bulk',
+                                //             'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                                //             'data-request-method' => 'post',
+                                //             'data-confirm-title' => 'Are you sure?',
+                                //             'data-confirm-message' => 'Are you sure want to delete this item'
+                                //         ]
+                                //     ),
+                                // ]) .
+                                //     '<div class="clearfix"></div>',
+
+                            ],
+                            // 'pager' => [
+                            //     'class' => LinkPager::class
+                            // ]
                         ]) ?>
                     </div>
                 </div>
