@@ -64,38 +64,41 @@ return [
             "btn_delete" => function ($url, $model, $key) {
                 return
                     Html::a('<i class="fas fa-trash"></i>', ['wali/delete', 'id' => $model->waliSiswa->id], [
-
-                        'role' => 'modal-remote',
-                        'title' => 'Lihat',
-                        'data-toggle' => 'tooltip'
+                        'role' => 'modal-remote', 'title' => 'Hapus',
+                        'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                        'data-request-method' => 'post',
+                        'data-toggle' => 'tooltip',
+                        'data-confirm-title' => 'Peringatan',
+                        'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
                     ]);
             },
 
-        ]
-    ],
-    [
-        'class' => 'common\grid\ActionColumn',
-        'dropdown' => false,
-        'vAlign' => 'middle',
-        'urlCreator' => function ($action, $model, $key, $index) {
-            return Url::to([$action, 'id_siswa' => $model->id_siswa, 'id_wali' => $model->id_wali]);
-        },
-        'viewOptions' => ['role' => 'modal-remote', 'title' => 'Lihat', 'data-toggle' => 'tooltip'],
-        'updateOptions' => [
-            'role' => 'modal-remote',
-            'title' => 'Ubah',
-            'data-toggle' =>
-            'tooltip',
+        ],
 
-        ],
-        'deleteOptions' => [
-            'role' => 'modal-remote', 'title' => 'Hapus',
-            'data-confirm' => false, 'data-method' => false, // for overide yii data api
-            'data-request-method' => 'post',
-            'data-toggle' => 'tooltip',
-            'data-confirm-title' => 'Peringatan',
-            'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
-        ],
     ],
+    // [
+    //     'class' => 'common\grid\ActionColumn',
+    //     'dropdown' => false,
+    //     'vAlign' => 'middle',
+    //     'urlCreator' => function ($action, $model, $key, $index) {
+    //         return Url::to([$action, 'id_siswa' => $model->id_siswa, 'id_wali' => $model->id_wali]);
+    //     },
+    //     'viewOptions' => ['role' => 'modal-remote', 'title' => 'Lihat', 'data-toggle' => 'tooltip'],
+    //     'updateOptions' => [
+    //         'role' => 'modal-remote',
+    //         'title' => 'Ubah',
+    //         'data-toggle' =>
+    //         'tooltip',
+
+    //     ],
+    //     'deleteOptions' => [
+    //         'role' => 'modal-remote', 'title' => 'Hapus',
+    //         'data-confirm' => false, 'data-method' => false, // for overide yii data api
+    //         'data-request-method' => 'post',
+    //         'data-toggle' => 'tooltip',
+    //         'data-confirm-title' => 'Peringatan',
+    //         'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
+    //     ],
+    // ],
 
 ];

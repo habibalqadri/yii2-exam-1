@@ -49,8 +49,9 @@ class SiswaController extends Controller
     public function actionIndex()
     {
         $searchModel = new SiswaSearch();
-        $query = Siswa::find();
+
         // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Siswa::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

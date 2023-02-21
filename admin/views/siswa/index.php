@@ -47,12 +47,16 @@ CrudAsset::register($this);
                                 [
                                     'content' =>
                                     Html::a(
-                                        '<i class="fas fa-redo"></i> ',
+                                        '<i class="fas fa-redo "></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-primary', 'title' => 'Reset Grid']
+                                        [
+                                            'data-pjax' => 1,
+                                            'class' => 'btn btn-primary ',
+                                            'title' => 'Reset Grid'
+                                        ]
                                     ) .
                                         '{toggleData}'
-                                    // .'{export}'
+                                    // . '{export}'
                                 ],
                             ],
                             'striped' => true,
@@ -61,15 +65,18 @@ CrudAsset::register($this);
                             'panel' => [
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
-                                'before' => Html::a(
+                                'before' =>
+                                Html::a(
                                     '+ Tambah',
                                     ['create'],
                                     [
                                         'role' => 'modal-remote',
                                         'title' => 'Create new Siswas',
-                                        'class' => 'btn btn-warning '
+                                        'class' => 'btn btn-warning  float-right'
                                     ]
                                 ),
+
+
                                 // 'after' => BulkButtonWidget::widget([
                                 //     'buttons' => Html::a(
                                 //         '<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

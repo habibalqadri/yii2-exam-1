@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\SiswaRwKelas;
 use admin\models\SiswaRwKelasSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -41,7 +42,14 @@ class SiswaRwKelasController extends Controller
     public function actionIndex()
     {
         $searchModel = new SiswaRwKelasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = SiswaRwKelas::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 6
+            ]
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

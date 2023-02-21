@@ -45,9 +45,9 @@ CrudAsset::register($this);
                                 [
                                     'content' =>
                                     Html::a(
-                                        '<i class="bi bi-8-circle"></i> ',
+                                        '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-info mb-2', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'

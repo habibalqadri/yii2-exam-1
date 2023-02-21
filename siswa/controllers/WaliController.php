@@ -240,6 +240,8 @@ class WaliController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
+        $siswaWali = SiswaWali::find()->where(['id_wali' => $id])->one();
+        $siswaWali->delete();
         $this->findModel($id)->delete();
 
         if ($request->isAjax) {
