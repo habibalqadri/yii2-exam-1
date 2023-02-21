@@ -21,6 +21,7 @@ CrudAsset::register($this);
     <h6 class="element-header">
             </h6>
     <div class="element-box"> -->
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -33,6 +34,7 @@ CrudAsset::register($this);
                                 'firstPageLabel' => 'Awal',
                                 'lastPageLabel'  => 'Akhir'
                             ],
+
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'pjax' => true,
@@ -60,7 +62,7 @@ CrudAsset::register($this);
                                 'before' => Html::a(
                                     'Tambah',
                                     ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Kelas', 'class' => 'btn btn-default']
+                                    ['role' => 'modal-remote', 'title' => 'Create new Kelas', 'class' => 'btn btn-primary']
                                 ),
 
 
@@ -79,7 +81,8 @@ CrudAsset::register($this);
                                 //     ),
                                 // ]) .
                                 '<div class="clearfix"></div>',
-                            ]
+                            ],
+
                         ]) ?>
                     </div>
                 </div>

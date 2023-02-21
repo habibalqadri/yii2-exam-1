@@ -71,7 +71,7 @@ return [
         ]
     ],
     [
-        'class' => 'kartik\grid\ActionColumn',
+        'class' => 'common\grid\ActionColumn',
         'dropdown' => false,
         'vAlign' => 'middle',
         'urlCreator' => function ($action, $model, $key, $index) {

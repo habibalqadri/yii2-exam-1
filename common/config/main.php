@@ -6,6 +6,22 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
+                ],
+                // 'yii\web\JqueryAsset' => [
+                //     'js' => []
+                // ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => []
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => []
+                ]
+            ]
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -16,6 +32,7 @@ return [
             'class' => 'common\components\PenggunaComponent', // only support DbManager
         ],
     ],
+
     'modules' => [
         'gii' => [
             'class' => 'yii\gii\Module',
@@ -29,23 +46,6 @@ return [
             'class' => '\kartik\grid\Module'
         ],
     ],
-    'assetManager' => [
-        'bundles' => [
-            'kartik\form\ActiveFormAsset' => [
-                'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
-            ],
-            // 'yii\web\JqueryAsset' => [
-            //     'js' => []
-            // ],
-            'yii\bootstrap\BootstrapAsset' => [
-                'css' => []
-            ],
-            'yii\bootstrap\BootstrapPluginAsset' => [
-                'js' => []
-            ],
-                
-        ],
-                
-    ]
+
 
 ];

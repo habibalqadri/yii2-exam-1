@@ -6,6 +6,7 @@ use yii\bootstrap4\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
+// use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $searchModel siswa\models\SiswaWaliSearch */
@@ -15,6 +16,8 @@ $this->title = 'Wali Murid';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
+
+
 
 ?>
 <!-- <div class="element-wrapper">
@@ -27,6 +30,7 @@ CrudAsset::register($this);
             <div class="card-body">
                 <div id="ajaxCrudDatatable">
                     <div id="table-responsive">
+
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
                             'pager' => [
@@ -41,7 +45,7 @@ CrudAsset::register($this);
                                 [
                                     'content' =>
                                     Html::a(
-                                        '<i class="fas fa-redo"></i> ',
+                                        '<i class="bi bi-8-circle"></i> ',
                                         [''],
                                         ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
                                     ) .
@@ -58,7 +62,7 @@ CrudAsset::register($this);
                                 'before' => Html::a(
                                     'Tambah',
                                     ['wali/create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Siswa Walis', 'class' => 'btn btn-default']
+                                    ['role' => 'modal-remote', 'title' => 'Create new Siswa Walis', 'class' => 'btn btn-primary']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

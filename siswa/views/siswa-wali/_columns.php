@@ -1,7 +1,11 @@
 <?php
 
+use kartik\icons\Icon;
+use kartik\grid\ActionColumn;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
+
+Icon::map($this);
 
 return [
     //[
@@ -41,7 +45,7 @@ return [
         'buttons' => [
             "btn_view" => function ($url, $model, $key) {
                 return
-                    Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ['wali/view', 'id' => $model->waliSiswa->id], [
+                    Html::a('<i class="far fa-eye"></i>', ['wali/view', 'id' => $model->waliSiswa->id], [
 
                         'role' => 'modal-remote',
                         'title' => 'Lihat',
@@ -50,7 +54,7 @@ return [
             },
             "btn_update" => function ($url, $model, $key) {
                 return
-                    Html::a('<i class="glyphicon glyphicon-pencil"></i>', ['wali/update', 'id' => $model->waliSiswa->id], [
+                    Html::a('<i class="fas fa-edit"></i>', ['wali/update', 'id' => $model->waliSiswa->id], [
 
                         'role' => 'modal-remote',
                         'title' => 'Lihat',
@@ -59,7 +63,7 @@ return [
             },
             "btn_delete" => function ($url, $model, $key) {
                 return
-                    Html::a('<i class="glyphicon glyphicon-trash"></i>', ['wali/delete', 'id' => $model->waliSiswa->id], [
+                    Html::a('<i class="fas fa-trash"></i>', ['wali/delete', 'id' => $model->waliSiswa->id], [
 
                         'role' => 'modal-remote',
                         'title' => 'Lihat',
@@ -69,23 +73,29 @@ return [
 
         ]
     ],
-    // [
-    //     'class' => 'kartik\grid\ActionColumn',
-    //     'dropdown' => false,
-    //     'vAlign' => 'middle',
-    //     'urlCreator' => function ($action, $model, $key, $index) {
-    //         return Url::to([$action, 'id_siswa' => $model->id_siswa, 'id_wali' => $model->id_wali]);
-    //     },
-    //     'viewOptions' => ['role' => 'modal-remote', 'title' => 'Lihat', 'data-toggle' => 'tooltip'],
-    //     'updateOptions' => ['role' => 'modal-remote', 'title' => 'Ubah', 'data-toggle' => 'tooltip'],
-    //     'deleteOptions' => [
-    //         'role' => 'modal-remote', 'title' => 'Hapus',
-    //         'data-confirm' => false, 'data-method' => false, // for overide yii data api
-    //         'data-request-method' => 'post',
-    //         'data-toggle' => 'tooltip',
-    //         'data-confirm-title' => 'Peringatan',
-    //         'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
-    //     ],
-    // ],
+    [
+        'class' => 'common\grid\ActionColumn',
+        'dropdown' => false,
+        'vAlign' => 'middle',
+        'urlCreator' => function ($action, $model, $key, $index) {
+            return Url::to([$action, 'id_siswa' => $model->id_siswa, 'id_wali' => $model->id_wali]);
+        },
+        'viewOptions' => ['role' => 'modal-remote', 'title' => 'Lihat', 'data-toggle' => 'tooltip'],
+        'updateOptions' => [
+            'role' => 'modal-remote',
+            'title' => 'Ubah',
+            'data-toggle' =>
+            'tooltip',
+
+        ],
+        'deleteOptions' => [
+            'role' => 'modal-remote', 'title' => 'Hapus',
+            'data-confirm' => false, 'data-method' => false, // for overide yii data api
+            'data-request-method' => 'post',
+            'data-toggle' => 'tooltip',
+            'data-confirm-title' => 'Peringatan',
+            'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
+        ],
+    ],
 
 ];

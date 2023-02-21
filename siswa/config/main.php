@@ -56,5 +56,8 @@ return [
             'mimin/*', // only in dev mode
         ],
     ],
-    'params' => $params,
+    'params' => [
+        $params,
+        'icon-framework' => \kartik\icons\Icon::FAS,
+    ]
 ];

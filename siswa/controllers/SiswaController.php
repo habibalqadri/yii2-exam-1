@@ -221,7 +221,11 @@ class SiswaController extends Controller
                 //         Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 // ];
 
-                return $this->redirect(['index']);
+                return [
+                    'forceClose' => true,
+                    'forceReload' => '#id-pjax',
+
+                ];
                 // return
                 //     $this->redirect(['index']);
             }
