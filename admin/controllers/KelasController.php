@@ -206,6 +206,7 @@ class KelasController extends Controller
                     $SiswaRwKelas->nama_kelas = $modelKelas->nama_kelas;
                     $SiswaRwKelas->id_tingkat = $modelKelas->id_tingkat;
                     $SiswaRwKelas->id_wali_kelas = $modelKelas->id_wali_kelas;
+                    $SiswaRwKelas->save();
                 }
                 return [
                     'forceReload' => '#crud-datatable-pjax',
