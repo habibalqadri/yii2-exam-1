@@ -14,10 +14,12 @@ class ActionColumn extends kartikActionColumn
         $this->initDefaultButton('view', 'far fa-eye');
         $this->initDefaultButton('update', 'fas fa-edit');
         $this->initDefaultButton('delete', 'fas fa-trash', [
-            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+
+            'data-confirm' => Yii::t('yii', 'Apakah anda yakin ingin menghapus data ini?'),
             'data-method' => 'post',
         ]);
     }
+
     protected function initDefaultButton($name, $iconName, $additionalOptions = [])
     {
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {

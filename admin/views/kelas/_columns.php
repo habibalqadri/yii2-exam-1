@@ -4,10 +4,10 @@ use yii\bootstrap4\Html;
 use yii\helpers\Url;
 
 return [
-    //[
-    //'class' => 'kartik\grid\CheckboxColumn',
-    //'width' => '20px',
-    //],
+    // [
+    //     'class' => 'kartik\grid\CheckboxColumn',
+    //     'width' => '20px',
+    // ],
     [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
@@ -71,7 +71,7 @@ return [
         ]
     ],
     [
-        'class' => 'common\grid\ActionColumn',
+        'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign' => 'middle',
         'urlCreator' => function ($action, $model, $key, $index) {

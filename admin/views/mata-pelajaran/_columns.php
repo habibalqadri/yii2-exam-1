@@ -1,12 +1,19 @@
 <?php
 
 use yii\helpers\Url;
+use kartik\grid\CheckboxColumn;
+
+
 
 return [
-    //[
-    //'class' => 'kartik\grid\CheckboxColumn',
-    //'width' => '20px',
-    //],
+    [
+        'class' => 'kartik\grid\CheckboxColumn',
+        'name' => 'pilihHapus',
+        'checkboxOptions' => function ($model, $key, $index, $column) {
+            return ['checked' => false];
+        },
+        'width' => '20px',
+    ],
     [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
@@ -38,8 +45,10 @@ return [
         'viewOptions' => ['role' => 'modal-remote', 'title' => 'Lihat', 'data-toggle' => 'tooltip'],
         'updateOptions' => ['role' => 'modal-remote', 'title' => 'Ubah', 'data-toggle' => 'tooltip'],
         'deleteOptions' => [
-            'role' => 'modal-remote', 'title' => 'Hapus',
-            'data-confirm' => false, 'data-method' => false, // for overide yii data api
+            'role' => 'modal-remote',
+            'title' => 'Hapus',
+            'data-confirm' => false,
+            'data-method' => false, // for overide yii data api
             'data-request-method' => 'post',
             'data-toggle' => 'tooltip',
             'data-confirm-title' => 'Peringatan',

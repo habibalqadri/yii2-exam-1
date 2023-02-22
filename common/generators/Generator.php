@@ -1,4 +1,5 @@
 <?php
+
 namespace common\generators;
 
 use Yii;
@@ -9,6 +10,7 @@ use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
+
 /**
  * Generates CRUD
  *
@@ -127,7 +129,7 @@ class Generator extends \yii\gii\Generator
      */
     public function validateModelClass()
     {
-        /* @var $class ActiveRecord */     
+        /* @var $class ActiveRecord */
         $class = $this->modelClass;
         $pk = $class::primaryKey();
         if (empty($pk)) {
@@ -233,7 +235,7 @@ class Generator extends \yii\gii\Generator
                     $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
                 }
                 return "\$form->field(\$model, '$attribute')->dropDownList("
-                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
+                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
             } elseif ($column->phpType !== 'string' || $column->size === null) {
                 return "\$form->field(\$model, '$attribute')->$input()";
             } else {
