@@ -6,6 +6,7 @@ use yii\bootstrap4\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use yii\bootstrap4\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $searchModel guru\models\LihatSiswaSearch */
@@ -30,8 +31,7 @@ CrudAsset::register($this);
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
                             'pager' => [
-                                'firstPageLabel' => 'Awal',
-                                'lastPageLabel'  => 'Akhir'
+                                'class' => LinkPager::class
                             ],
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -43,7 +43,7 @@ CrudAsset::register($this);
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-info', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'

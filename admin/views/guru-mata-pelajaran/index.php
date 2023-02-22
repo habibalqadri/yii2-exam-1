@@ -6,6 +6,7 @@ use yii\bootstrap4\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use yii\bootstrap4\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\GuruMataPelajaranSearch */
@@ -30,8 +31,7 @@ CrudAsset::register($this);
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
                             'pager' => [
-                                'firstPageLabel' => 'Awal',
-                                'lastPageLabel'  => 'Akhir'
+                                'class' => LinkPager::class
                             ],
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -43,7 +43,7 @@ CrudAsset::register($this);
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-info', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'
@@ -56,9 +56,9 @@ CrudAsset::register($this);
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
                                 'before' => Html::a(
-                                    'Tambah',
+                                    '+ Tambah',
                                     ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-default']
+                                    ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-warning']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

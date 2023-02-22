@@ -51,7 +51,7 @@ CrudAsset::register($this);
                                         [''],
                                         [
                                             'data-pjax' => 1,
-                                            'class' => 'btn btn-primary ',
+                                            'class' => 'btn btn-info ',
                                             'title' => 'Reset Grid'
                                         ]
                                     ) .
@@ -72,7 +72,7 @@ CrudAsset::register($this);
                                     [
                                         'role' => 'modal-remote',
                                         'title' => 'Create new Siswas',
-                                        'class' => 'btn btn-warning  float-right'
+                                        'class' => 'btn btn-warning'
                                     ]
                                 ),
 

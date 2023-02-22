@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\GuruMataPelajaran;
 use admin\models\GuruMataPelajaranSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -41,7 +42,14 @@ class GuruMataPelajaranController extends Controller
     public function actionIndex()
     {
         $searchModel = new GuruMataPelajaranSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = GuruMataPelajaran::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

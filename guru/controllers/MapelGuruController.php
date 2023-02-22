@@ -6,6 +6,7 @@ use common\models\Guru;
 use Yii;
 use common\models\GuruMataPelajaran;
 use guru\models\MapelGuruSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -46,7 +47,14 @@ class MapelGuruController extends Controller
         $model = GuruMataPelajaran::find()->where(['id_guru' => $modelGuru->id])->one();
         $searchModel = new MapelGuruSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['id_guru' => $modelGuru->id]);
+        $query =  $dataProvider->query->andFilterWhere(['id_guru' => $modelGuru->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -91,6 +99,8 @@ class MapelGuruController extends Controller
     {
         $request = Yii::$app->request;
         $model = new GuruMataPelajaran();
+
+
         $dataGuru =  ArrayHelper::map(\common\models\Guru::find()->where(['id' => $id])->asArray()->all(), 'id', 'nama_guru');
         $dataMataPelajaran =  ArrayHelper::map(\common\models\MataPelajaran::find()->asArray()->all(), 'id', 'mata_pelajaran');
         // var_dump(Yii::$app->pengguna->dataGuru);
@@ -108,20 +118,28 @@ class MapelGuruController extends Controller
                         'dataGuru' => $dataGuru,
                         'dataMataPelajaran' => $dataMataPelajaran,
 
+
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            } else if ($model->load($request->post()) && $model->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah GuruMataPelajaran",
-                    'content' => '<span class="text-success">Create GuruMataPelajaran berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+            } else if ($model->load($request->post())) {
+                $id_user = Yii::$app->user->identity->id;
+                $modelGuru = Guru::find()->where(['id_user' => $id_user])->one();
+                if (!$model->id_guru) {
+                    $model->id_guru = $modelGuru->id;
+                    if ($model->save()) {
+                        return [
+                            'forceReload' => '#crud-datatable-pjax',
+                            'title' => "Tambah GuruMataPelajaran",
+                            'content' => '<span class="text-success">Guru Mata Pelajaran berhasil Dibuat!</span>',
+                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                                Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
-                ];
+                        ];
+                    }
+                }
             } else {
                 return [
                     'title' => "Tambah GuruMataPelajaran",

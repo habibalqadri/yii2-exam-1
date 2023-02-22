@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\MataPelajaran;
 use admin\models\MataPelajaranSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -41,7 +42,14 @@ class MataPelajaranController extends Controller
     public function actionIndex()
     {
         $searchModel = new MataPelajaranSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = MataPelajaran::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

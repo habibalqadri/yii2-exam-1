@@ -44,7 +44,7 @@ CrudAsset::register($this);
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-info', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'
@@ -57,9 +57,9 @@ CrudAsset::register($this);
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswa Rw Kelas listing',
                                 'before' => Html::a(
-                                    'Tambah',
+                                    '+ Tambah',
                                     ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Siswa Rw Kelas', 'class' => 'btn btn-default']
+                                    ['role' => 'modal-remote', 'title' => 'Create new Siswa Rw Kelas', 'class' => 'btn btn-warning']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

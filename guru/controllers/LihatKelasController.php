@@ -6,6 +6,7 @@ use common\models\Guru;
 use Yii;
 use common\models\Kelas;
 use guru\models\LihatKelasSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,7 +46,18 @@ class LihatKelasController extends Controller
         $modelGuru = Guru::find()->where(['id_user' => $id_user])->one();
         $searchModel = new LihatKelasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['id_wali_kelas' => $modelGuru->id]);
+        $query = $dataProvider->query->andFilterWhere(['id_wali_kelas' => $modelGuru->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
+
+
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

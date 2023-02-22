@@ -8,6 +8,7 @@ use admin\models\KelasSearch;
 use common\models\RefTahunAjaran;
 use common\models\Siswa;
 use common\models\SiswaRwKelas;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,7 +46,14 @@ class KelasController extends Controller
     public function actionIndex()
     {
         $searchModel = new KelasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Kelas::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

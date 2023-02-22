@@ -9,6 +9,8 @@ use common\models\AuthAssignment;
 use common\models\SignupForm;
 use common\models\User;
 use common\models\UserPengguna;
+use yii\data\ActiveDataProvider;
+use yii\debug\models\timeline\DataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,7 +47,14 @@ class GuruController extends Controller
     public function actionIndex()
     {
         $searchModel = new GuruSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Guru::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

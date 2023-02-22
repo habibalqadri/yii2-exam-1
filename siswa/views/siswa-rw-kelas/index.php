@@ -43,7 +43,7 @@ CrudAsset::register($this);
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-info', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'

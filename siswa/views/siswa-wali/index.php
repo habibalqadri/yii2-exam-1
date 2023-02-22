@@ -18,8 +18,21 @@ $this->params['breadcrumbs'][] = $this->title;
 CrudAsset::register($this);
 
 
+// $style = <<<CSS
 
+//  .kv-panel-before .kv-grid-toolbar{
+//     display: flex;
+//     justify-content: end;
+//  } 
+//  .kv-panel-before .btn-group .btn-default{
+//        color: #212529;
+//     background-color: #ffc107;
+//     border-color: #ffc107;
+//  } 
+//  CSS;
+// $this->registerCss($style);
 ?>
+
 <!-- <div class="element-wrapper">
     <h6 class="element-header">
             </h6>
@@ -47,7 +60,7 @@ CrudAsset::register($this);
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-info mb-2', 'title' => 'Reset Grid']
+                                        ['data-pjax' => 1, 'class' => 'btn btn-info', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'
