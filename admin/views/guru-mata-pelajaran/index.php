@@ -12,7 +12,7 @@ use yii\bootstrap4\LinkPager;
 /* @var $searchModel admin\models\GuruMataPelajaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Guru Mata Pelajarans';
+$this->title = $mataPelajaran->mata_pelajaran;
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -22,10 +22,13 @@ CrudAsset::register($this);
     <h6 class="element-header">
             </h6>
     <div class="element-box"> -->
+
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <h4>Mata Pelajaran : <?= $mataPelajaran->mata_pelajaran ?></h4>
+                <hr>
                 <div id="ajaxCrudDatatable">
                     <div id="table-responsive">
                         <?= GridView::widget([
@@ -57,7 +60,8 @@ CrudAsset::register($this);
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
                                 'before' => Html::a(
                                     '+ Tambah',
-                                    ['create'],
+                                    ['create', 'id' => $id, 'id_guru' => ''],
+                                    // ['create', 'id' => $id],
                                     ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-warning']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([
@@ -83,6 +87,7 @@ CrudAsset::register($this);
 </div>
 </div>
 <?php Modal::begin([
+    "size" => "modal-lg",
     "id" => "ajaxCrudModal",
     'options' => [
         'tabindex' => false

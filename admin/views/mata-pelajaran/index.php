@@ -92,7 +92,7 @@ CrudAsset::register($this);
                                         "class" => "btn btn-danger btn-xs",
                                         'data-toggle' => 'tooltip',
                                         'data-confirm' => false,
-                                        'data-method' => 'POST', // for overide yii data api
+                                        'data-method' => false, // for overide yii data api
                                         'data-request-method' => 'post',
                                         'data-confirm-title' => 'Peringatan',
                                         'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'

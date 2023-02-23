@@ -2,8 +2,7 @@
 
 use yii\helpers\Url;
 use kartik\grid\CheckboxColumn;
-
-
+use yii\bootstrap4\Html;
 
 return [
     [
@@ -34,6 +33,39 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'jurusan.jurusan',
+    ],
+    [
+        'class' => 'kartik\grid\ActionColumn',
+        'header' => 'Lihat Guru',
+        'template' => '{btn_aksi}',
+        'buttons' => [
+            "btn_aksi" => function ($url, $model, $key) {
+                return Html::a('Lihat Guru', ['guru-mata-pelajaran/index', 'id' => $model->id], [
+                    'class' => 'btn btn-success btn-info',
+                    'role' => 'modal-remote',
+                    'title' => 'Lihat',
+                    'data-toggle' => 'tooltip',
+                    'target' => '_blank'
+                ]);
+
+                // if ($model->id_user) {
+                //     return Html::a('Lihat Guru', ['lihat-guru'], [
+                //         'class' => 'btn btn-success btn-info',
+                //         'role' => 'modal-remote',
+                //         'title' => 'Lihat',
+                //         'data-toggle' => 'tooltip'
+                //     ]);
+                // } else {
+                //     return Html::a('Lihat Guru', ['buat-akun'], [
+                //         'class' => 'btn btn-success btn-block',
+                //         'role' => 'modal-remote',
+                //         'title' => 'Lihat',
+                //         'data-toggle' => 'tooltip'
+                //     ]);
+                // }
+            },
+
+        ]
     ],
     [
         'class' => 'kartik\grid\ActionColumn',
