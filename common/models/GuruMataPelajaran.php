@@ -50,4 +50,11 @@ class GuruMataPelajaran extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MataPelajaran::className(), ['id' => 'id_mata_pelajaran']);
     }
+
+    // public function saveGuruMapel()
+    // {
+    //     if ($model = GuruMataPelajaran::find()->where(['id_mata_pelajaran' => $this->id, 'id_guru' => $this->id_guru])->one()) {
+    //         $this->save();
+    //     }
+    // }
 }

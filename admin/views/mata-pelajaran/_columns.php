@@ -42,7 +42,7 @@ return [
             "btn_aksi" => function ($url, $model, $key) {
                 return Html::a('Lihat Guru', ['guru-mata-pelajaran/index', 'id' => $model->id], [
                     'class' => 'btn btn-success btn-info',
-                    'role' => 'modal-remote',
+
                     'title' => 'Lihat',
                     'data-toggle' => 'tooltip',
                     'target' => '_blank'

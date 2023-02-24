@@ -26,8 +26,9 @@ use yii\widgets\Pjax;
 
 	<?php $form = ActiveForm::begin(); ?>
 
-	<!-- <div id="ajaxCrudDatatable">
+	<div id="ajaxCrudDatatable">
 		<div id="table-responsive">
+
 			<?= GridView::widget([
 				'id' => 'crud-datatable',
 				// 'pager' => [
@@ -35,7 +36,6 @@ use yii\widgets\Pjax;
 				// ],
 				'dataProvider' => $dataProvider,
 				'filterModel' => $searchModel,
-				// 'dataProvider' => $id,
 				'pjax' => true,
 				'columns' => [
 					[
@@ -47,14 +47,28 @@ use yii\widgets\Pjax;
 						'header' => 'Akun',
 						'template' => '{btn_aksi}',
 						'buttons' => [
-							"btn_aksi" => function ($url, $model, $key) {
-								// $id = 37;
-								return Html::a('Pilih', ['create', 'id' => '', 'id_guru' => $model->id], [
-									'class' => 'btn btn btn-outline-info',
-									'role' => 'modal-remote',
-									'title' => 'Lihat',
-									'data-toggle' => 'tooltip'
-								]);
+							"btn_aksi" => function ($url, $model, $key) use ($id) {
+
+								// return $model->cekStatusMapel($id);
+
+
+								if ($model->cekStatusMapel($id)) {
+									return Html::a('Terpilih', ['guru-mata-pelajaran/delete', 'id' => $id, 'id_guru_mapel' => $model->cekIdMapel($id)->id], [
+										'class' => 'btn btn btn-info',
+										'role' => 'modal-remote',
+										'title' => 'Lihat',
+										'data-confirm' => false, 'data-method' => false, // for overide yii data api
+										'data-request-method' => 'post',
+										'data-toggle' => 'tooltip'
+									]);
+								} else {
+									return Html::a('Pilih', ['create', 'id' => $id, 'id_guru' => $model->id], [
+										'class' => 'btn btn btn-outline-info',
+										'role' => 'modal-remote',
+										'title' => 'Lihat',
+										'data-toggle' => 'tooltip'
+									]);
+								}
 							},
 
 						]
@@ -65,73 +79,11 @@ use yii\widgets\Pjax;
 				'responsive' => true,
 
 			]) ?>
-		</div>
-	</div> -->
 
-	<div class="row justify-content-center">
-		<div class="col-11">
-			<table class="table table-hover table-bordered">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Nama Guru</th>
-						<th scope="col">Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php Pjax::begin(['id' => 'crud-datatable-pjax']);
-
-					?>
-
-					<?php $no = 1; ?>
-					<?php if ($dataGuru) : { ?>
-							<?php foreach ($dataGuru as $dataGuru) : {
-							?>
-									<tr>
-										<th scope="row"><?= $no++; ?></th>
-
-
-										<td><?= $dataGuru->nama_guru ?></td>
-
-
-										<td>
-
-											<?php
-											if ($modelMataPelajaran) {
-
-												echo
-												Html::a(
-													'Pilih',
-													['create', 'id' => $id, 'id_guru' => $dataGuru->id],
-													// ['create', 'id' => $id],
-													['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-outline-info w-75']
-												);
-											} else {
-
-												echo
-												Html::a(
-													'Pilih',
-													['create', 'id' => $id, 'id_guru' => $dataGuru->id],
-													// ['create', 'id' => $id],
-													['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-outline-info w-75']
-												);
-											}
-
-											?>
-										</td>
-									</tr>
-							<?php }
-							endforeach; ?>
-
-					<?php }
-					endif; ?>
-
-					<?php Pjax::end();
-					?>
-				</tbody>
-			</table>
 		</div>
 	</div>
+
+
 
 
 
