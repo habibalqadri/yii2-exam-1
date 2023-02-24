@@ -154,6 +154,7 @@ class GuruMataPelajaranController extends Controller
                     ];
                 } else {
                     return [
+                        'forceReload' => '#crud-datatable-pjax',
                         'title' => "Tambah Guru Mata Pelajaran",
                         'content' => $this->renderAjax('create', [
                             'model' => $model,
