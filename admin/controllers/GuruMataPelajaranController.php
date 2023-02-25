@@ -168,17 +168,13 @@ class GuruMataPelajaranController extends Controller
                 /*
             *   Process for non-ajax request
             */
-                if ($model->load($request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-                    return $this->render('create', [
-                        'model' => $model,
-                        'dataMataPelajaran' => $dataMataPelajaran,
-                        'dataProvider' => $dataProvider,
-                        'searchModel' => $searchModel,
-                        'id' => $id,
-                    ]);
-                }
+                return $this->render('create', [
+                    'model' => $model,
+                    'dataMataPelajaran' => $dataMataPelajaran,
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'id' => $id,
+                ]);
             }
         }
     }
@@ -265,17 +261,20 @@ class GuruMataPelajaranController extends Controller
             /*
             *   Process for ajax request
             */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($request->isGet) {
-                return $this->actionCreate($id, $id_guru);
-            } else {
-                return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-            }
+            return $this->actionCreate($id, $id_guru);
+
+            // Yii::$app->response->format = Response::FORMAT_JSON;
+            // if ($request->isGet) {
+            //     return $this->actionCreate($id, $id_guru);
+            // } else {
+            //     return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            // }
+
         } else {
             /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
         }
     }
 
