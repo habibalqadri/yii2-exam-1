@@ -266,7 +266,11 @@ class GuruMataPelajaranController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return $this->actionCreate($id, $id_guru);
+            if ($request->isGet) {
+                return $this->actionCreate($id, $id_guru);
+            } else {
+                return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            }
         } else {
             /*
             *   Process for non-ajax request
