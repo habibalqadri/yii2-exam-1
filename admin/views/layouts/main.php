@@ -45,6 +45,7 @@ AppAsset::register($this);
             ['label' => 'Kelas', 'url' => ['/kelas/index']],
             ['label' => 'Mata Pelajaran', 'url' => ['/mata-pelajaran/index']],
 
+
             ['label' => 'Riwayat Siswa', 'url' => ['/siswa-rw-kelas/index']],
         ];
         if (Yii::$app->user->isGuest) {

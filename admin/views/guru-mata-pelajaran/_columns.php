@@ -17,12 +17,13 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'guru.nama_guru',
+        'value' => 'guru.nama_guru',
+        'attribute' => 'cari_guru',
     ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'mata_pelajaran.mata_pelajaran',
-    ],
+    // [
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'attribute' => 'mata_pelajaran.mata_pelajaran',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'template' => '{view} ',

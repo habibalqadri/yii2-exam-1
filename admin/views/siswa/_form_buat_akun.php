@@ -24,6 +24,8 @@ use kartik\date\DatePicker;
 
 
 
+
+
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">
             <?= Html::submitButton($dataUser->isNewRecord ? 'buat-akun' : 'Update', ['class' => $dataUser->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

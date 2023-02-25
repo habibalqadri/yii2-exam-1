@@ -24,16 +24,17 @@ CrudAsset::register($this);
     <h6 class="element-header">
             </h6>
     <div class="element-box"> -->
-<?php $form = ActiveForm::begin(); ?>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div id="ajaxCrudDatatable">
                     <div id="table-responsive">
-
+                        <?php $form = ActiveForm::begin(); ?>
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
+
                             'pager' => [
                                 'class' => LinkPager::class
                             ],
@@ -91,11 +92,13 @@ CrudAsset::register($this);
                                         'role' => 'modal-remote',
                                         "class" => "btn btn-danger btn-xs",
                                         'data-toggle' => 'tooltip',
-                                        'data-confirm' => false,
-                                        'data-method' => false, // for overide yii data api
-                                        'data-request-method' => 'post',
                                         'data-confirm-title' => 'Peringatan',
-                                        'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
+                                        'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?',
+                                        'data-confirm' => false,
+                                        'data-method' => 'post', // for overide yii data api
+                                        'data-request-method' => 'post',
+
+
                                     ]
                                 ) .
                                     '<div class="clearfix"></div>',
@@ -120,7 +123,7 @@ CrudAsset::register($this);
 
                             ]
                         ]) ?>
-
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
             </div>
@@ -128,7 +131,7 @@ CrudAsset::register($this);
     </div>
 </div>
 </div>
-<?php ActiveForm::end(); ?>
+
 
 <?php Modal::begin([
     "id" => "ajaxCrudModal",

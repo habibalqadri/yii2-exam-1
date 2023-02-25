@@ -5,6 +5,7 @@ use kartik\grid\CheckboxColumn;
 use yii\bootstrap4\Html;
 
 return [
+
     [
         'class' => 'kartik\grid\CheckboxColumn',
         'name' => 'pilihHapus',
@@ -42,10 +43,10 @@ return [
             "btn_aksi" => function ($url, $model, $key) {
                 return Html::a('Lihat Guru', ['guru-mata-pelajaran/index', 'id' => $model->id], [
                     'class' => 'btn btn-success btn-info',
-
                     'title' => 'Lihat',
                     'data-toggle' => 'tooltip',
-                    'target' => '_blank'
+                    // 'target' => '_blank',
+
                 ]);
 
                 // if ($model->id_user) {
@@ -84,7 +85,8 @@ return [
             'data-request-method' => 'post',
             'data-toggle' => 'tooltip',
             'data-confirm-title' => 'Peringatan',
-            'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
+            'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini? <br/> <small class="text-danger">*Menghapus data ini akan menghapus data yang ada di dalamnya!</small>',
+
         ],
     ],
 

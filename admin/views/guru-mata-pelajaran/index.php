@@ -7,6 +7,7 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 use yii\bootstrap4\LinkPager;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\GuruMataPelajaranSearch */
@@ -27,12 +28,12 @@ CrudAsset::register($this);
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4>Mata Pelajaran : <?= $mataPelajaran->mata_pelajaran ?></h4>
-                <hr>
+
                 <div id="ajaxCrudDatatable">
                     <div id="table-responsive">
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
+
                             'pager' => [
                                 'class' => LinkPager::class
                             ],
@@ -43,27 +44,37 @@ CrudAsset::register($this);
                             'toolbar' => [
                                 [
                                     'content' =>
+
                                     Html::a(
                                         '<i class="fas fa-redo"></i> ',
-                                        [''],
+                                        ['index', 'id' => $id],
                                         ['data-pjax' => 1, 'class' => 'btn btn-info', 'title' => 'Reset Grid']
                                     ) .
                                         '{toggleData}'
                                     // .'{export}'
+
                                 ],
                             ],
+
                             'striped' => true,
                             'condensed' => true,
                             'responsive' => true,
+
                             'panel' => [
-                                // 'type' => 'primary', 
-                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
-                                'before' => Html::a(
-                                    '+ Tambah',
-                                    ['create', 'id' => $id, 'id_guru' => ''],
-                                    // ['create', 'id' => $id],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-warning']
-                                ),
+                                'type' => 'primary',
+                                'heading' => '<hr>' . '<h5>' . 'Mata Pelajaran : ' . $mataPelajaran->mata_pelajaran . '</h5>',
+                                'before' =>
+                                Html::a(
+                                    '<i class="fas fa-arrow-left"></i>',
+                                    ['mata-pelajaran/index'],
+                                    ['class' => 'btn btn-success', 'title' => 'Reset Grid']
+                                ) . ' ' .
+                                    Html::a(
+                                        '+ Tambah',
+                                        ['create', 'id' => $id, 'id_guru' => ''],
+                                        // ['create', 'id' => $id],
+                                        ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-warning']
+                                    ) . '<hr>',
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                                 //                 ["bulk-delete"] ,

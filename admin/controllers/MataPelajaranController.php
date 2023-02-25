@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\MataPelajaran;
 use admin\models\MataPelajaranSearch;
+use common\models\GuruMataPelajaran;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -51,9 +52,11 @@ class MataPelajaranController extends Controller
             ]
         ]);
 
+        $mataPelajaran = '';
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'mataPelajaran' => $mataPelajaran,
         ]);
     }
 
@@ -221,6 +224,7 @@ class MataPelajaranController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
+        $this->findModel($id)->deleteGuruMapel($id);
         $this->findModel($id)->delete();
 
         if ($request->isAjax) {
@@ -248,59 +252,65 @@ class MataPelajaranController extends Controller
     {
         $request = Yii::$app->request;
         // $row = explode(',', $request->post('pilihHapus')); // Array or selected records primary keys
-        // $row = $request->post('pilihHapus'); // Array or selected records primary keys
+        $row = $request->post('pilihHapus'); // Array or selected records primary keys
+
+
         // foreach ($row as $value) {
         //     $model = $this->findModel($value);
         //     $model->delete();
         // }
 
 
-        if ($request->isPost) {
-            $row = $request->post('pilihHapus');
-            if ($request->post('pilihHapus')) {
-                foreach ($row as $value) {
-                    $mapel = $this->findModel($value);
-                    $mapel->delete();
-                }
+        // if ($request->isPost) {
+        //     $row = $request->post('pilihHapus');
+        //     if ($request->post('pilihHapus')) {
+        //         foreach ($row as $value) {
+        //             $mapel = $this->findModel($value);
+        //             $mapel->delete();
+        //         }
 
+        //         Yii::$app->response->format = Response::FORMAT_JSON;
+        //         return [
+        //             'forceReload' => '#crud-datatable-pjax',
+        //             'title' => "MataPelajaran ",
+        //             'content' => '<span class="text-success">Data berhasil Dihapus</span>',
+        //             'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+        //         ];
+        //     } else {
+        //         Yii::$app->response->format = Response::FORMAT_JSON;
+        //         return [
+        //             'forceReload' => '#crud-datatable-pjax',
+        //             'title' => "Peringatan ",
+        //             'content' =>
+        //             '<span class="text-danger">Pilih Data Terlebih Dahulu!</span>',
+        //             'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+        //         ];
+        //     }
+        // }
+
+        if ($row) {
+            if ($request->isAjax) {
+
+                /*
+            *   Process for ajax request
+            */
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return [
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "MataPelajaran ",
-                    'content' => '<span class="text-success">Data berhasil Dihapus</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-                ];
-            } else {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Peringatan ",
                     'content' =>
-                    '<span class="text-danger">Pilih Data Terlebih Dahulu!</span>',
+                    print_r($row),
+                    exit(),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
                 ];
-            }
-        }
-
-        if ($request->isAjax) {
-
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                'forceReload' => '#crud-datatable-pjax',
-                'title' => "MataPelajaran ",
-                'content' => '<span class="text-success">Data berhasil Dihapus</span>',
-                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-            ];
-            // Yii::$app->response->format = Response::FORMAT_JSON;
-            // return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-        } else {
-            /*
+                // Yii::$app->response->format = Response::FORMAT_JSON;
+                // return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            } else {
+                /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+                return $this->redirect(['index']);
+            }
         }
     }
 

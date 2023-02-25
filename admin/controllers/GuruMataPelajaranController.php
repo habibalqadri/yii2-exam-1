@@ -54,6 +54,7 @@ class GuruMataPelajaranController extends Controller
                 'pageSize' => 5
             ]
         ]);
+
         $mataPelajaran = MataPelajaran::find()->where(['id' => $id])->one();
 
         return $this->render('index', [
@@ -75,12 +76,11 @@ class GuruMataPelajaranController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "GuruMataPelajaran ",
+                'title' => "Guru Mata Pelajaran ",
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
-                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                    Html::a('Ubah', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
             ];
         } else {
             return $this->render('view', [
@@ -106,8 +106,6 @@ class GuruMataPelajaranController extends Controller
 
         $model->id_guru = $id_guru;
         $model->id_mata_pelajaran = $id;
-
-
 
         if ($id_guru) {
             if ($model->save()) {

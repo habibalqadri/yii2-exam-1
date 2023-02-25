@@ -55,4 +55,14 @@ class Guru extends \yii\db\ActiveRecord
     {
         return $this->hasOne(GuruMataPelajaran::className(), ['id_guru' => 'id'])->andOnCondition(['id_mata_pelajaran' => $id])->one();
     }
+
+    public function hapusUser($id)
+    {
+        $modelGuru = Guru::find()->where(['id' => $id])->one();
+        $modelUser = User::find()->where(['id' => $modelGuru->id_user])->one();
+        $modelAuth = AuthAssignment::find()->where(['user_id' => $modelUser->id])->one();
+        $modelAuth->delete();
+        $modelUser->delete();
+        $this->delete();
+    }
 }

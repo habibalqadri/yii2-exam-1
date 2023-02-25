@@ -136,7 +136,7 @@ class GuruController extends Controller
                 return [
                     'title' => "Buat Akun",
                     'content' => $this->renderAjax('buat_akun', [
-                        // 'model' => $model,
+
                         'dataUser' => $dataUser,
 
                     ]),
@@ -144,21 +144,7 @@ class GuruController extends Controller
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            }
-
-            // else if ($dataUser->load($request->post()) && $dataUser->save()) {
-            //     return [
-            //         'forceReload' => '#crud-datatable-pjax',
-            //         'title' => "Tambah Akun",
-            //         'content' => '<span class="text-success">Tambah Akun berhasil</span>',
-            //         'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-            //         // .
-            //         //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-
-            //     ];
-            // } 
-
-            else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->signup()) {
+            } else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->signup()) {
                 $user = User::find()->orderBy(['id' => SORT_DESC])->one();
                 $model->id_user = $user->id;
                 if ($model->save()) {
@@ -171,8 +157,7 @@ class GuruController extends Controller
                             'title' => "Tambah Akun",
                             'content' => '<span class="text-success">Tambah Akun berhasil</span>',
                             'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-                            // .
-                            //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+
 
                         ];
                     }
@@ -181,7 +166,7 @@ class GuruController extends Controller
                 return [
                     'title' => "Tambah Akun",
                     'content' => $this->renderAjax('buat_akun', [
-                        // 'model' => $model,
+
                         'dataUser' => $dataUser,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -198,7 +183,7 @@ class GuruController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    // 'dataUser' => $dataUser,
+
                 ]);
             }
         }
@@ -404,11 +389,12 @@ class GuruController extends Controller
     {
         $request = Yii::$app->request;
         $modelGuru = Guru::find()->where(['id' => $id])->one();
-        $modelUser = User::find()->where(['id' => $modelGuru->id_user])->one();
-        $modelAuth = AuthAssignment::find()->where(['user_id' => $modelUser->id])->one();
-        $modelAuth->delete();
-        $modelUser->delete();
-        $this->findModel($id)->delete();
+
+        if ($modelGuru->id_user == null) {
+            $this->findModel($id)->delete();
+        } else {
+            $this->findModel($id)->hapusUser($id);
+        }
 
         if ($request->isAjax) {
             /*

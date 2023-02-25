@@ -191,21 +191,9 @@ class SiswaController extends Controller
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            }
+            } else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->signup()) {
+                // && $dataUser->signup()
 
-            // else if ($dataUser->load($request->post()) && $dataUser->save()) {
-            //     return [
-            //         'forceReload' => '#crud-datatable-pjax',
-            //         'title' => "Tambah Akun",
-            //         'content' => '<span class="text-success">Tambah Akun berhasil</span>',
-            //         'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-            //         // .
-            //         //     Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-
-            //     ];
-            // } 
-
-            else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->signup()) {
                 $user = User::find()->orderBy(['id' => SORT_DESC])->one();
                 $model->id_user = $user->id;
 
