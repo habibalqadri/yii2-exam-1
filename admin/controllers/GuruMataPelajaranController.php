@@ -47,6 +47,7 @@ class GuruMataPelajaranController extends Controller
     {
         $searchModel = new GuruMataPelajaranSearch();
         // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $query = GuruMataPelajaran::find()->where(['id_mata_pelajaran' => $id]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -261,15 +262,17 @@ class GuruMataPelajaranController extends Controller
             /*
             *   Process for ajax request
             */
-            return $this->actionCreate($id, $id_guru);
 
-            // Yii::$app->response->format = Response::FORMAT_JSON;
-            // if ($request->isGet) {
-            //     return $this->actionCreate($id, $id_guru);
-            // } else {
-            //     return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-            // }
 
+
+
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($request->isGet) {
+                return $this->actionCreate($id, $id_guru);
+            } else {
+                return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            }
         } else {
             /*
             *   Process for non-ajax request
