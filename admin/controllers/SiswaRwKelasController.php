@@ -42,14 +42,23 @@ class SiswaRwKelasController extends Controller
     public function actionIndex()
     {
         $searchModel = new SiswaRwKelasSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query = SiswaRwKelas::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 6
-            ]
-        ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        //kode dibawa untuk ngecek sql si lefjoinnya jalan atau tidak
+        // var_dump($dataProvider->query->createCommand()->getRawSql());
+        // exit;
+        //end code 
+
+        // kode dibawah tidak mendukung search
+        // $query = SiswaRwKelas::find();
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'pagination' => [
+        //         'pageSize' => 6
+        //     ]
+        // ]);
+
+        //https://forum.yiiframework.com/t/pagination-solution-simple-and-complex-ways/45140
 
         return $this->render('index', [
             'searchModel' => $searchModel,

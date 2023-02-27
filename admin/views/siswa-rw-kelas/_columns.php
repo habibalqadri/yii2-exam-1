@@ -17,15 +17,18 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'siswa.nama',
+        'value' => 'siswa.nama',
+        'attribute' => 'nama_siswa',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'kelas.nama_kelas',
+        'value' => 'kelas.nama_kelas',
+        'attribute' => 'kelas_related'
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tahun_ajaran.tahun_ajaran',
+        'value' => 'tahun_ajaran.tahun_ajaran',
+        'attribute' => 'tahun_ajaran'
     ],
     [
         'class' => '\kartik\grid\DataColumn',
@@ -33,12 +36,14 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tingkat.tingkat_kelas',
+        'value' => 'tingkat.tingkat_kelas',
+        'attribute' => 'tingkat_kelas',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
         'header' => 'Wali Kelas',
-        'attribute' => 'wali_kelas.nama_guru',
+        'value' => 'wali_kelas.nama_guru',
+        'attribute' => 'wali_kelas',
     ],
     // [
     //     'class' => '\kartik\grid\DataColumn',

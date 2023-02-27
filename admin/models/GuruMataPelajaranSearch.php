@@ -48,7 +48,7 @@ class GuruMataPelajaranSearch extends GuruMataPelajaran
     {
         $query = GuruMataPelajaran::find();
 
-        // $query->leftJoin('guru', 'guru_mata_pelajaran.id_guru = guru.id');
+        $query->leftJoin('guru', 'guru_mata_pelajaran.id_guru = guru.id');
 
 
 
@@ -64,7 +64,7 @@ class GuruMataPelajaranSearch extends GuruMataPelajaran
             return $dataProvider;
         }
 
-        $query->joinWith(['guru']);
+        // $query->joinWith(['guru']);
 
         $query->andFilterWhere([
             'id' => $this->id,
