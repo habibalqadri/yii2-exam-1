@@ -49,17 +49,6 @@ class SiswaRwKelasController extends Controller
         // exit;
         //end code 
 
-        // kode dibawah tidak mendukung search
-        // $query = SiswaRwKelas::find();
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => $query,
-        //     'pagination' => [
-        //         'pageSize' => 6
-        //     ]
-        // ]);
-
-        //https://forum.yiiframework.com/t/pagination-solution-simple-and-complex-ways/45140
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

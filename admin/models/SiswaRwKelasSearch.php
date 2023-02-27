@@ -60,6 +60,9 @@ class SiswaRwKelasSearch extends SiswaRwKelas
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ]
         ]);
 
 

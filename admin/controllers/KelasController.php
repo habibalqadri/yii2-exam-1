@@ -48,13 +48,7 @@ class KelasController extends Controller
         $searchModel = new KelasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        // $query = Kelas::find();
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => $query,
-        //     'pagination' => [
-        //         'pageSize' => 5
-        //     ]
-        // ]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,

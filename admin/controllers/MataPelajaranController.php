@@ -45,16 +45,6 @@ class MataPelajaranController extends Controller
         $searchModel = new MataPelajaranSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
-        // $query = MataPelajaran::find();
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => $query,
-        //     'pagination' => [
-        //         'pageSize' => 5
-        //     ]
-        // ]);
-
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
