@@ -46,14 +46,15 @@ class KelasController extends Controller
     public function actionIndex()
     {
         $searchModel = new KelasSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query = Kelas::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ]
-        ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // $query = Kelas::find();
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'pagination' => [
+        //         'pageSize' => 5
+        //     ]
+        // ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

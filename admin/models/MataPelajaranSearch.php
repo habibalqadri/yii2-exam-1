@@ -12,6 +12,8 @@ use common\models\MataPelajaran;
  */
 class MataPelajaranSearch extends MataPelajaran
 {
+    public $tingkat_kelas;
+    public $jurusan;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class MataPelajaranSearch extends MataPelajaran
     {
         return [
             [['id', 'id_tingkat_kelas', 'id_jurusan'], 'integer'],
-            [['mata_pelajaran'], 'safe'],
+            [['mata_pelajaran', 'tingkat_kelas', 'jurusan'], 'safe'],
         ];
     }
 
@@ -43,6 +45,9 @@ class MataPelajaranSearch extends MataPelajaran
     {
         $query = MataPelajaran::find();
 
+        $query->leftJoin('ref_tingkat_kelas', 'mata_pelajaran.id_tingkat_kelas = ref_tingkat_kelas.id')
+            ->leftJoin('ref_jurusan', 'mata_pelajaran.id_jurusan = ref_jurusan.id');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -61,7 +66,9 @@ class MataPelajaranSearch extends MataPelajaran
             'id_jurusan' => $this->id_jurusan,
         ]);
 
-        $query->andFilterWhere(['like', 'mata_pelajaran', $this->mata_pelajaran]);
+        $query->andFilterWhere(['like', 'mata_pelajaran', $this->mata_pelajaran])
+            ->andFilterWhere(['like', 'ref_tingkat_kelas.tingkat_kelas', $this->tingkat_kelas])
+            ->andFilterWhere(['like', 'ref_jurusan.jurusan', $this->jurusan]);
 
         return $dataProvider;
     }

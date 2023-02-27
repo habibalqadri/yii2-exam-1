@@ -31,13 +31,13 @@ CrudAsset::register($this);
             <div class="card-body">
                 <div id="ajaxCrudDatatable">
                     <div id="table-responsive">
-                        <?php $form = ActiveForm::begin(); ?>
+
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
 
-                            'pager' => [
-                                'class' => LinkPager::class
-                            ],
+                            // 'pager' => [
+                            //     'class' => LinkPager::class
+                            // ],
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'pjax' => true,
@@ -84,46 +84,30 @@ CrudAsset::register($this);
                                 //     ),
                                 // ])
 
-                                'after' =>
-                                Html::a(
-                                    '<i class="glyphicon glyphicon-trash"></i>&nbsp;Delete',
-                                    ["bulk-delete"],
-                                    [
-                                        'role' => 'modal-remote',
-                                        "class" => "btn btn-danger btn-xs",
-                                        'data-toggle' => 'tooltip',
-                                        'data-confirm-title' => 'Peringatan',
-                                        'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?',
-                                        'data-confirm' => false,
-                                        'data-method' => 'post', // for overide yii data api
-                                        'data-request-method' => 'post',
-
-
-                                    ]
-                                ) .
-                                    '<div class="clearfix"></div>',
-
                                 // 'after' =>
                                 // Html::a(
-                                //     '+ Tambah',
-                                //     ['tes'],
+                                //     '<i class="glyphicon glyphicon-trash"></i>&nbsp;Delete',
+                                //     ["bulk-delete"],
                                 //     [
                                 //         'role' => 'modal-remote',
-                                //         'title' => 'Create new Mata Pelajarans',
-                                //         'class' => 'btn btn-warning',
+                                //         "class" => "btn btn-danger btn-xs",
                                 //         'data-toggle' => 'tooltip',
-                                //         // 'data-confirm' => false,
-                                //         // 'data-method' => 'post', // for overide yii data api
+                                //         'data-confirm-title' => 'Peringatan',
+                                //         'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?',
+                                //         'data-confirm' => false,
+                                //         'data-method' => 'post', // for overide yii data api
                                 //         'data-request-method' => 'post',
-                                //         'data-confirm-title' => 'Are you sure?',
-                                //         'data-confirm-message' => 'Are you sure want to delete this item'
+
+
                                 //     ]
                                 // ) .
                                 //     '<div class="clearfix"></div>',
 
+
+
                             ]
                         ]) ?>
-                        <?php ActiveForm::end(); ?>
+
                     </div>
                 </div>
             </div>
@@ -135,6 +119,9 @@ CrudAsset::register($this);
 
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
+    'options' => [
+        'tabindex' => false
+    ],
     "footer" => "", // always need it for jquery plugin
 ]) ?>
 <?php Modal::end(); ?>
