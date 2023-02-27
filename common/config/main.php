@@ -6,6 +6,7 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        //kode dibawah untuk mematikan bootstrap 3
         'assetManager' => [
             'bundles' => [
                 'kartik\form\ActiveFormAsset' => [
@@ -22,6 +23,7 @@ return [
                 ]
             ]
         ],
+        //end code
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

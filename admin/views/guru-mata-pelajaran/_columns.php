@@ -18,8 +18,9 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'value' => 'guru.nama_guru',
         'attribute' => 'cari_guru',
+        'value' => 'guru.nama_guru',
+
     ],
 
     [

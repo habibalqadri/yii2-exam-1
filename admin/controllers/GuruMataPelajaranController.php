@@ -46,15 +46,19 @@ class GuruMataPelajaranController extends Controller
     public function actionIndex($id)
     {
         $searchModel = new GuruMataPelajaranSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $query = GuruMataPelajaran::find()->where(['id_mata_pelajaran' => $id]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ]
-        ]);
+        $dataProvider->query->andFilterWhere(['id_mata_pelajaran' => $id]);
+
+        //kode dibawah : ada masalah di bagian search dengan kata lain activeDataProvider tidak mendukung search
+
+        //     $query = GuruMataPelajaran::find()->where(['id_mata_pelajaran' => $id]);
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'pagination' => [
+        //         'pageSize' => 5
+        //     ]
+        // ]);
 
         $mataPelajaran = MataPelajaran::find()->where(['id' => $id])->one();
 
