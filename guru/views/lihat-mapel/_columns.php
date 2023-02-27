@@ -21,11 +21,13 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tingkat_kelas.tingkat_kelas',
+        'value' => 'tingkat_kelas.tingkat_kelas',
+        'attribute' => 'tingkat_kelas',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'jurusan.jurusan',
+        'value' => 'jurusan.jurusan',
+        'attribute' => 'jurusan',
     ],
     // [
     //     'class' => 'kartik\grid\ActionColumn',

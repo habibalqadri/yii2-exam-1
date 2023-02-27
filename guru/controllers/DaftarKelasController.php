@@ -43,13 +43,7 @@ class DaftarKelasController extends Controller
     {
         $searchModel = new DaftarKelasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query = Kelas::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ]
-        ]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,

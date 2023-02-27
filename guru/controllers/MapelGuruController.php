@@ -5,6 +5,7 @@ namespace guru\controllers;
 use common\models\Guru;
 use Yii;
 use common\models\GuruMataPelajaran;
+use common\models\MataPelajaran;
 use guru\models\MapelGuruSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -47,14 +48,9 @@ class MapelGuruController extends Controller
         $model = GuruMataPelajaran::find()->where(['id_guru' => $modelGuru->id])->one();
         $searchModel = new MapelGuruSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query =  $dataProvider->query->andFilterWhere(['id_guru' => $modelGuru->id]);
+        $dataProvider->query->andFilterWhere(['id_guru' => $modelGuru->id]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ]
-        ]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -102,7 +98,7 @@ class MapelGuruController extends Controller
 
 
         $dataGuru =  ArrayHelper::map(\common\models\Guru::find()->where(['id' => $id])->asArray()->all(), 'id', 'nama_guru');
-        $dataMataPelajaran =  ArrayHelper::map(\common\models\MataPelajaran::find()->asArray()->all(), 'id', 'mata_pelajaran');
+        $dataMataPelajaran =  ArrayHelper::map(MataPelajaran::find()->asArray()->all(), 'id', 'mata_pelajaran');
         // var_dump(Yii::$app->pengguna->dataGuru);
         // exit;
         if ($request->isAjax) {

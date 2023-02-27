@@ -17,7 +17,8 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tahun_ajaran.tahun_ajaran',
+        'value' => 'tahun_ajaran.tahun_ajaran',
+        'attribute' => 'tahun_ajaran',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
@@ -25,15 +26,18 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'tingkat_kelas.tingkat_kelas',
+        'value' => 'tingkat_kelas.tingkat_kelas',
+        'attribute' => 'tingkat_kelas',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'wali_kelas.nama_guru',
+        'value' => 'wali_kelas.nama_guru',
+        'attribute' => 'wali_kelas',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'jurusan.jurusan',
+        'value' => 'jurusan.jurusan',
+        'attribute' => 'jurusan',
     ],
     [
         'class' => 'kartik\grid\ActionColumn',

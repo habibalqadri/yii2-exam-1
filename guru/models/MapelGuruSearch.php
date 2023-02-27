@@ -12,6 +12,7 @@ use common\models\GuruMataPelajaran;
  */
 class MapelGuruSearch extends GuruMataPelajaran
 {
+    public $mata_pelajaran;
     /**
      * @inheritdoc
      */
@@ -19,6 +20,7 @@ class MapelGuruSearch extends GuruMataPelajaran
     {
         return [
             [['id', 'id_guru', 'id_mata_pelajaran'], 'integer'],
+            [['mata_pelajaran'], 'safe'],
         ];
     }
 
@@ -41,9 +43,13 @@ class MapelGuruSearch extends GuruMataPelajaran
     public function search($params)
     {
         $query = GuruMataPelajaran::find();
+        $query->leftJoin('mata_pelajaran', 'guru_mata_pelajaran.id_mata_pelajaran = mata_pelajaran.id');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ]
         ]);
 
         $this->load($params);
@@ -60,6 +66,8 @@ class MapelGuruSearch extends GuruMataPelajaran
             'id_mata_pelajaran' => $this->id_mata_pelajaran,
         ]);
 
+
+        $query->andFilterWhere(['like', 'mata_pelajaran.mata_pelajaran', $this->mata_pelajaran]);
         return $dataProvider;
     }
 }

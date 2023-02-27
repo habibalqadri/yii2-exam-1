@@ -46,17 +46,7 @@ class LihatKelasController extends Controller
         $modelGuru = Guru::find()->where(['id_user' => $id_user])->one();
         $searchModel = new LihatKelasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query = $dataProvider->query->andFilterWhere(['id_wali_kelas' => $modelGuru->id]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ]
-        ]);
-
-
-
+        $dataProvider->query->andFilterWhere(['id_wali_kelas' => $modelGuru->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

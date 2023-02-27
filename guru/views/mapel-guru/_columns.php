@@ -15,13 +15,14 @@ return [
     // 'class'=>'\kartik\grid\DataColumn',
     // 'attribute'=>'id',
     // ],
+    // [
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'attribute' => 'guru.nama_guru',
+    // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'guru.nama_guru',
-    ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'mata_pelajaran.mata_pelajaran',
+        'value' => 'mata_pelajaran.mata_pelajaran',
+        'attribute' => 'mata_pelajaran',
     ],
     [
         'class' => 'kartik\grid\ActionColumn',
