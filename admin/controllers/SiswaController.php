@@ -50,14 +50,14 @@ class SiswaController extends Controller
     {
         $searchModel = new SiswaSearch();
 
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query = Siswa::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10
-            ]
-        ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $query = Siswa::find();
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'pagination' => [
+        //         'pageSize' => 10
+        //     ]
+        // ]);
 
 
         return $this->render('index', [

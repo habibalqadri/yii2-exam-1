@@ -38,7 +38,8 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'kelas.nama_kelas',
+        'value' => 'kelas.nama_kelas',
+        'attribute' => 'nama_kelas',
 
 
     ],
