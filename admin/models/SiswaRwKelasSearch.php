@@ -88,7 +88,7 @@ class SiswaRwKelasSearch extends SiswaRwKelas
 
         //untuk query andFilterWherenya harus dipisah
         $query
-            ->andFilterWhere(['like', 'nama_kelas', $this->nama_kelas,])
+            ->andFilterWhere(['like', 'siswa_rw_kelas.nama_kelas', $this->nama_kelas,]) //tambahkan nama tablenya
             ->andFilterWhere(['like', 'siswa.nama', $this->nama_siswa,])
             ->andFilterWhere(['like', 'kelas.nama_kelas', $this->kelas_related,])
             ->andFilterWhere(['like', 'ref_tahun_ajaran.tahun_ajaran', $this->tahun_ajaran,])
