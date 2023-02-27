@@ -22,19 +22,23 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'waliSiswa.nama',
+        'value' => 'waliSiswa.nama',
+        'attribute' => 'nama_wali',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'waliSiswa.alamat',
+        'value' => 'waliSiswa.alamat',
+        'attribute' => 'alamat_wali',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'waliSiswa.no_hp',
+        'value' => 'waliSiswa.no_hp',
+        'attribute' => 'no_hp_wali',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'waliSiswa.statusWali.status_wali',
+
     ],
 
 

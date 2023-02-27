@@ -47,14 +47,15 @@ class GuruController extends Controller
     public function actionIndex()
     {
         $searchModel = new GuruSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $query = Guru::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5
-            ]
-        ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // $query = Guru::find();
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'pagination' => [
+        //         'pageSize' => 5
+        //     ]
+        // ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

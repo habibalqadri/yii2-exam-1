@@ -12,6 +12,11 @@ use common\models\SiswaWali;
  */
 class SiswaWaliSearch extends SiswaWali
 {
+    public $nama_wali;
+    public $alamat_wali;
+    public $no_hp_wali;
+
+
     /**
      * @inheritdoc
      */
@@ -19,6 +24,7 @@ class SiswaWaliSearch extends SiswaWali
     {
         return [
             [['id_siswa', 'id_wali'], 'integer'],
+            [['nama_wali', 'alamat_wali', 'no_hp_wali'], 'safe'],
         ];
     }
 
@@ -42,6 +48,8 @@ class SiswaWaliSearch extends SiswaWali
     {
         $query = SiswaWali::find();
 
+        $query->leftJoin('wali', 'siswa_wali.id_wali = wali.id');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -58,6 +66,10 @@ class SiswaWaliSearch extends SiswaWali
             'id_siswa' => $this->id_siswa,
             'id_wali' => $this->id_wali,
         ]);
+
+        $query->andFilterWhere(['like', 'wali.nama', $this->nama_wali])
+            ->andFilterWhere(['like', 'wali.alamat', $this->alamat_wali])
+            ->andFilterWhere(['like', 'wali.no_hp', $this->no_hp_wali]);
 
         return $dataProvider;
     }
