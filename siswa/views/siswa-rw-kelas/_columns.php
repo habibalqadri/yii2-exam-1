@@ -22,9 +22,9 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        // 'values' => 'kelas.nama_kelas',
-        'attribute' => 'kelas.nama_kelas',
-        // 'attribute' => 'nama_kelas', //kena ambiguitas
+        'value' => 'kelas.nama_kelas',
+        // 'attribute' => 'kelas.nama_kelas',
+        'attribute' => 'kelas_related', //kena ambiguitas
     ],
     // [
     //     'class' => '\kartik\grid\DataColumn',

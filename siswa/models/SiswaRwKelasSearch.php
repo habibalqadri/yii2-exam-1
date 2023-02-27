@@ -13,7 +13,7 @@ use common\models\SiswaRwKelas;
 class SiswaRwKelasSearch extends SiswaRwKelas
 {
     public $tahun_ajaran;
-    public $nama_kelas;
+    public $kelas_related;
     public $tingkat_kelas;
     public $nama_guru;
     /**
@@ -23,7 +23,7 @@ class SiswaRwKelasSearch extends SiswaRwKelas
     {
         return [
             [['id', 'id_siswa', 'id_kelas', 'id_tahun_ajaran', 'id_tingkat', 'id_wali_kelas'], 'integer'],
-            [['nama_kelas', 'tahun_ajaran', 'nama_kelas', 'tingkat_kelas', 'nama_guru'], 'safe'],
+            [['nama_kelas', 'tahun_ajaran', 'kelas_related', 'tingkat_kelas', 'nama_guru'], 'safe'],
         ];
     }
 
@@ -73,9 +73,9 @@ class SiswaRwKelasSearch extends SiswaRwKelas
             'id_wali_kelas' => $this->id_wali_kelas,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_kelas', $this->nama_kelas])
+        $query->andFilterWhere(['like', 'siswa_rw_kelas.nama_kelas', $this->nama_kelas])
             ->andFilterWhere(['like', 'ref_tahun_ajaran.tahun_ajaran', $this->tahun_ajaran])
-            ->andFilterWhere(['like', 'kelas.nama_kelas', $this->nama_kelas])
+            ->andFilterWhere(['like', 'kelas.nama_kelas', $this->kelas_related])
             ->andFilterWhere([
                 'like', 'ref_tingkat_kelas.tingkat_kelas', $this->tingkat_kelas
             ])
