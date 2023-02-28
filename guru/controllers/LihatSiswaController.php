@@ -46,9 +46,10 @@ class LihatSiswaController extends Controller
         $modelGuru = Guru::find()->where(['id_user' => $id_user])->one();
         $searchModel = new LihatSiswaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['id_wali_kelas' => $modelGuru->id]);
+        $dataProvider->query->andFilterWhere(['siswa_rw_kelas.id_wali_kelas' => $modelGuru->id]); //ada masalah ambigous column pada id_wali_kelas ternyata masalahnya terletak pada penambahan "siswa_rw_kelas.id_wali_kelas" yang sebelumnya "id_wali_kelas" dia bingung id_wali_kelas yang mana nih yang dipilih, yang dari siswa_rw_kelas atau dari table kelas
 
-
+        // var_dump($dataProvider->query->createCommand()->getRawSql());
+        // exit;
 
         return $this->render('index', [
             'searchModel' => $searchModel,

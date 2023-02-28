@@ -39,11 +39,11 @@ return [
         'value' => 'tahun_ajaran.tahun_ajaran',
         'attribute' => 'tahun_ajaran',
     ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'header' => "Wali Kelas",
-        'attribute' => 'wali_kelas.nama_guru',
-    ],
+    // [
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'header' => "Wali Kelas",
+    //     'attribute' => 'wali_kelas.nama_guru',
+    // ],
     // [
     //     'class' => 'kartik\grid\ActionColumn',
     //     'dropdown' => false,
