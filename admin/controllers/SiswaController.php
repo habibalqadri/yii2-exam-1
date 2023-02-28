@@ -259,7 +259,8 @@ class SiswaController extends Controller
                 return [
                     'title' => "Ubah Siswa",
                     'content' => $this->renderAjax('ubah_akun', [
-                        'dataUser' => $dataUser
+                        'dataUser' => $dataUser,
+                        'model' => $model
 
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -279,6 +280,7 @@ class SiswaController extends Controller
                 return [
                     'title' => "Ubah Akun",
                     'content' => $this->renderAjax('ubah_akun', [
+                        'model' => $model,
                         'dataUser' => $dataUser,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
@@ -308,7 +310,64 @@ class SiswaController extends Controller
      * @return mixed
      */
 
+    public function actionResetPassword($id_siswa, $id_user)
+    {
+        $request = Yii::$app->request;
+        $model = $this->findModel($id_siswa);
 
+        $dataUser = UserPengguna::find()->where(['id' => $model->id_user])->one();
+
+        if ($request->isAjax) {
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($request->isGet) {
+                return [
+                    'title' => "Ubah Siswa",
+                    'content' => $this->renderAjax('reset_password', [
+                        'dataUser' => $dataUser,
+                        'model' => $model
+
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+                ];
+            } else if ($dataUser->load(Yii::$app->request->post()) && $dataUser->resetPassword($id_user)) {
+                return [
+                    'forceReload' => '#crud-datatable-pjax',
+                    'title' => "Siswa ",
+                    'content' => $this->renderAjax('lihat_akun', [
+                        'model' => $model,
+                        'dataUser' => $dataUser
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                ];
+            } else {
+                return [
+                    'title' => "Ubah Akun",
+                    'content' => $this->renderAjax('reset_password', [
+                        'dataUser' => $dataUser,
+                        'model' => $model,
+                    ]),
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+                ];
+            }
+        } else {
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('reset_password', [
+                    'model' => $model,
+                    'dataUser' => $dataUser
+                ]);
+            }
+        }
+    }
 
     public function actionCreate()
     {

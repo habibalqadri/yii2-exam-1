@@ -20,6 +20,9 @@ use Yii;
  */
 class UserPengguna extends \yii\db\ActiveRecord
 {
+
+    public $new_password;
+    public $repeat_password;
     /**
      * {@inheritdoc}
      */
@@ -42,8 +45,29 @@ class UserPengguna extends \yii\db\ActiveRecord
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['username'], 'unique'],
+
+            ['new_password', 'required'],
+            ['new_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['repeat_password', 'required'],
+            ['repeat_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['repeat_password', 'compare', 'compareAttribute' => 'new_password'],
         ];
     }
+
+    public function resetPassword($id_user)
+    {
+        if (!$this->validate()) {
+            return 'gagal';
+        }
+
+        $user = User::find()->where(['id' => $id_user])->one();
+        $user->setPassword($this->new_password);
+
+        return $user->save();
+    }
+
+
 
     /**
      * {@inheritdoc}
