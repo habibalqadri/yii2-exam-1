@@ -22,6 +22,10 @@ use kartik\date\DatePicker;
 
     <?= $form->field($dataUser, 'password')->passwordInput() ?>
 
+    <!-- Reapeat Password -->
+    <?= $form->field($dataUser, 'repeat_password')->passwordInput()
+    ?>
+
 
 
     <?php if (!Yii::$app->request->isAjax) { ?>

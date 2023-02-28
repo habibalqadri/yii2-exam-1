@@ -7,7 +7,7 @@ use yii\helpers\Html;
 ?>
 <div class="siswa-update">
 
-    <?= $this->render('_form_ubah_akun', [
+    <?= $this->render('_form_reset_password', [
         'dataUser' => $dataUser,
         'model' => $model,
 

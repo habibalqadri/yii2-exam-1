@@ -58,7 +58,7 @@ class UserPengguna extends \yii\db\ActiveRecord
     public function resetPassword($id_user)
     {
         if (!$this->validate()) {
-            return 'gagal';
+            return null;
         }
 
         $user = User::find()->where(['id' => $id_user])->one();

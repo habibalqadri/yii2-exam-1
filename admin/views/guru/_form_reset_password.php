@@ -15,23 +15,14 @@ use kartik\date\DatePicker;
 <div class="siswa-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($dataUser, 'username')->textInput(['autofocus' => true]) ?>
-    <?= $form->field($dataUser, 'email') ?>
 
-    <?= Html::a(
-        'Reset Password',
-        ['reset-password', 'id_guru' => $model->id, 'id_user' => $dataUser['id']],
-        [
-            'role' => 'modal-remote',
-            'title' => 'Reset Password',
-            'class' => 'btn btn-info float-right'
-        ]
-    ) ?>
+    <?= $form->field($dataUser, 'new_password')->passwordInput()->label('New Password') ?>
 
+    <?= $form->field($dataUser, 'repeat_password')->passwordInput()->label('Confirm Password') ?>
 
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">
-            <?= Html::submitButton('ubah-akun', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('reset-password', ['class' => 'btn btn-primary']) ?>
         </div>
     <?php } ?>
 
