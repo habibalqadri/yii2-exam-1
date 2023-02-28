@@ -18,6 +18,7 @@ use kartik\date\DatePicker;
     <?= $form->field($dataUser, 'username')->textInput(['autofocus' => true]) ?>
     <?= $form->field($dataUser, 'email') ?>
 
+
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">
             <?= Html::submitButton('ubah-akun', ['class' => 'btn btn-primary']) ?>

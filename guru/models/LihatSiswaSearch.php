@@ -56,9 +56,9 @@ class LihatSiswaSearch extends SiswaRwKelas
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            // 'pagination' => [
-            //     'pageSize' => 10
-            // ]
+            'pagination' => [
+                'pageSize' => 10
+            ]
         ]);
 
         $this->load($params);

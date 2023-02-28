@@ -44,11 +44,11 @@ return [
         'value' => 'tingkat.tingkat_kelas',
         'attribute' => 'tingkat_kelas',
     ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'value' => 'wali_kelas.nama_guru',
-        'attribute' => 'nama_guru',
-    ],
+    // [
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'value' => 'wali_kelas.nama_guru',
+    //     'attribute' => 'nama_guru',
+    // ],
     // [
     //     'class' => 'kartik\grid\ActionColumn',
     //     'dropdown' => false,

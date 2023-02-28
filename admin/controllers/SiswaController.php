@@ -259,7 +259,6 @@ class SiswaController extends Controller
                 return [
                     'title' => "Ubah Siswa",
                     'content' => $this->renderAjax('ubah_akun', [
-
                         'dataUser' => $dataUser
 
                     ]),
@@ -272,6 +271,7 @@ class SiswaController extends Controller
                     'title' => "Siswa ",
                     'content' => $this->renderAjax('lihat_akun', [
                         'model' => $model,
+                        'dataUser' => $dataUser
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
                 ];
@@ -292,8 +292,9 @@ class SiswaController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                return $this->render('update', [
+                return $this->render('ubah_akun', [
                     'model' => $model,
+                    'dataUser' => $dataUser
                 ]);
             }
         }
@@ -306,6 +307,8 @@ class SiswaController extends Controller
      * @param integer $id
      * @return mixed
      */
+
+
 
     public function actionCreate()
     {

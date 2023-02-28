@@ -12,7 +12,7 @@ use yii\bootstrap4\LinkPager;
 /* @var $searchModel guru\models\LihatSiswaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Siswa Rw Kelas';
+$this->title = 'Lihat Siswa';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
