@@ -5,6 +5,11 @@ namespace admin\controllers;
 use Yii;
 use common\models\GuruMataPelajaran;
 use admin\models\GuruMataPelajaranSearch;
+use admin\models\GuruSearch;
+use admin\models\MataPelajaranSearch;
+use common\models\Guru;
+use common\models\MataPelajaran;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,17 +43,32 @@ class GuruMataPelajaranController extends Controller
      * Lists all GuruMataPelajaran models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new GuruMataPelajaranSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $dataProvider->query->andFilterWhere(['id_mata_pelajaran' => $id]);
+
+        //kode dibawah : ada masalah di bagian search dengan kata lain activeDataProvider tidak mendukung search
+
+        //     $query = GuruMataPelajaran::find()->where(['id_mata_pelajaran' => $id]);
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'pagination' => [
+        //         'pageSize' => 5
+        //     ]
+        // ]);
+
+        $mataPelajaran = MataPelajaran::find()->where(['id' => $id])->one();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'mataPelajaran' => $mataPelajaran,
+            'id' => $id
         ]);
     }
-
 
     /**
      * Displays a single GuruMataPelajaran model.
@@ -61,12 +81,11 @@ class GuruMataPelajaranController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "GuruMataPelajaran ",
+                'title' => "Guru Mata Pelajaran ",
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
-                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                    Html::a('Ubah', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
             ];
         } else {
             return $this->render('view', [
@@ -81,59 +100,85 @@ class GuruMataPelajaranController extends Controller
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id, $id_guru)
     {
         $request = Yii::$app->request;
         $model = new GuruMataPelajaran();
-        $dataGuru =  ArrayHelper::map(\common\models\Guru::find()->asArray()->all(), 'id', 'nama_guru');
-        $dataMataPelajaran =  ArrayHelper::map(\common\models\MataPelajaran::find()->asArray()->all(), 'id', 'mata_pelajaran');
+        $dataMataPelajaran =  MataPelajaran::find()->where(['id' => $id])->one();
 
-        if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($request->isGet) {
+        $searchModel = new GuruSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $model->id_guru = $id_guru;
+        $model->id_mata_pelajaran = $id;
+
+        if ($id_guru) {
+            if ($model->save()) {
+
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                $this->actionIndex($id);
                 return [
+                    'forceReload' => '#crud-datatable-pjax',
                     'title' => "Tambah Guru Mata Pelajaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'dataGuru' => $dataGuru,
                         'dataMataPelajaran' => $dataMataPelajaran,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+                        'dataProvider' => $dataProvider,
+                        'searchModel' => $searchModel,
+                        'id' => $id,
 
-                ];
-            } else if ($model->load($request->post()) && $model->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah GuruMataPelajaran",
-                    'content' => '<span class="text-success">Create Guru Mata Pelajaran berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
-                ];
-            } else {
-                return [
-                    'title' => "Tambah GuruMataPelajaran",
-                    'content' => $this->renderAjax('create', [
-                        'model' => $model,
                     ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
 
                 ];
             }
         } else {
-            /*
+            if ($request->isAjax) {
+
+                /*
+            *   Process for ajax request
+            */
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                if ($request->isGet) {
+                    return [
+                        'title' => "Tambah Guru Mata Pelajaran",
+                        'content' => $this->renderAjax('create', [
+                            'model' => $model,
+                            'dataMataPelajaran' => $dataMataPelajaran,
+                            'dataProvider' => $dataProvider,
+                            'searchModel' => $searchModel,
+                            'id' => $id,
+
+
+                        ]),
+                        'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+
+                    ];
+                } else {
+                    return [
+                        'forceReload' => '#crud-datatable-pjax',
+                        'title' => "Tambah Guru Mata Pelajaran",
+                        'content' => $this->renderAjax('create', [
+                            'model' => $model,
+                            'dataMataPelajaran' => $dataMataPelajaran,
+                            'dataProvider' => $dataProvider,
+                            'searchModel' => $searchModel,
+                            'id' => $id,
+                        ]),
+                        'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                    ];
+                }
+            } else {
+                /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'dataMataPelajaran' => $dataMataPelajaran,
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'id' => $id,
                 ]);
             }
         }
@@ -151,7 +196,7 @@ class GuruMataPelajaranController extends Controller
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         $dataGuru =  ArrayHelper::map(\common\models\Guru::find()->asArray()->all(), 'id', 'nama_guru');
-        $dataMataPelajaran =  ArrayHelper::map(\common\models\MataPelajaran::find()->asArray()->all(), 'id', 'mata_pelajaran');
+        $dataMataPelajaran =  MataPelajaran::find()->where(['id' => $model->id_mata_pelajaran])->one();
 
         if ($request->isAjax) {
             /*
@@ -210,22 +255,33 @@ class GuruMataPelajaranController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $id_guru_mapel)
     {
+        $id_guru = '';
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $this->findModel($id_guru_mapel)->delete();
 
         if ($request->isAjax) {
+
             /*
             *   Process for ajax request
             */
+
+
+
+
+
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            if ($request->isGet) {
+                return $this->actionCreate($id, $id_guru);
+            } else {
+                return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            }
         } else {
             /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
         }
     }
 

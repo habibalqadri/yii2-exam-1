@@ -50,6 +50,8 @@ class SiswaRwKelas extends \yii\db\ActiveRecord
             'nama_kelas' => 'Nama Kelas',
             'id_tingkat' => 'Id Tingkat',
             'id_wali_kelas' => 'Id Wali Kelas',
+            'kelas_related' => 'Kelas',
+            'wali_kelas.nama_guru' => 'Wali Kelas'
         ];
     }
 

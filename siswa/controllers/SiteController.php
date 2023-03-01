@@ -3,6 +3,7 @@
 namespace siswa\controllers;
 
 use common\models\LoginForm;
+use common\models\Siswa;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -62,7 +63,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $id_user  = Yii::$app->user->identity->id;
+        $modelSiswa = Siswa::find()->where(['id_user' => $id_user])->one();
+        return $this->render('index', [
+            'modelSiswa' => $modelSiswa
+        ]);
     }
 
     /**

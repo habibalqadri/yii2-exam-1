@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
 // use kartikorm\ActiveForm;
 use kartik\date\DatePicker;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Siswa */
@@ -15,7 +16,10 @@ use kartik\date\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nis')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nis')->textInput([
+        'maxlength' => true,
+        'disabled' => true
+    ]) ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
@@ -33,12 +37,18 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
+
     <?php
-    echo $form->field($model, 'id_kelas')
-        ->dropDownList(
-            $dataKelas,
-            ['id_kelas' => 'nama_kelas']
-        );
+    echo $form->field($model, 'id_kelas')->widget(Select2::classname(), [
+        'data' => $dataKelas,
+        'options' => [
+            'placeholder' => '-Pilih Kelas-',
+            'disabled' => true
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Kelas');
     ?>
 
 

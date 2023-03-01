@@ -12,6 +12,12 @@ use common\models\SiswaRwKelas;
  */
 class SiswaRwKelasSearch extends SiswaRwKelas
 {
+
+    public $nama_siswa;
+    public $kelas_related;
+    public $tahun_ajaran;
+    public $tingkat_kelas;
+    public $wali_kelas;
     /**
      * @inheritdoc
      */
@@ -19,7 +25,7 @@ class SiswaRwKelasSearch extends SiswaRwKelas
     {
         return [
             [['id', 'id_siswa', 'id_kelas', 'id_tahun_ajaran', 'id_tingkat', 'id_wali_kelas'], 'integer'],
-            [['nama_kelas'], 'safe'],
+            [['nama_kelas', 'nama_siswa', 'kelas_related', 'tahun_ajaran', 'tingkat_kelas', 'wali_kelas'], 'safe'],
         ];
     }
 
@@ -43,9 +49,23 @@ class SiswaRwKelasSearch extends SiswaRwKelas
     {
         $query = SiswaRwKelas::find();
 
+        //kode dibawah untuk pemakaian leftJoin
+        $query->leftJoin('siswa', 'siswa_rw_kelas.id_siswa = siswa.id')
+            ->leftJoin('kelas', 'siswa_rw_kelas.id_kelas = kelas.id')
+            ->leftJoin('ref_tahun_ajaran', 'siswa_rw_kelas.id_tahun_ajaran = ref_tahun_ajaran.id')
+            ->leftJoin('ref_tingkat_kelas', 'siswa_rw_kelas.id_tingkat = ref_tingkat_kelas.id')
+            ->leftJoin('guru', 'siswa_rw_kelas.id_wali_kelas = guru.id');
+        //di leftjoin kelas nya terkena masalah karena namanya sama dengan nama siswaRwKelasSearch yaitu nama_kelas
+
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ]
         ]);
+
+
 
         $this->load($params);
 
@@ -54,6 +74,8 @@ class SiswaRwKelasSearch extends SiswaRwKelas
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        // $query->joinWith('siswa');
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -64,7 +86,14 @@ class SiswaRwKelasSearch extends SiswaRwKelas
             'id_wali_kelas' => $this->id_wali_kelas,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_kelas', $this->nama_kelas]);
+        //untuk query andFilterWherenya harus dipisah
+        $query
+            ->andFilterWhere(['like', 'siswa_rw_kelas.nama_kelas', $this->nama_kelas,]) //tambahkan nama tablenya
+            ->andFilterWhere(['like', 'siswa.nama', $this->nama_siswa,])
+            ->andFilterWhere(['like', 'kelas.nama_kelas', $this->kelas_related,])
+            ->andFilterWhere(['like', 'ref_tahun_ajaran.tahun_ajaran', $this->tahun_ajaran,])
+            ->andFilterWhere(['like', 'ref_tingkat_kelas.tingkat_kelas', $this->tingkat_kelas,])
+            ->andFilterWhere(['like', 'guru.nama_guru', $this->wali_kelas,]);
 
         return $dataProvider;
     }

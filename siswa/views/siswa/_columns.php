@@ -12,7 +12,7 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    // [
+    // [ 
     // 'class'=>'\kartik\grid\DataColumn',
     // 'attribute'=>'id',
     // ],
@@ -53,7 +53,7 @@ return [
         'template' => '{btn_aksi}',
         'buttons' => [
             "btn_aksi" => function ($url, $model, $key) {
-                return Html::a('Lihat Wali', ['detail-wali', 'id' => $model->id], [
+                return Html::a('Lihat Wali', ['siswa-wali/index2', 'id' => $model->id], [
                     'class' => 'btn btn-success btn-block',
                     'role' => 'modal-remote',
                     'title' => 'Lihat',

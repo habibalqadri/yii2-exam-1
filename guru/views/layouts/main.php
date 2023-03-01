@@ -22,6 +22,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -37,9 +38,12 @@ AppAsset::register($this);
             ],
         ]);
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Wali', 'url' => ['/wali/index']],
-            ['label' => 'Siswa', 'url' => ['/siswa/index']],
+            ['label' => 'Dashboard', 'url' => ['/site/index']],
+            ['label' => 'Lihat Kelas', 'url' => ['/lihat-kelas/index']],
+            ['label' => 'Lihat Siswa', 'url' => ['/lihat-siswa/index']],
+            ['label' => 'Mata Pelajaran', 'url' => ['/lihat-mapel/index']],
+            ['label' => 'Mapel Guru', 'url' => ['/mapel-guru/index']],
+            ['label' => 'Daftar Kelas', 'url' => ['/daftar-kelas/index']],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

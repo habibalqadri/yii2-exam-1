@@ -57,11 +57,11 @@ CrudAsset::register($this);
                             'panel' => [
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
-                                'before' => Html::a(
-                                    'Tambah',
-                                    ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Siswas', 'class' => 'btn btn-default']
-                                ),
+                                // 'before' => Html::a(
+                                //     'Tambah',
+                                //     ['create'],
+                                //     ['role' => 'modal-remote', 'title' => 'Create new Siswas', 'class' => 'btn btn-default']
+                                // ),
                                 // 'after'=>BulkButtonWidget::widget([
                                 //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                                 //                 ["bulk-delete"] ,
@@ -83,9 +83,13 @@ CrudAsset::register($this);
         </div>
     </div>
 </div>
+<?= Html::a('Ubah', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote']) ?>
 </div>
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
+    'options' => [
+        'tabindex' => false
+    ],
     "footer" => "", // always need it for jquery plugin
 ]) ?>
 <?php Modal::end(); ?>

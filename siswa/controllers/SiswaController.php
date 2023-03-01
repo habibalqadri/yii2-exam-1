@@ -2,9 +2,11 @@
 
 namespace siswa\controllers;
 
+use common\models\RefStatusWali;
 use Yii;
 use common\models\Siswa;
 use common\models\SiswaWali;
+use common\models\Wali;
 use siswa\models\SiswaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -39,10 +41,29 @@ class SiswaController extends Controller
      * Lists all Siswa models.
      * @return mixed
      */
+    // public function actionIndex2()
+    // {
+    //     $id_user = Yii::$app->user->identity->id;
+    //     $searchModel = new SiswaSearch();
+    //     // echo $id_user;
+    //     // exit;
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //     $dataProvider->query->andFilterWhere(['id_user' => $id_user]);
+
+
+    //     return $this->render('index', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
+
     public function actionIndex()
     {
-        $id_user =
-            Yii::$app->user->identity->id;
+
+        $id_user = Yii::$app->user->identity->id;
+        $model = Siswa::find()->where(['id_user' => $id_user])->one();
+
+        $id_user = Yii::$app->user->identity->id;
         $searchModel = new SiswaSearch();
         // echo $id_user;
         // exit;
@@ -50,9 +71,11 @@ class SiswaController extends Controller
         $dataProvider->query->andFilterWhere(['id_user' => $id_user]);
 
 
-        return $this->render('index', [
+        return $this->render('view', [
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
         ]);
     }
 
@@ -71,6 +94,7 @@ class SiswaController extends Controller
                 'title' => "Siswa ",
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
+
                 ]),
                 'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                     Html::a('Ubah', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -88,37 +112,7 @@ class SiswaController extends Controller
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionDetailWali($id)
-    {
-        $request = Yii::$app->request;
 
-        $model = SiswaWali::find()->where(['id_wali' => $id])->all();
-
-        if ($request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                'title' => "Siswa ",
-                'content' => $this->renderAjax('lihat_wali', [
-                    'model' => $model,
-
-                ]),
-                'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                    Html::a('Ubah', ['update', 'id_siswa' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-            ];
-        } else {
-            return $this->render('lihat_wali', [
-                'model' => $model,
-
-            ]);
-        }
-    }
-
-    /**
-     * Creates a new Siswa model.
-     * For ajax request will return json object
-     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $request = Yii::$app->request;
@@ -189,6 +183,17 @@ class SiswaController extends Controller
         $model = $this->findModel($id);
         $dataKelas =  ArrayHelper::map(\common\models\Kelas::find()->asArray()->all(), 'id', 'nama_kelas');
 
+
+        $id_user = Yii::$app->user->identity->id;
+        $model = Siswa::find()->where(['id_user' => $id_user])->one();
+
+        $id_user = Yii::$app->user->identity->id;
+        $searchModel = new SiswaSearch();
+        // echo $id_user;
+        // exit;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['id_user' => $id_user]);
+
         if ($request->isAjax) {
             /*
             *   Process for ajax request
@@ -205,24 +210,24 @@ class SiswaController extends Controller
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
             } else if ($model->load($request->post()) && $model->save()) {
+                // return [
+                //     'forceReload' => '#crud-datatable-pjax',
+                //     'title' => "Siswa ",
+                //     'content' => $this->renderAjax('view', [
+                //         'model' => $model,
+                //         'dataKelas' => $dataKelas
+                //     ]),
+                //     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                //         Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                // ];
+
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Siswa ",
-                    'content' => $this->renderAjax('view', [
-                        'model' => $model,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                    'forceClose' => true,
+                    'forceReload' => '#id-pjax',
+
                 ];
-            } else {
-                return [
-                    'title' => "Ubah Siswa ",
-                    'content' => $this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-                ];
+                // return
+                //     $this->redirect(['index']);
             }
         } else {
             /*
@@ -233,6 +238,7 @@ class SiswaController extends Controller
             } else {
                 return $this->render('update', [
                     'model' => $model,
+                    'dataKelas' => $dataKelas
                 ]);
             }
         }

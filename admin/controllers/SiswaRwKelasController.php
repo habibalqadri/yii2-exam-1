@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\SiswaRwKelas;
 use admin\models\SiswaRwKelasSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,6 +43,11 @@ class SiswaRwKelasController extends Controller
     {
         $searchModel = new SiswaRwKelasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        //kode dibawa untuk ngecek sql si lefjoinnya jalan atau tidak
+        // var_dump($dataProvider->query->createCommand()->getRawSql());
+        // exit;
+        //end code 
 
         return $this->render('index', [
             'searchModel' => $searchModel,

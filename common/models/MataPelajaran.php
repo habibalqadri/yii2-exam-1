@@ -55,4 +55,12 @@ class MataPelajaran extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RefJurusan::className(), ['id' => 'id_jurusan']);
     }
+    public function deleteGuruMapel($id)
+    {
+        if ($modelGuru = GuruMataPelajaran::find()->where(['id_mata_pelajaran' => $id])->all()) {
+            foreach ($modelGuru as $modelGuru) {
+                $modelGuru->delete();
+            }
+        }
+    }
 }

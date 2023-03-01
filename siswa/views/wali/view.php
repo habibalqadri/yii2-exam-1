@@ -7,16 +7,16 @@ use yii\widgets\DetailView;
 ?>
 <div class="wali-view">
     <div class="table-responsive">
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'nama',
-            'alamat:ntext',
-            'no_hp',
-            'id_status_wali',
-        ],
-    ]) ?>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'nama',
+                'alamat:ntext',
+                'no_hp',
+                'statusWali.status_wali',
+            ],
+        ]) ?>
     </div>
 
 </div>

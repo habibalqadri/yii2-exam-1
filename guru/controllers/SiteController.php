@@ -2,6 +2,7 @@
 
 namespace guru\controllers;
 
+use common\models\Guru;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
@@ -62,7 +63,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $id_user  = Yii::$app->user->identity->id;
+        $modelGuru = Guru::find()->where(['id_user' => $id_user])->one();
+        return $this->render('index', [
+            'modelGuru' => $modelGuru,
+        ]);
     }
 
     /**

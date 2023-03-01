@@ -2,12 +2,12 @@
 
 namespace siswa\controllers;
 
-use Yii;
-use common\models\Wali;
-use siswa\models\WaliSearch;
 use common\models\RefStatusWali;
 use common\models\Siswa;
 use common\models\SiswaWali;
+use Yii;
+use common\models\Wali;
+use siswa\models\WaliSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,6 +15,7 @@ use \yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
+use function PHPSTORM_META\map;
 
 /**
  * WaliController implements the CRUD actions for Wali model.
@@ -87,10 +88,9 @@ class WaliController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
         $model = new Wali();
-        $id_user =
-            Yii::$app->user->identity->id;
+        $dataStatusWali = ArrayHelper::map(RefStatusWali::find()->asArray()->all(), 'id', 'status_wali');
+
 
         if ($request->isAjax) {
             /*
@@ -102,28 +102,22 @@ class WaliController extends Controller
                     'title' => "Tambah Wali",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'data' => $data,
+                        'dataStatusWali' => $dataStatusWali,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
             } else if ($model->load($request->post())) {
-                $siswa = Siswa::find()->where(['id_user' => $id_user])->one();
-                // 
-                $id_siswa = null;
-                if ($siswa) {
-                    $id_siswa = $siswa->id;
-                }
+
+
 
                 if ($model->save()) {
-                    // $siswaWali = SiswaWali::find()->where(['id_siswa' => $id_siswa, 'id_wali' => $model->id])->one();
-                    $siswaWali = new SiswaWali();
+                    $id_user = Yii::$app->user->identity->id;
+                    $id_siswa = Siswa::find()->where(['id_user' => $id_user])->one();
 
-                    // if (!$siswaWali) {
-                    //     $siswaWali = new SiswaWali();
-                    // }
-                    $siswaWali->id_siswa = $id_siswa;
+                    $siswaWali = new SiswaWali();
+                    $siswaWali->id_siswa = $id_siswa->id;
                     $siswaWali->id_wali = $model->id;
 
                     if ($siswaWali->save()) {
@@ -133,25 +127,25 @@ class WaliController extends Controller
                             'content' => '<span class="text-success">Create Wali berhasil</span>',
                             'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                                 Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+
                         ];
                     }
                 }
 
 
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Wali",
-                    'content' => '<span class="text-danger">Create Wali gagal!</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                // return [
+                //     'forceReload' => '#crud-datatable-pjax',
+                //     'title' => "Tambah Wali",
+                //     'content' => '<span class="text-success">Create Wali berhasil</span>',
+                //     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+                //         Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
-                ];
+                // ];
             } else {
                 return [
                     'title' => "Tambah Wali",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'data' => $data,
-
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -162,40 +156,11 @@ class WaliController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post())) {
-                $siswa = Siswa::find()->where(['id_user' => $id_user])->one();
-                // 
-                $id_siswa = null;
-                if ($siswa) {
-                    $id_siswa = $siswa->id;
-                }
-
-                if ($model->save()) {
-                    // $siswaWali = SiswaWali::find()->where(['id_siswa' => $id_siswa])->one();
-
-                    // if (!$siswaWali) {
-                    //     $siswaWali = new SiswaWali();
-                    // }
-                    $siswaWali = new SiswaWali();
-                    $siswaWali->id_siswa = $id_siswa;
-                    $siswaWali->id_wali = $model->id;
-
-                    if ($siswaWali->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-                }
-
-                // return $this->redirect(['view', 'id' => $model->id]);
-                return $this->render('create', [
-                    'model' => $model,
-                    'data' => $data,
-
-                ]);
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    'data' => $data,
-
                 ]);
             }
         }
@@ -212,7 +177,7 @@ class WaliController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $data = ArrayHelper::map(RefStatusWali::find()->all(), 'id', 'status_wali');
+        $dataStatusWali = ArrayHelper::map(RefStatusWali::find()->asArray()->all(), 'id', 'status_wali');
 
         if ($request->isAjax) {
             /*
@@ -224,55 +189,27 @@ class WaliController extends Controller
                     'title' => "Ubah Wali",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
-                        'data' => $data,
+                        'dataStatusWali' => $dataStatusWali,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-            } else if ($model->load($request->post())) {
-
-                $id_siswa = $model->siswaWali->id_siswa;
-
-
-                if ($model->save()) {
-                    $siswaWali = SiswaWali::find()->where(['id_siswa' => $id_siswa, 'id_wali' => $model->id])->one();
-
-
-                    if (!$siswaWali) {
-                        $siswaWali = new SiswaWali();
-                    }
-                    $siswaWali->id_siswa = $id_siswa;
-                    $siswaWali->id_wali = $model->id;
-
-                    if ($siswaWali->save()) {
-                        return [
-
-                            'forceReload' => '#crud-datatable-pjax',
-                            'title' => "Wali ",
-                            'content' => $this->renderAjax('view', [
-                                'data' => $data,
-                                'model' => $model,
-                            ]),
-                            'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                                Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-                        ];
-                    }
-                }
-
-
+            } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah Wali",
-                    'content' => '<span class="text-danger">Create Wali gagal!</span>',
+                    'title' => "Wali ",
+                    'content' => $this->renderAjax('view', [
+                        'model' => $model,
+                    ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                        Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
             } else {
                 return [
                     'title' => "Ubah Wali ",
                     'content' => $this->renderAjax('update', [
-                        'data' => $data,
                         'model' => $model,
+                        'dataStatusWali' => $dataStatusWali,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -282,33 +219,12 @@ class WaliController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post())) {
-                $id_siswa = $model->siswaWali->id_siswa;
-
-                if ($model->save()) {
-                    $siswaWali = SiswaWali::find()->where(['id_siswa' => $id_siswa])->one();
-
-                    if (!$siswaWali) {
-                        $siswaWali = new SiswaWali();
-                    }
-                    $siswaWali->id_siswa = $id_siswa;
-                    $siswaWali->id_wali = $model->id;
-
-                    if ($siswaWali->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-                }
-
-                // return $this->redirect(['view', 'id' => $model->id]);
-                return $this->render('create', [
-                    'model' => $model,
-                    'data' => $data,
-
-                ]);
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
-                    'data' => $data,
                     'model' => $model,
+                    'dataStatusWali' => $dataStatusWali,
                 ]);
             }
         }
@@ -324,13 +240,10 @@ class WaliController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        // $this->findModel($id)->delete();
-        $model = $this->findModel($id);
+        $siswaWali = SiswaWali::find()->where(['id_wali' => $id])->one();
+        $siswaWali->delete();
+        $this->findModel($id)->delete();
 
-        if ($model->siswaWali) {
-            $model->siswaWali->delete();
-            $model->delete();
-        }
         if ($request->isAjax) {
             /*
             *   Process for ajax request

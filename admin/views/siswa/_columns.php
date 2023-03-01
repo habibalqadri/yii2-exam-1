@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 return [
     //[
@@ -37,15 +38,46 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'kelas.nama_kelas',
+        'value' => 'kelas.nama_kelas',
+        'attribute' => 'nama_kelas',
+
 
     ],
+
     // [
 
     //     'class' => '\kartik\grid\DataColumn',
     //     'attribute' => $formatter->asDate($tanggal_lahir),
 
     // ],
+
+    [
+
+        'class' => 'kartik\grid\ActionColumn',
+        'header' => 'Akun',
+        'template' => '{btn_aksi}',
+        'buttons' => [
+            "btn_aksi" => function ($url, $model, $key) {
+                if ($model->id_user) {
+                    return Html::a('Lihat Akun', ['lihat-akun', 'id' => $model->id], [
+                        'class' => 'btn btn-success btn-info',
+                        'role' => 'modal-remote',
+                        'title' => 'Lihat',
+                        'data-toggle' => 'tooltip'
+                    ]);
+                } else {
+                    return Html::a('Buat Akun', ['buat-akun', 'id' => $model->id], [
+                        'class' => 'btn btn-success btn-block',
+                        'role' => 'modal-remote',
+                        'title' => 'Lihat',
+                        'data-toggle' => 'tooltip'
+                    ]);
+                }
+            },
+
+        ]
+    ],
+
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

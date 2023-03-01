@@ -4,7 +4,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\SiswaRwKelas */
+
+
 ?>
+
 <div class="siswa-rw-kelas-view">
     <div class="table-responsive">
         <?= DetailView::widget([

@@ -27,39 +27,7 @@ CrudAsset::register($this);
             <div class="card-body">
                 <div id="ajaxCrudDatatable">
                     <div id="table-responsive">
-                        <?= GridView::widget([
-                            'id' => 'crud-datatable',
-                            'pager' => [
-                                'firstPageLabel' => 'Awal',
-                                'lastPageLabel'  => 'Akhir'
-                            ],
-                            'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'pjax' => true,
-                            'columns' => require(__DIR__ . '/_columns.php'),
-                            'toolbar' => [
-                                [
-                                    'content' => ''
-                                ],
-                            ],
-                            'striped' => true,
-                            'condensed' => true,
-                            'responsive' => true,
-                            'panel' => [
-
-                                'before' => Html::a(
-                                    'Tambah',
-                                    ['create'],
-                                    [
-                                        'role' => 'modal-remote',
-                                        'title' => 'Create new Walis',
-                                        'class' => 'btn btn-info '
-                                    ]
-                                ),
-
-                                '<div class="clearfix"></div>',
-                            ]
-                        ]) ?>
+                        404
                     </div>
                 </div>
             </div>
@@ -70,8 +38,5 @@ CrudAsset::register($this);
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
     "footer" => "", // always need it for jquery plugin
-    'options' => [
-        'tabindex' => false // important for Select2 to work properly
-    ],
 ]) ?>
 <?php Modal::end(); ?>

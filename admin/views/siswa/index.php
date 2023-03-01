@@ -6,6 +6,7 @@ use yii\bootstrap4\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use yii\bootstrap4\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $searchModel admin\models\SiswaSearch */
@@ -29,9 +30,12 @@ CrudAsset::register($this);
                     <div id="table-responsive">
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
+                            // 'pager' => [
+                            //     'firstPageLabel' => 'Awal',
+                            //     'lastPageLabel'  => 'Akhir'
+                            // ],
                             'pager' => [
-                                'firstPageLabel' => 'Awal',
-                                'lastPageLabel'  => 'Akhir'
+                                'class' => LinkPager::class
                             ],
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -43,12 +47,16 @@ CrudAsset::register($this);
                                 [
                                     'content' =>
                                     Html::a(
-                                        '<i class="fas fa-redo"></i> ',
+                                        '<i class="fas fa-redo "></i> ',
                                         [''],
-                                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                                        [
+                                            'data-pjax' => 1,
+                                            'class' => 'btn btn-info ',
+                                            'title' => 'Reset Grid'
+                                        ]
                                     ) .
                                         '{toggleData}'
-                                    // .'{export}'
+                                    // . '{export}'
                                 ],
                             ],
                             'striped' => true,
@@ -57,25 +65,38 @@ CrudAsset::register($this);
                             'panel' => [
                                 // 'type' => 'primary', 
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
-                                'before' => Html::a(
-                                    'Tambah',
+                                'before' =>
+                                Html::a(
+                                    '+ Tambah',
                                     ['create'],
-                                    ['role' => 'modal-remote', 'title' => 'Create new Siswas', 'class' => 'btn btn-default']
+                                    [
+                                        'role' => 'modal-remote',
+                                        'title' => 'Create new Siswas',
+                                        'class' => 'btn btn-warning'
+                                    ]
                                 ),
-                                // 'after'=>BulkButtonWidget::widget([
-                                //             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
-                                //                 ["bulk-delete"] ,
-                                //                 [
-                                //                     "class"=>"btn btn-danger btn-xs",
-                                //                     'role'=>'modal-remote-bulk',
-                                //                     'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
-                                //                     'data-request-method'=>'post',
-                                //                     'data-confirm-title'=>'Are you sure?',
-                                //                     'data-confirm-message'=>'Are you sure want to delete this item'
-                                //                 ]),
-                                //         ]).                        
-                                '<div class="clearfix"></div>',
-                            ]
+
+
+                                // 'after' => BulkButtonWidget::widget([
+                                //     'buttons' => Html::a(
+                                //         '<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                                //         ["bulk-delete"],
+                                //         [
+                                //             "class" => "btn btn-danger btn-xs",
+                                //             'role' => 'modal-remote-bulk',
+                                //             'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                                //             'data-request-method' => 'post',
+                                //             'data-confirm-title' => 'Are you sure?',
+                                //             'data-confirm-message' => 'Are you sure want to delete this item'
+                                //         ]
+                                //     ),
+                                // ]) .
+                                //     '<div class="clearfix"></div>',
+
+                            ],
+                            // 'pager' => [
+                            //     'class' => LinkPager::class
+                            // ]
                         ]) ?>
                     </div>
                 </div>
@@ -86,6 +107,9 @@ CrudAsset::register($this);
 </div>
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
+    'options' => [
+        'tabindex' => false
+    ],
     "footer" => "", // always need it for jquery plugin
 ]) ?>
 <?php Modal::end(); ?>

@@ -12,6 +12,7 @@ use common\models\Siswa;
  */
 class SiswaSearch extends Siswa
 {
+    public $nama_kelas;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class SiswaSearch extends Siswa
     {
         return [
             [['id', 'id_kelas'], 'integer'],
-            [['nis', 'nama', 'tempat_lahir', 'tanggal_lahir', 'alamat'], 'safe'],
+            [['nis', 'nama', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'nama_kelas'], 'safe'],
         ];
     }
 
@@ -43,8 +44,13 @@ class SiswaSearch extends Siswa
     {
         $query = Siswa::find();
 
+        $query->leftJoin('kelas', 'siswa.id_kelas = kelas.id');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ]
         ]);
 
         $this->load($params);
@@ -64,7 +70,8 @@ class SiswaSearch extends Siswa
         $query->andFilterWhere(['like', 'nis', $this->nis])
             ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'tempat_lahir', $this->tempat_lahir])
-            ->andFilterWhere(['like', 'alamat', $this->alamat]);
+            ->andFilterWhere(['like', 'alamat', $this->alamat])
+            ->andFilterWhere(['like', 'kelas.nama_kelas', $this->nama_kelas]);
 
         return $dataProvider;
     }

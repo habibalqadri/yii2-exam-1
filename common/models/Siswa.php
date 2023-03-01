@@ -52,7 +52,9 @@ class Siswa extends \yii\db\ActiveRecord
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
             'alamat' => 'Alamat',
-            'id_kelas' => 'Id Kelas',
+            'id_kelas' => 'Nama Kelas',
+            'akun.username' => 'Username',
+            'akun.email' => 'Email'
         ];
     }
 
@@ -60,4 +62,21 @@ class Siswa extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Kelas::className(), ['id' => 'id_kelas']);
     }
+    public function getAkun()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
+    }
+
+    // public function saveRiwayat()
+    // {
+    //     $modelKelas = Kelas::find()->where(['id_kelas' => $this->id])->one();
+    //     $SiswaRwKelas = new SiswaRwKelas();
+    //     $SiswaRwKelas->id_siswa = $this->id;
+    //     $SiswaRwKelas->id_kelas = null;
+    //     $SiswaRwKelas->id_tahun_ajaran = $modelKelas->id_tahun_ajaran;
+    //     $SiswaRwKelas->nama_kelas = $modelKelas->nama_kelas;
+    //     $SiswaRwKelas->id_tingkat = $modelKelas->id_tingkat;
+    //     $SiswaRwKelas->id_wali_kelas = $modelKelas->id_wali_kelas;
+    //     $SiswaRwKelas->save();
+    // }
 }

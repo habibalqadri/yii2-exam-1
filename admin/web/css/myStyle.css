@@ -1,0 +1,13 @@
+.kv-panel-before .kv-grid-toolbar {
+  display: flex;
+  justify-content: end;
+}
+.kv-panel-before .btn-group .btn-default {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+.panel-footer .kv-panel-pager nav {
+  display: flex;
+  justify-content: end;
+}
