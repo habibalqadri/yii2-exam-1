@@ -22,7 +22,7 @@ CrudAsset::register($this);
     <h6 class="element-header">
             </h6>
     <div class="element-box"> -->
-<div class="row">
+<div class="row content">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
