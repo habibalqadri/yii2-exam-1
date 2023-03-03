@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+
 return [
     //[
     //'class' => 'kartik\grid\CheckboxColumn',
@@ -18,19 +19,37 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
+        'headerOptions' => [
+            'class' => 'text-center'
+        ],
+        'contentOptions' => [
+            'class' => 'text-center'
+        ],
         'attribute' => 'nis',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
+        'headerOptions' => [
+            'class' => 'text-center'
+        ],
         'attribute' => 'nama',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
+        'headerOptions' => [
+            'class' => 'text-center'
+        ],
         'attribute' => 'tempat_lahir',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
+        'headerOptions' => [
+            'class' => 'text-center'
+        ],
         'attribute' => 'tanggal_lahir',
+        'value' => function ($model) {
+            return date('d-M-y', strtotime($model->tanggal_lahir));
+        },
     ],
     [
         'class' => '\kartik\grid\DataColumn',
@@ -38,6 +57,9 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
+        'headerOptions' => [
+            'class' => 'text-center'
+        ],
         'value' => 'kelas.nama_kelas',
         'attribute' => 'nama_kelas',
 

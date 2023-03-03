@@ -22,88 +22,104 @@ CrudAsset::register($this);
     <h6 class="element-header">
             </h6>
     <div class="element-box"> -->
-<div class="row content">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div id="ajaxCrudDatatable">
-                    <div id="table-responsive">
-                        <?= GridView::widget([
-                            'id' => 'crud-datatable',
-                            // 'pager' => [
-                            //     'firstPageLabel' => 'Awal',
-                            //     'lastPageLabel'  => 'Akhir'
-                            // ],
-                            'pager' => [
-                                'class' => LinkPager::class
-                            ],
-                            'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
 
 
-                            'pjax' => true,
-                            'columns' => require(__DIR__ . '/_columns.php'),
-                            'toolbar' => [
-                                [
-                                    'content' =>
-                                    Html::a(
-                                        '<i class="fas fa-redo "></i> ',
-                                        [''],
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- Card Header -->
+                    <!-- <div class="card-header">
+                        <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                    </div> -->
+                    <!-- End Card Header -->
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div id="ajaxCrudDatatable">
+                            <div id="table-responsive">
+                                <?= GridView::widget([
+                                    'id' => 'crud-datatable',
+
+                                    // 'pager' => [
+                                    //     'firstPageLabel' => 'Awal',
+                                    //     'lastPageLabel'  => 'Akhir'
+                                    // ],
+                                    'pager' => [
+                                        'class' => LinkPager::class
+                                    ],
+                                    'dataProvider' => $dataProvider,
+                                    'filterModel' => $searchModel,
+
+
+                                    'pjax' => true,
+                                    'columns' => require(__DIR__ . '/_columns.php'),
+                                    'toolbar' => [
                                         [
-                                            'data-pjax' => 1,
-                                            'class' => 'btn btn-info ',
-                                            'title' => 'Reset Grid'
-                                        ]
-                                    ) .
-                                        '{toggleData}'
-                                    // . '{export}'
-                                ],
-                            ],
-                            'striped' => true,
-                            'condensed' => true,
-                            'responsive' => true,
-                            'panel' => [
-                                // 'type' => 'primary', 
-                                // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
-                                'before' =>
-                                Html::a(
-                                    '+ Tambah',
-                                    ['create'],
-                                    [
-                                        'role' => 'modal-remote',
-                                        'title' => 'Create new Siswas',
-                                        'class' => 'btn btn-warning'
-                                    ]
-                                ),
+                                            'content' =>
+                                            Html::a(
+                                                '<i class="fas fa-redo "></i> ',
+                                                [''],
+                                                [
+                                                    'data-pjax' => 1,
+                                                    'class' => 'btn btn-info ',
+                                                    'title' => 'Reset Grid'
+                                                ]
+                                            ) .
+                                                '{toggleData}'
+                                            // . '{export}'
+                                        ],
+                                    ],
+                                    'striped' => false,
+                                    'condensed' => true,
+                                    'responsive' => true,
+                                    'hover' => true,
+                                    'panel' => [
+                                        // 'type' => 'primary', 
+                                        // 'heading' => '<i class="glyphicon glyphicon-list"></i> Siswas listing',
+                                        'before' =>
+                                        Html::a(
+                                            '+ Tambah',
+                                            ['create'],
+                                            [
+                                                'role' => 'modal-remote',
+                                                'title' => 'Create new Siswas',
+                                                'class' => 'btn btn-warning'
+                                            ]
+                                        ),
 
 
-                                // 'after' => BulkButtonWidget::widget([
-                                //     'buttons' => Html::a(
-                                //         '<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
-                                //         ["bulk-delete"],
-                                //         [
-                                //             "class" => "btn btn-danger btn-xs",
-                                //             'role' => 'modal-remote-bulk',
-                                //             'data-confirm' => false, 'data-method' => false, // for overide yii data api
-                                //             'data-request-method' => 'post',
-                                //             'data-confirm-title' => 'Are you sure?',
-                                //             'data-confirm-message' => 'Are you sure want to delete this item'
-                                //         ]
-                                //     ),
-                                // ]) .
-                                //     '<div class="clearfix"></div>',
+                                        // 'after' => BulkButtonWidget::widget([
+                                        //     'buttons' => Html::a(
+                                        //         '<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                                        //         ["bulk-delete"],
+                                        //         [
+                                        //             "class" => "btn btn-danger btn-xs",
+                                        //             'role' => 'modal-remote-bulk',
+                                        //             'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                                        //             'data-request-method' => 'post',
+                                        //             'data-confirm-title' => 'Are you sure?',
+                                        //             'data-confirm-message' => 'Are you sure want to delete this item'
+                                        //         ]
+                                        //     ),
+                                        // ]) .
+                                        //     '<div class="clearfix"></div>',
 
-                            ],
-                            // 'pager' => [
-                            //     'class' => LinkPager::class
-                            // ]
-                        ]) ?>
+                                    ],
+                                    // 'pager' => [
+                                    //     'class' => LinkPager::class
+                                    // ]
+                                ]) ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 </div>
 <?php Modal::begin([
     "id" => "ajaxCrudModal",

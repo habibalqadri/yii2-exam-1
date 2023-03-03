@@ -29,7 +29,7 @@ AppAsset::register($this);
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 
-<body class="d-flex flex-column h-100 ">
+<body class="hold-transition sidebar-mini layout-fixed">
     <?php $this->beginBody() ?>
 
     <header>
@@ -313,15 +313,30 @@ AppAsset::register($this);
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 text-muted">
-        <div class="content-wrapper">
-            <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-            <p class="float-right"><?= Yii::powered() ?></p>
+    <footer class="main-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 footer-copyright text-center">
+                    <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+                    <p class="float-right"><?= Yii::powered() ?></p>
+                </div>
+            </div>
+
         </div>
     </footer>
+    <!-- <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 footer-copyright text-center">
+                    <p class="mb-0">Developed By codinglab.id</p>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
 
     <?php $this->endBody() ?>
 </body>
 
 </html>
-<?php $this->endPage();
+<?php $this->endPage(); ?>
