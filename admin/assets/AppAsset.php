@@ -47,5 +47,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         // 'yii\bootstrap4\BootstrapAsset',
+        'yidas\yii\fontawesome\FontawesomeAsset',
+        // https://github.com/yidas/yii2-fontawesome untuk cari icon fontawesome 5
     ];
 }

@@ -27,6 +27,11 @@ AppAsset::register($this);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -258,7 +263,7 @@ AppAsset::register($this);
                     <li class="nav-item">
 
                         <?php
-                        echo Html::a(' <i class="nav-icon fas fa-th"></i> Siswa', ['/siswa/index'], [
+                        echo Html::a(' <i class="nav-icon fas fa-graduation-cap"></i> <p>Siswa</p>', ['/siswa/index'], [
                             'class' => 'nav-link'
                         ])
                         ?>
@@ -266,7 +271,7 @@ AppAsset::register($this);
                     <li class="nav-item">
 
                         <?php
-                        echo Html::a(' <i class="nav-icon fas fa-th"></i> Guru', ['/guru/index'], [
+                        echo Html::a('<i class="nav-icon fas fa-chalkboard-teacher"></i> <p>Guru</p>', ['/guru/index'], [
                             'class' => 'nav-link'
                         ])
                         ?>
@@ -274,7 +279,7 @@ AppAsset::register($this);
                     <li class="nav-item">
 
                         <?php
-                        echo Html::a(' <i class="nav-icon fas fa-th"></i> Kelas', ['/kelas/index'], [
+                        echo Html::a('<i class="nav-icon fas fa-school"></i> <p>Kelas</p>', ['/kelas/index'], [
                             'class' => 'nav-link'
                         ])
                         ?>
@@ -282,7 +287,7 @@ AppAsset::register($this);
                     <li class="nav-item">
 
                         <?php
-                        echo Html::a(' <i class="nav-icon fas fa-th"></i> Mata Pelajaran', ['/mata-pelajaran/index'], [
+                        echo Html::a(' <i class="nav-icon fas fa-book"></i> <p>Mata Pelajaran</p>', ['/mata-pelajaran/index'], [
                             'class' => 'nav-link'
                         ])
                         ?>
@@ -290,7 +295,7 @@ AppAsset::register($this);
                     <li class="nav-item">
 
                         <?php
-                        echo Html::a(' <i class="nav-icon fas fa-th"></i> Riwayat Siswa', ['/riwayat-siswa/index'], [
+                        echo Html::a('<i class="nav-icon fas fa-database"></i><p>Riwayat Siswa</p>', ['/siswa-rw-kelas/index'], [
                             'class' => 'nav-link'
                         ])
                         ?>

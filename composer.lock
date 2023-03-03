@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd9001e108556845a33c46dbb84ac094",
+    "content-hash": "df4ac18fdbe22ab96d7085ec510e24c6",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -477,6 +477,75 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.16.0"
             },
             "time": "2022-09-18T07:06:19+00:00"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "5.15.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/7d3d774145ac38663f6d1effc6def0334b68ab7e",
+                "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-4.0",
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Travis Chase",
+                    "homepage": "http://twitter.com/supercodepoet"
+                },
+                {
+                    "name": "Dave Gandy",
+                    "homepage": "http://twitter.com/davegandy"
+                },
+                {
+                    "name": "Rob Madole",
+                    "homepage": "http://twitter.com/robmadole"
+                },
+                {
+                    "name": "Jory Raphael",
+                    "homepage": "http://twitter.com/sensibleworld"
+                },
+                {
+                    "name": "Geremia Taglialatela",
+                    "homepage": "http://twitter.com/gtagliala"
+                },
+                {
+                    "name": "Brian Talbot",
+                    "homepage": "http://twitter.com/talbs"
+                },
+                {
+                    "name": "Mike Wilkerson",
+                    "homepage": "http://twitter.com/mw77"
+                }
+            ],
+            "description": "The iconic font, CSS, and SVG framework",
+            "homepage": "https://fontawesome.com",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon",
+                "svg"
+            ],
+            "support": {
+                "docs": "http://fontawesome.com/how-to-use",
+                "email": "hello@fontawesome.com",
+                "issues": "https://github.com/FortAwesome/Font-Awesome/issues",
+                "source": "https://github.com/FortAwesome/Font-Awesome"
+            },
+            "time": "2021-08-04T19:09:22+00:00"
         },
         {
             "name": "hscstudio/yii2-mimin",
@@ -3089,6 +3158,55 @@
                 }
             ],
             "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "yidas/yii2-fontawesome",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/yii2-fontawesome.git",
+                "reference": "c5ef8de1fc1eec8f33458a571f3110f70785f625"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/yii2-fontawesome/zipball/c5ef8de1fc1eec8f33458a571f3110f70785f625",
+                "reference": "c5ef8de1fc1eec8f33458a571f3110f70785f625",
+                "shasum": ""
+            },
+            "require": {
+                "fortawesome/font-awesome": "^5.11",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\yii\\fontawesome\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Tsai",
+                    "email": "myintaer@gmail.com",
+                    "homepage": "https://github.com/yidas/"
+                }
+            ],
+            "description": "Font Awesome Asset Bundle for Yii2 framework",
+            "keywords": [
+                "asset",
+                "asset bundle",
+                "font awesome",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/yidas/yii2-fontawesome/issues",
+                "source": "https://github.com/yidas/yii2-fontawesome"
+            },
+            "time": "2019-10-05T23:16:51+00:00"
         },
         {
             "name": "yiisoft/yii2",
